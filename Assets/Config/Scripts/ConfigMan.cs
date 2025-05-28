@@ -42,9 +42,7 @@ public class ConfigMan : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Z)
-            )
-           
+        if (Input.GetKey(KeyCode.Z))
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -52,9 +50,6 @@ public class ConfigMan : MonoBehaviour
 
             }
         }
-       
-
-
     }
    
     public void ToggleDemoMode(Toggle which)

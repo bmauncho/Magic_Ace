@@ -31,7 +31,7 @@ public class LoadingScreen : MonoBehaviour
 
     private void Update ()
     {
-        isAddressablesEnabled = playScene == null ? false : true;
+        //isAddressablesEnabled = playScene == null ? false : true;
         UpdateImageFillAmount(loadingSlider , progress);
 
         if (progress >= 1f && !permissionAsked)
@@ -68,7 +68,7 @@ public class LoadingScreen : MonoBehaviour
         progress = amount;
     }
 
-    IEnumerator LoadScene ( AssetReference Which )
+    IEnumerator LoadScene ( AssetReference Which = null )
     {
         if (isAddressablesEnabled)
         {
@@ -110,6 +110,17 @@ public class LoadingScreen : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
             }
 
+            if(handle.progress>= 0.9f && !isSceneReady)
+            {
+                float displayedProgress = handle.progress;
+                // gradually increase the progress to 1
+                while (displayedProgress<1)
+                {
+                    displayedProgress += 0.05f;
+                    ShowProgress(displayedProgress);
+                    yield return new WaitForSeconds(0.1f);
+                }
+            }
             // Wait for your condition to be ready before activating scene
             yield return new WaitUntil(() => isSceneReady);
             GameManager.Instance.FetchConfigData();
@@ -123,7 +134,7 @@ public class LoadingScreen : MonoBehaviour
             }
 
             ConfigMan.Instance.TheDebugObj.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
+            //yield return new WaitForSeconds(0.5f);
             SceneManager.UnloadSceneAsync(0);
         }
     }
