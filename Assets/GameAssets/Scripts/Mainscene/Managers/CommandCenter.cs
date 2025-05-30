@@ -1,7 +1,28 @@
 using UnityEngine;
-
+public enum GameType
+{
+    Base,
+    Free
+}
 public class CommandCenter : MonoBehaviour
 {
+    public static CommandCenter Instance { get; private set; }
+    public GameType gameType;
+    public PoolManager poolManager_;
+    public DeckManager deckManager_;
+    private void Awake ()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.Log("This is extra!");
+            //Destroy(gameObject); // Ensures only one instance exists
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,5 +33,23 @@ public class CommandCenter : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetGameType ( GameType type )
+    {
+        gameType = type;
+    }
+
+    public GameType GetTheGameType ()
+    {
+        return gameType;
+    }
+
+    private void OnDestroy ()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
     }
 }
