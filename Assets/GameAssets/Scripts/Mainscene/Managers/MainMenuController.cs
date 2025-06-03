@@ -8,9 +8,9 @@ public class MainMenuController : MonoBehaviour
     public ExtraBetMenu extraBetMenu;
     public Settings settings;
     public GameRules gameRules;
-    //public BetMenu betMenu;
+    public BetMenu betMenu;
     public FeatureBuyMenu featureBuyMenu;
-    //public AutoSpinMenu autoSpinMenu;
+    public AutoSpinMenu autoSpinMenu;
 
     public void showFeatureMenu ()
     {
@@ -49,7 +49,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ToggleBetMenu ()
     {
-        //betMenu.ToggleBetMenu();
+        betMenu.ToggleBetMenu();
     }
 
     public void ToggleFeatureBuyMenu ()
@@ -59,7 +59,7 @@ public class MainMenuController : MonoBehaviour
 
     public void ToggleAutoSpinMenu ()
     {
-        //autoSpinMenu.ToogleAutoSpin();
+        autoSpinMenu.ToogleAutoSpin();
     }
 
     public void Spin ()

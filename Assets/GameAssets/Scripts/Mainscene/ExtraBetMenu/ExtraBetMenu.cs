@@ -27,6 +27,18 @@ public class ExtraBetMenu : MonoBehaviour
     [SerializeField] private float Timer;
     private Vector2 ExtraBetMenuStartPos;
 
+    [Header("Effects")]
+    public GameObject ExtraBetOnEffect;
+    public GameObject ExtraBetBtnEffect;
+    public GameObject ExtraBetEffect;
+
+    public GameObject TopBannerGems;
+    public GameObject Ticket;
+    public GameObject banner;
+    public GameObject Banner_light;
+    public GameObject Holder_1;
+    public GameObject Holder_2;
+
     private void Start ()
     {
         ExtraBetMenuStartPos = ExtraBetMenuUI.anchoredPosition;
@@ -134,12 +146,45 @@ public class ExtraBetMenu : MonoBehaviour
     {
         isExtraBet = true;
         ExtraBetToggle.sprite = ExtraBetOn;
+        showExtraBetOn();
+        Invoke(nameof(ShowExtraBetBtnEffect) , 0.5f);
+        Invoke(nameof(hideExtraBetOn) , 0.5f);
+        Invoke(nameof(ShowExtraBetEffect) , 0.5f);
         BetAmountBg_BetMenu.sprite = BetAmountBgEx;
         BetAmountBg_MainScene.sprite = BetAmountBgEx;
+    }
+
+    void ShowExtraBetEffect ()
+    {
+        ExtraBetEffect.SetActive(true);
+    }
+
+    public void HideExtraBetEffect ()
+    {
+        ExtraBetEffect.SetActive(false);
+    }
+    public void showExtraBetOn ()
+    {
+        ExtraBetOnEffect.SetActive(true);
+    }
+    public void hideExtraBetOn ()
+    {
+        ExtraBetOnEffect.SetActive(false);
+    }
+    public void ShowExtraBetBtnEffect ()
+    {
+        ExtraBetBtnEffect.SetActive(true);
+    }
+    public void HideExtraBetBtnEffect ()
+    {
+        ExtraBetBtnEffect.SetActive(false);
     }
     void hideExtraBet ()
     {
         isExtraBet = false;
+        hideExtraBetOn();
+        HideExtraBetBtnEffect();
+        HasExtraBetEffect();
         ExtraBetToggle.sprite = ExtraBetOff;
         BetAmountBg_BetMenu.sprite = BetAmountBgMain;
         BetAmountBg_MainScene.sprite = BetAmountBgMain;

@@ -14,6 +14,9 @@ public class CommandCenter : MonoBehaviour
     public SpinManager spinManager_;
     public CurrencyManager currencyManager_;
     public SettingsManager settingsManager_;
+    public GameModeManager gameModeManager_;
+    public AutoSpinManager autoSpinManager_;
+    public MultiplierManager multiplierManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
