@@ -10,6 +10,10 @@ public class CommandCenter : MonoBehaviour
     public GameType gameType;
     public PoolManager poolManager_;
     public DeckManager deckManager_;
+    public MainMenuController mainMenuController_;
+    public SpinManager spinManager_;
+    public CurrencyManager currencyManager_;
+    public SettingsManager settingsManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)

@@ -5,7 +5,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject FeatureMenu;
 
     [Header("References")]
-    //public Ex_Menu ex_Menu;
+    public ExtraBetMenu extraBetMenu;
     public Settings settings;
     public GameRules gameRules;
     //public BetMenu betMenu;
@@ -24,17 +24,17 @@ public class MainMenuController : MonoBehaviour
 
     public void ToggleExtraBetInfo ()
     {
-        //ex_Menu.ToggleEx_Info();
+        extraBetMenu.ToggleEx_Info();
     }
 
     public void ToggleExtraBetMenu ()
     {
-       // ex_Menu.ToggleExtraBetMenu();
+        extraBetMenu.ToggleExtraBetMenu();
     }
 
     public void ToggleExtraBet ()
     {
-        //ex_Menu.ToggleExtraBet();
+        extraBetMenu.ToggleExtraBet();
     }
 
     public void ToggleSettings ()
