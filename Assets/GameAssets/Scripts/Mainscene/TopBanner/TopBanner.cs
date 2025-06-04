@@ -71,9 +71,6 @@ public class TopBanner : MonoBehaviour
 
             if (isActive && !isReset)
             {
-                string animName = $"Canon_{i + 1}_Anim";
-                Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
-                StartCoroutine(PlayAnim(cannon.Anim , animName));
                 if (previousIndices == null || previousIndices.Count == 0)
                 {
                     Debug.Log("prev cannon is null");
@@ -92,6 +89,10 @@ public class TopBanner : MonoBehaviour
                         StartCoroutine(PlayAnim(prevCannon.Anim , prevAnimName));
                     }
                 }
+                yield return new WaitForSeconds(0.1f); // Wait a bit before playing the active animation
+                string animName = $"Canon_{i + 1}_Anim";
+                Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
+                StartCoroutine(PlayAnim(cannon.Anim , animName));
             }
  
             if (cannon.cannonImage != null)
