@@ -34,8 +34,8 @@ public enum Multipliers
 public enum MultiplierType
 {
     Normal,
-    collector,
     Free,
+    ExtraBet,
 }
 
 [System.Serializable]
@@ -52,6 +52,14 @@ public class MultiplierCanonInfo
 
 public class MultiplierManager : MonoBehaviour
 {
+    private static readonly Dictionary<MultiplierType , List<Multipliers>> multiplierProgressions =
+        new Dictionary<MultiplierType , List<Multipliers>>()
+        {
+            { MultiplierType.Normal,   new List<Multipliers> { Multipliers.x1, Multipliers.x2, Multipliers.x3, Multipliers.x5 } },
+            { MultiplierType.Free, new List<Multipliers> { Multipliers.x2, Multipliers.x4, Multipliers.x6, Multipliers.x10 } },
+            { MultiplierType.ExtraBet, new List<Multipliers> { Multipliers.x2, Multipliers.x3, Multipliers.x4, Multipliers.x6 } }
+        };
+
     [SerializeField] private Multipliers activeMultiplier = Multipliers.x1;
     [SerializeField] private MultiplierType currentType = MultiplierType.Normal;
     [SerializeField] private TopBanner topBanner_;
@@ -59,17 +67,13 @@ public class MultiplierManager : MonoBehaviour
     [SerializeField] private TMP_SpriteAsset spriteAsset_inactive;
     [SerializeField] private List<Multipliers> orderOfMultipliers = new List<Multipliers>();
     [SerializeField] private MultiplierCanonInfo[] multiplierCanonInfos;
-    private static readonly Dictionary<MultiplierType , List<Multipliers>> multiplierProgressions =
-        new Dictionary<MultiplierType , List<Multipliers>>()
-        {
-            { MultiplierType.Normal,   new List<Multipliers> { Multipliers.x1, Multipliers.x2, Multipliers.x3, Multipliers.x5 } },
-            { MultiplierType.Free, new List<Multipliers> { Multipliers.x2, Multipliers.x4, Multipliers.x6, Multipliers.x10 } }
-        };
-    public Multipliers GetActiveMultiplier () => activeMultiplier;
-    public MultiplierType GetCurrentType () => currentType;
-    private int cannonIndex = 0;
     [SerializeField] private bool hasRecalled = false;
-    private int lastMultiplierIndex = -1;
+    [SerializeField] private bool isInUpgradeMode = false;
+    [SerializeField] private int collectorCount = 0;
+    [SerializeField] private int upgradeRoundsRemaining = 0;
+    private const int MAX_FREE_SPIN_UPGRADES = 10;
+    [SerializeField] private int freeSpinUpgradeCount = 0;
+    private int cannonIndex = 0;
     [ContextMenu("Reset Multiplier")]
     public void ResetMultiplier ()
     {
@@ -82,15 +86,27 @@ public class MultiplierManager : MonoBehaviour
             updateUI(true);
         }
     }
+
+    private void ResetUI ()
+    {
+        cannonIndex = 0;
+        for (int i = 0 ; i < 4 ; i++)
+            updateUI(true);
+    }
+
     public void SetMultiplierType ( MultiplierType type )
     {
         currentType = type;
         ResetMultiplier();
     }
+    public Multipliers GetActiveMultiplier () => activeMultiplier;
+    public MultiplierType GetCurrentType () => currentType;
 
     public void AdvanceMultiplier ()
     {
-        var list = multiplierProgressions [currentType];
+        if (!multiplierProgressions.TryGetValue(currentType , out var list))
+            return;
+
         int index = list.IndexOf(activeMultiplier);
         if (index >= 0 && index < list.Count - 1)
         {
@@ -100,8 +116,83 @@ public class MultiplierManager : MonoBehaviour
                 return; 
             } 
             activeMultiplier = list [index + 1];
+            // If in upgrade mode, decrement rounds
+            if (isInUpgradeMode)
+            {
+                upgradeRoundsRemaining--;
+                if (upgradeRoundsRemaining <= 0)
+                    ExitUpgradeMode();
+            }
         }
     }
+    [ContextMenu("Trigger collector")]
+    public void TriggerCollector ()
+    {
+        if (currentType == MultiplierType.Normal)
+        {
+            collectorCount++;
+            if (collectorCount >= 5 && !isInUpgradeMode)
+            {
+                EnterUpgradeMode();
+            }
+        }
+        else if (currentType == MultiplierType.Free)
+        {
+            if (freeSpinUpgradeCount >= MAX_FREE_SPIN_UPGRADES)
+                return;
+
+            freeSpinUpgradeCount++;
+
+            // Apply +1 to all multipliers
+            var upgradedList = multiplierProgressions [currentType]
+                .Select(m => (Multipliers)Mathf.Min((int)m + 1 , 20))
+                .ToList();
+
+            multiplierProgressions [currentType] = upgradedList;
+
+            // Keep same active index but update multiplier
+            int currentIndex = multiplierProgressions [currentType].IndexOf(activeMultiplier);
+            if (currentIndex == -1 && upgradedList.Count > 0)
+                activeMultiplier = upgradedList [0];
+            else
+                activeMultiplier = upgradedList [Mathf.Clamp(currentIndex , 0 , upgradedList.Count - 1)];
+        }
+    }
+
+    private void EnterUpgradeMode ()
+    {
+        isInUpgradeMode = true;
+        upgradeRoundsRemaining = 3;
+        collectorCount = 0;
+
+        multiplierProgressions [currentType] = new List<Multipliers>
+        {
+            Multipliers.x2,
+            Multipliers.x3,
+            Multipliers.x4,
+            Multipliers.x6
+        };
+
+        activeMultiplier = multiplierProgressions [currentType] [0];
+        ResetUI();
+    }
+
+    private void ExitUpgradeMode ()
+    {
+        isInUpgradeMode = false;
+
+        multiplierProgressions [currentType] = new List<Multipliers>
+        {
+            Multipliers.x1,
+            Multipliers.x2,
+            Multipliers.x3,
+            Multipliers.x5
+        };
+
+        activeMultiplier = multiplierProgressions [currentType] [0];
+        ResetUI();
+    }
+
     public void ApplyCollectorEffect ()
     {
         int value = Mathf.Min((int)activeMultiplier + 1 , 20);
@@ -148,7 +239,7 @@ public class MultiplierManager : MonoBehaviour
         {
             MultiplierType.Normal => 0,
             MultiplierType.Free => 1,
-            MultiplierType.collector => 2,
+            MultiplierType.ExtraBet => 2,
             _ => -1
         };
 
@@ -176,7 +267,7 @@ public class MultiplierManager : MonoBehaviour
         {
             MultiplierType.Normal => 0,
             MultiplierType.Free => 1,
-            MultiplierType.collector => 2,
+            MultiplierType.ExtraBet => 2,
             _ => -1
         };
         var info = multiplierCanonInfos [typeIndex];

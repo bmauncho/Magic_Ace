@@ -14094,17 +14094,21 @@ MonoBehaviour:
     canon_1_inactive: {fileID: 21300000, guid: 56f724a345d6e4bfeb415a27dfa53ff9, type: 3}
     canon_2_active: {fileID: 21300000, guid: 86967d2144cef46dc92afc5dabc9645b, type: 3}
     canon_2_inactive: {fileID: 21300000, guid: 422ce9cc242f2432abcba50b3e08ed48, type: 3}
-  - multiplierType: 2
+  - multiplierType: 1
     canon_1_active: {fileID: 21300000, guid: e79d2abca37bf49eba5a1dc84835a8f0, type: 3}
     canon_1_inactive: {fileID: 21300000, guid: bcf1eca35ab4649d280976415d06be8d, type: 3}
     canon_2_active: {fileID: 21300000, guid: 1d1449afe50ab44c99e092dd2e974689, type: 3}
     canon_2_inactive: {fileID: 21300000, guid: 52b25ac93984143df97d497508b35caa, type: 3}
-  - multiplierType: 1
+  - multiplierType: 2
     canon_1_active: {fileID: 21300000, guid: 65c08850f0c43411c8c2144350a97544, type: 3}
     canon_1_inactive: {fileID: 21300000, guid: 187c98442344c478e98892fc4a353ea3, type: 3}
     canon_2_active: {fileID: 21300000, guid: 3c591b8701c22413a88252c852ee4601, type: 3}
     canon_2_inactive: {fileID: 21300000, guid: debc63dacb0f84a42a9f50cb2ecc07eb, type: 3}
   hasRecalled: 0
+  isInUpgradeMode: 0
+  collectorCount: 0
+  upgradeRoundsRemaining: 0
+  freeSpinUpgradeCount: 0
 --- !u!1 &484995284
 GameObject:
   m_ObjectHideFlags: 0
@@ -35075,7 +35079,7 @@ GameObject:
   - component: {fileID: 1243734581}
   - component: {fileID: 1243734580}
   m_Layer: 5
-  m_Name: BGcover
+  m_Name: BGFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
