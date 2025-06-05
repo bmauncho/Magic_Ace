@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public enum GameMode
 {
@@ -29,6 +30,7 @@ public class CommandCenter : MonoBehaviour
     public APIManager apiManager_;
     public GridManager gridManager_;
     public FeatureManager featureManager_;
+    public WinLoseManager winLoseManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
@@ -71,6 +73,20 @@ public class CommandCenter : MonoBehaviour
     public GameType GetTheGameType ()
     {
         return gameType;
+    }
+
+    public CardType ConvertToEnum ( string value )
+    {
+        if (Enum.TryParse<CardType>(value , ignoreCase: true , out var result))
+        {
+            return result;
+        }
+        else
+        {
+            Debug.LogError($"Invalid enum value: {value}");
+            // Optionally return a default value or throw
+            return default;
+        }
     }
 
     private void OnDestroy ()

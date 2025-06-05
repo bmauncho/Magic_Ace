@@ -88,8 +88,6 @@ public class HintsManager : MonoBehaviour
                     hint.hintRect.gameObject.SetActive(false);
                 });
 
-            Debug.Log($"Showing hint: {currentHintInfo.hint [currentIndex].name}");
-
             yield return tween.WaitForCompletion();
             yield return new WaitForSeconds(1f);
             hint.hintRect.gameObject.SetActive(true);

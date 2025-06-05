@@ -10,6 +10,9 @@ public class CardPos
 }
 public class GridManager : MonoBehaviour
 {
+    [Header("Grid Settings")]
+    [SerializeField] private FillGridLogic fillGridLogic;
+    [SerializeField] private RefillGridLogic refillGridLogic;
     [SerializeField] private GameObject initCard;
     [SerializeField] private GameObject SlotsHolder;
     [SerializeField] private bool isRefreshing = false;
@@ -25,6 +28,7 @@ public class GridManager : MonoBehaviour
     private Vector3 startPosition;
     [SerializeField] private List<CardPos> CardSlots = new List<CardPos>();
     [SerializeField] private Sprite [] initCards;
+    [SerializeField] private winningBg_Wild winningBg_Wild;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
@@ -266,88 +270,7 @@ public class GridManager : MonoBehaviour
     #region
     private IEnumerator NormalFill ()
     {
-        Deck [] Decks = CommandCenter.Instance.deckManager_.GetDecks();
-        int rowCount = 4;
-        int colCount = 5;
-        int col = 0;
-        int row = 0;
-        int activeAnimations = 0;
-        float delayIncrement = 0.1f;
-
-        // Debug.Log("normal spin");
-        
-        List<int> wildColumns = new List<int>();
-        List<(string cardName, List<(int col, int row)>)> wildCards = new List<(string cardName, List<(int col, int row)>)>();
-        Card cardComponent = null;
-        List<(Card wildcard, List<(int col, int row)>)> wildWinCards = new List<(Card wildcard, List<(int col, int row)>)>();
-        for (col = 0 ; col < colCount ; col++)
-        {
-            bool preTriggerWild = false;
-            var currDeck = Decks [col];
-            int currentAnims = 0;
-            bool ScatterFound = false;
-            for (row = rowCount - 1 ; row >= 0 ; row--)
-            {
-                Slot slot = CardSlots [col].CardPosInRow [row].transform.GetComponent<Slot>();
-                Transform target = CardSlots [col].CardPosInRow [row].transform;
-
-                // Check for SUPER_JOKER in slot
-
-                Card existingCard = slot.GetComponentInChildren<Card>();
-
-                GameObject newCard = currDeck.DrawCard();
-                newCard.transform.SetParent(target);
-                cardComponent = newCard.GetComponent<Card>();
-
-                if (isFirstTime)
-                {
-                    CommandCenter.Instance.cardManager_.setUpfirstTimeCards(cardComponent , col , row);
-                }
-                else
-                {
-                    CommandCenter.Instance.cardManager_.setUpCard(cardComponent , row , col);
-
-                    if (cardComponent.GetCardType() == CardType.SCATTER)
-                    {
-                        ScatterFound = true;
-                        wildColumns.Add(col);
-                        wildCards.Add((cardComponent.GetCardType().ToString(), new List<(int col, int row)> { (col, row) }));
-                    }
-
-                    if (wildCards.Count >= 2)
-                    {
-                        preTriggerWild = true;
-                    }
-
-                    if (preTriggerWild && cardComponent.GetCardType() == CardType.SCATTER)
-                    {
-                        //wildEffect.ToggleEffect(col);
-                        List<(int col, int row)> cardPos = new List<(int col, int row)>();
-                        cardPos.Add((col, row));
-                        wildWinCards.Add((cardComponent, cardPos));
-                    }
-                }
-
-                slot.AddOwner(newCard); // Ensure owner is set properly
-
-                activeAnimations++;
-                currentAnims++;
-                cardComponent.OnComplete += () => activeAnimations--;
-                cardComponent.OnComplete += () => currentAnims--;
-
-                float delay = preTriggerWild ? row * delayIncrement : 0f;
-                yield return StartCoroutine(DelayedMove(cardComponent , target , delay , slot , false));
-            }
-
-            ScatterFound = false;
-        }
-
-
-        while (activeAnimations > 0)
-            yield return null;
-
-        Debug.Log("all animations Done!");
-
+        yield return StartCoroutine(fillGridLogic.normalfillGrid(CardSlots , isFirstTime));
         if (isFirstTime)
             isFirstTime = false;
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
@@ -358,43 +281,12 @@ public class GridManager : MonoBehaviour
         yield return null;
     }
 
-    // Separate coroutine to handle individual delays
-    private IEnumerator DelayedMove ( Card card , Transform target , float delay , Slot _slot , bool isInitialization )
-    {
-        yield return new WaitForSeconds(delay);
-        card.moveCard(target , _slot , isInitialization);
-        yield return null;
-    }
+  
 
     public IEnumerator QuickFill ()
     {
         Debug.Log("quick spin");
-        Deck [] Decks = CommandCenter.Instance.deckManager_.GetDecks();
-        int colCount = 5;
-        int rowCount = 4;
-        int activeAnimations = 0;
-        for (int col = 0 ; col < colCount ; col++)
-        {
-            var currDeck = Decks [col];
-            for (int row = rowCount - 1 ; row >= 0 ; row--)
-            {
-                Slot slot = CardSlots [col].CardPosInRow [row].transform.GetComponent<Slot>();
-                Transform target = CardSlots [col].CardPosInRow [row].transform;
-                GameObject newCard = currDeck.DrawCard();
-                newCard.transform.SetParent(target);
-
-                Card cardComponent = newCard.GetComponent<Card>();
-                CommandCenter.Instance.cardManager_.setUpCard(cardComponent , row , col);
-                activeAnimations++;
-                cardComponent.OnComplete += () => activeAnimations--;
-
-                cardComponent.moveCard(target , slot);
-            }
-        }
-
-        // Wait until all animations are completed
-        while (activeAnimations > 0)
-            yield return null;
+        yield return StartCoroutine(fillGridLogic.quickfillGrid(CardSlots));
         if (isFirstTime)
         {
             isFirstTime = false;
@@ -407,34 +299,7 @@ public class GridManager : MonoBehaviour
     public IEnumerator TurboFill ()
     {
         Debug.Log("Turbo spin");
-        Deck [] Decks = CommandCenter.Instance.deckManager_.GetDecks();
-        int rowCount = 4;
-        int colCount = 5;
-        int activeAnimations = 0;
-        for (int col = 0 ; col < colCount ; col++)
-        {
-            var currDeck = Decks [col];
-            for (int row = rowCount - 1 ; row >= 0 ; row--)
-            {
-                Slot slot = CardSlots [col].CardPosInRow [row].transform.GetComponent<Slot>();
-                Transform target = CardSlots [col].CardPosInRow [row].transform;
-
-                GameObject newCard = currDeck.DrawCard();
-                newCard.transform.SetParent(target);
-
-                Card cardComponent = newCard.GetComponent<Card>();
-                CommandCenter.Instance.cardManager_.setUpCard(cardComponent , row , col);
-                // check if is a wining card 
-                activeAnimations++;
-                cardComponent.OnComplete += () => activeAnimations--;
-
-                cardComponent.moveCard(target , slot);
-            }
-        }
-
-        // Wait until all animations are completed
-        while (activeAnimations > 0)
-            yield return null;
+        yield return StartCoroutine(fillGridLogic.turbofillGrid(CardSlots));
         if (isFirstTime)
         {
             isFirstTime = false;
@@ -445,7 +310,61 @@ public class GridManager : MonoBehaviour
     }
 
     #endregion
+    public void RefillGrid ()
+    {
+        //Debug.Log("Refill Grid");
+        if (IsGridSpaceAvailable())
+        {
+            isRefilling = true;
+            if (CommandCenter.Instance.spinManager_.NormalSpin())
+            {
+                //normal spin
+                StartCoroutine(NormalReFill());
+            }
+            else if (CommandCenter.Instance.spinManager_.QuickSpin())
+            {
+                // quickSpin
+                StartCoroutine(QuickReFill());
 
+            }
+            else if (CommandCenter.Instance.spinManager_.TurboSpin())
+            {
+                // TurboSpin
+                StartCoroutine(TurboReFill());
+            }
+        }
+        else
+        {
+            SetIsRefilling(false);
+        }
+    }
+    private IEnumerator NormalReFill ()
+    {
+        isCascading = true;
+        isRefillingSequenceDone = false;
+        yield return StartCoroutine(refillGridLogic.normalRefillGrid(CardSlots));
+        SetIsRefilling(false);
+    }
+
+    public IEnumerator QuickReFill ()
+    {
+        isCascading = true;
+        isRefillingSequenceDone = false;
+        //Debug.Log("quick spin");
+        yield return StartCoroutine(refillGridLogic.quickRefillGrid(CardSlots));
+
+        SetIsRefilling(false);
+
+    }
+
+    public IEnumerator TurboReFill ()
+    {
+        isCascading = true;
+        isRefillingSequenceDone = false;
+        yield return StartCoroutine(refillGridLogic.turboRefillGrid(CardSlots));
+        SetIsRefilling(false);
+
+    }
 
     public void checkForWinings ()
     {
@@ -496,6 +415,11 @@ public class GridManager : MonoBehaviour
         return CardSlots [col].CardPosInRow [row].GetComponent<Slot>();
     }
 
+    public winningBg_Wild GetWinningBg_Wild ()
+    {
+        return winningBg_Wild;
+    }
+
     public bool IsRefillSequnceDone ()
     {
         return isRefillingSequenceDone;
@@ -514,4 +438,5 @@ public class GridManager : MonoBehaviour
     {
         return isNormalWnSequenceDone;
     }
+
 }

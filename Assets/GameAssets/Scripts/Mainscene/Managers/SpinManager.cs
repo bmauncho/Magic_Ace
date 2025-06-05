@@ -25,11 +25,6 @@ public class SpinManager : MonoBehaviour
     [SerializeField] private GameObject [] Buttons;
 
     [Header("Spin Animation")]
-    [SerializeField] private Animator IdleAnim;
-    [SerializeField] private Animator SpinAnim;
-    [SerializeField] private bool canPlayIdle;
-    private float Timer = 0f;
-
     public SpinSpeedUI SpinSpeedEffect;
     [ContextMenu("Set Spin Mode")]
     public void SetSpinMode ()
@@ -110,18 +105,6 @@ public class SpinManager : MonoBehaviour
 
             // Apply rotation
             spinners.transform.Rotate(new Vector3(0 , 0 , currentSpeed) * Time.deltaTime);
-
-            if (canPlayIdle)
-            {
-                Timer += Time.deltaTime;
-                if (Timer >= 5f)
-                {
-                    if (IdleAnim.gameObject.activeInHierarchy)
-                    {
-                        PlayIdleAnim();
-                    }
-                }
-            }
         }
     }
 
@@ -136,7 +119,6 @@ public class SpinManager : MonoBehaviour
     public void DeactivateFillSpin ()
     {
         IsFillingGrid = false;
-        canPlayIdle = true;
     }
 
     public void SetCanSpin ( bool canSpin )
@@ -148,17 +130,38 @@ public class SpinManager : MonoBehaviour
     {
         Debug.Log("spin");
         if (!CanSpin) { return; }
+        //Debug.Log("Can spin");
+        if (CommandCenter.Instance.gridManager_.IsRefreshingGrid()) { return; }
+        //Debug.Log("1");
+        if (CommandCenter.Instance.gridManager_.IsGridRefilling()) { return; }
+        // Debug.Log("2");
+        if (CommandCenter.Instance.gridManager_.IsCascading()) { return; }
+        //Debug.Log("3");
+        if (!CommandCenter.Instance.gridManager_.IsNormalWinSequenceDone()) { return; }
+        //Debug.Log("4");
         if (CanSpin)
         {
             ActivateFillSpin();
             CanSpin = false;
-            canPlayIdle = false;
+            CommandCenter.Instance.apiManager_.gameDataApi.FetchData();
+            // Debug.Log($"Spin is Demo{CommandCenter.Instance.gameModeManager.IsDemoMode()}");
             disableButtons();
             StartCoroutine(WaitForDataFetched());
         }
     }
     IEnumerator WaitForDataFetched ()
     {
+        if (CommandCenter.Instance.gameMode == GameMode.Demo)
+        {
+            // Data has been fetched — continue execution here
+            CommandCenter.Instance.gridManager_.RefreshGrid();
+            CommandCenter.Instance.currencyManager_.DecreaseCash();
+        }
+        else
+        {
+
+           
+        }
         yield return null;
     }
     public void enableButtons ()
@@ -185,10 +188,5 @@ public class SpinManager : MonoBehaviour
             }
         }
 
-    }
-
-    private void PlayIdleAnim ()
-    {
-        Timer = 0f;
     }
 }
