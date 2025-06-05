@@ -1,63 +1,383 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum CardType { ACE, KING, QUEEN, JACK, SPADE, HEART, DIAMOND, CLUB, SUPER_JOKER, BIG_JOKER, SMALL_JOKER, SCATTER, WILD };
-[System.Serializable]
-public class CardData
-{
-    public CardType CardType;
-    public Sprite card;
-}
+using UnityEngine.UI;
 
-[System.Serializable]
-public class CardInfo
-{
-    public CardType CardType;
-    public bool isGolden = false;
-}
-[System.Serializable]
-public class CardWeight
-{
-    public CardType cardType;
-    [UnityEngine.Range(1 , 20)] public float weight;
-
-    public CardWeight ( CardType type , float w )
-    {
-        cardType = type;
-        weight = w;
-    }
-}
 public class Card : MonoBehaviour
 {
-    [SerializeField] private Sprite normalBg;
-    [SerializeField] private Sprite goldenBg;
-    [SerializeField] private Sprite superJockerBg;
-    [SerializeField] private Sprite bigJockerBg;
-    [SerializeField] private Sprite smallJockerBg;
-    [SerializeField] private Sprite bigJockerOutline;
-    [SerializeField] private Sprite smallJockerOutline;
-    [SerializeField] private CardData [] cardDatas;
+    [Header("Card Movement")]
+    [SerializeField] private float duration;
+    [SerializeField] private bool canMove;
+    [SerializeField] private Transform target;
+    private float elapsedTime;
+    private Vector3 startPosition;
+    public Action OnComplete;
+    Slot Slot;
+    bool isInitializarion = false;
 
-    [Header("Card Probabilities")]
-    [SerializeField, UnityEngine.Range(0 , 1)] private float goldenChance = 0.2f;  // Default 20%
-    [SerializeField, UnityEngine.Range(0 , 1)] private float wildChance = 0.1f;    // Default 10%
+    [Header("card Info")]
+    [SerializeField] private CardType cardType;
+    [SerializeField] private Image CardBg;
+    [SerializeField] private Image card;
+    [SerializeField] private Image Outline;
+    [SerializeField] private Image CardRear;
+    [SerializeField] private bool normalCard;
+    [SerializeField] private bool goldenCard;
+    [SerializeField] private bool superJockerCard;
+    [SerializeField] private bool bigJockerCard;
+    [SerializeField] private bool smallJockerCard;
+    [SerializeField] private bool wildCard;
 
-    [SerializeField, UnityEngine.Range(0f , 1f)] private float smalljokerChance = 0.1f; // Default 10%
-    [SerializeField, UnityEngine.Range(0f , 1f)] private float bigjokerChance = 0.05f; // Default 5%
-    [SerializeField, UnityEngine.Range(0f , 1f)] private float SuperjokerChance = 0.025f; // Default 2.5%
+    [Header("Card Animations")]
+    [SerializeField] private Animator WildAnim_;
+    [SerializeField] private GameObject wildAnimEffects;
+    [SerializeField] private GameObject goldenCardEffect;
+    [SerializeField] private Animator wildBounceAnim;
+
+    [Header("Card Effects")]
+    [SerializeField] private GameObject cardGlowEffect;
+    [SerializeField] private GameObject winCardGlow;
+
+    [Header("Jocker's")]
+    [SerializeField] private GameObject SuperJockerAnim;
+    [SerializeField] private GameObject Effects;
+    [SerializeField] private GameObject JokerGlow;
+    [SerializeField] private GameObject SuperJokerBg;
+    //[SerializeField] private SuperJokerCard superJokerCard_;
 
 
-    private float totalWeight = 0f; // Total weight of all card types
-    [Header("Card Type Weights")]
-    [SerializeField] private List<CardWeight> cardWeights = new List<CardWeight>();
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Action OnWildAnimComplete;
+    #region
+    void FixedUpdate ()
     {
-        
+        if (canMove && target)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            transform.position = Vector3.Lerp(startPosition , target.position , t);
+
+            if (elapsedTime >= duration)
+            {
+                canMove = false; // Stop movement
+                transform.position = target.position; // Ensure it reaches the target
+                OnComplete?.Invoke();
+                SetAsOwner();
+                ShowGoldenEffect();
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void moveCard ( Transform _target , Slot _Slot  ,bool isInitialization_ = false )
     {
-        
+        SetDuration();
+        target = _target;
+        startPosition = transform.position;
+        elapsedTime = 0f;
+        canMove = true;
+        Slot = _Slot;
+        isInitializarion = isInitialization_;
+    }
+
+    public void SetAsOwner ()
+    {
+        if (!isInitializarion)
+        {
+            Slot.AddOwner(this.gameObject);
+        }
+    }
+
+    public void SetDuration ()
+    {
+        if (CommandCenter.Instance)
+        {
+            if (CommandCenter.Instance.spinManager_.NormalSpin())
+            {
+                duration = 0.15f;
+            }
+            else if (CommandCenter.Instance.spinManager_.QuickSpin())
+            {
+                duration = 0.15f;
+            }
+            else if (CommandCenter.Instance.spinManager_.TurboSpin())
+            {
+                duration = 0.05f;
+            }
+        }
+    }
+    #endregion
+
+    #region
+    public void ShowNormalCard ( Sprite _cardBg , Sprite _card )
+    {
+        normalCard = true;
+        goldenCard = false;
+        superJockerCard = false;
+        bigJockerCard = false;
+        smallJockerCard = false;
+        wildCard = false;
+        Outline.gameObject.SetActive(false);
+        CardBg.gameObject.SetActive(true);
+        card.gameObject.SetActive(true);
+        card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
+        CardRear.gameObject.SetActive(false);
+        SuperJockerAnim.SetActive(false);
+        SuperJokerBg.SetActive(false);
+        Effects.SetActive(false);
+        JokerGlow.SetActive(false);
+        DisableWildBounceAnim();
+        CardBg.sprite = _cardBg;
+        card.sprite = _card;
+    }
+
+    public void showGoldenCard ( Sprite _cardBg , Sprite _card )
+    {
+        normalCard = false;
+        goldenCard = true;
+        superJockerCard = false;
+        bigJockerCard = false;
+        smallJockerCard = false;
+        wildCard = false;
+        Outline.gameObject.SetActive(false);
+        CardBg.gameObject.SetActive(true);
+        card.gameObject.SetActive(true);
+        card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
+        CardRear.gameObject.SetActive(false);
+        SuperJockerAnim.SetActive(false);
+        SuperJokerBg.SetActive(false);
+        Effects.SetActive(false);
+        JokerGlow.SetActive(false);
+        DisableWildBounceAnim();
+        CardBg.sprite = _cardBg;
+        card.sprite = _card;
+    }
+
+    public void showSuperJocKer ( Sprite _cardBg , Sprite _card )
+    {
+        normalCard = false;
+        goldenCard = false;
+        superJockerCard = true;
+        bigJockerCard = false;
+        smallJockerCard = false;
+        wildCard = false;
+        Outline.gameObject.SetActive(true);
+        CardBg.gameObject.SetActive(true);
+        card.gameObject.SetActive(false);
+        card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        CardRear.gameObject.SetActive(true);
+        SuperJockerAnim.SetActive(false);
+        SuperJokerBg.SetActive(false);
+        Effects.SetActive(false);
+        JokerGlow.SetActive(false);
+        DisableWildBounceAnim();
+        CardBg.sprite = _cardBg;
+        card.sprite = _card;
+    }
+
+    public void showBigJocKer ( Sprite _cardBg , Sprite _card , Sprite _outline )
+    {
+        normalCard = false;
+        goldenCard = false;
+        superJockerCard = false;
+        bigJockerCard = true;
+        smallJockerCard = false;
+        wildCard = false;
+        Outline.gameObject.SetActive(true);
+        CardBg.gameObject.SetActive(true);
+        card.gameObject.SetActive(true);
+        CardRear.gameObject.SetActive(false);
+        SuperJockerAnim.SetActive(false);
+        SuperJokerBg.SetActive(false);
+        Effects.SetActive(false);
+        JokerGlow.SetActive(false);
+        DisableWildBounceAnim();
+        card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        CardBg.sprite = _cardBg;
+        card.sprite = _card;
+        Outline.sprite = _outline;
+    }
+
+    public void showSmallJocKer ( Sprite _cardBg , Sprite _card , Sprite _outline )
+    {
+        normalCard = false;
+        goldenCard = false;
+        superJockerCard = false;
+        bigJockerCard = false;
+        smallJockerCard = true;
+        wildCard = false;
+        Outline.gameObject.SetActive(true);
+        CardBg.gameObject.SetActive(true);
+        card.gameObject.SetActive(true);
+        CardRear.gameObject.SetActive(false);
+        SuperJockerAnim.SetActive(false);
+        SuperJokerBg.SetActive(false);
+        Effects.SetActive(false);
+        JokerGlow.SetActive(false);
+        DisableWildBounceAnim();
+        card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        CardBg.sprite = _cardBg;
+        card.sprite = _card;
+        Outline.sprite = _outline;
+    }
+
+    public void showWild ( Sprite _card )
+    {
+        normalCard = false;
+        goldenCard = false;
+        superJockerCard = false;
+        bigJockerCard = false;
+        smallJockerCard = false;
+        wildCard = true;
+        Outline.gameObject.SetActive(false);
+        CardBg.gameObject.SetActive(false);
+        card.gameObject.SetActive(true);
+        CardRear.gameObject.SetActive(false);
+        SuperJockerAnim.SetActive(false);
+        SuperJokerBg.SetActive(false);
+        Effects.SetActive(false);
+        JokerGlow.SetActive(false);
+        wildBounceAnim.Rebind();
+        EnableWildBounceAnim();
+        card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        card.sprite = _card;
+    }
+
+    public void SetCardType ( CardType Type = CardType.ACE )
+    {
+        cardType = Type;
+    }
+
+    public CardType GetCardType ()
+    {
+        return cardType;
+    }
+
+    public bool isNormalCard () { return normalCard; }
+    public bool isGoldenCard () { return goldenCard; }
+    public bool isSuperJockerCard () { return superJockerCard; }
+    public bool isBigJockerCard () { return bigJockerCard; }
+    public bool isSmallJockerCard () { return smallJockerCard; }
+    public bool isWildCard () { return wildCard; }
+
+    #endregion
+
+    public void showWildAnim ()
+    {
+        StartCoroutine(wildAnim());
+    }
+
+    private IEnumerator wildAnim ()
+    {
+        DisableWildBounceAnim();
+        WildAnim_.gameObject.SetActive(true);
+        int loopCount = 3;
+        card.gameObject.SetActive(false);
+        for (int i = 0 ; i < loopCount ; i++)
+        {
+            WildAnim_.Rebind();
+            WildAnim_.Play("WildCardAnim");
+
+            // Wait for animation to start
+            yield return new WaitUntil(() => WildAnim_.GetCurrentAnimatorStateInfo(0).IsName("WildCardAnim"));
+
+            // Wait for animation to finish
+            yield return new WaitWhile(() =>
+                WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+
+            //Debug.Log($"Wild Animation {i + 1} Done");
+
+            // Optional delay
+            yield return new WaitForSeconds(0.1f);
+        }
+        WildAnim_.gameObject.SetActive(false);
+        card.gameObject.SetActive(true);
+        OnWildAnimComplete?.Invoke();
+        DisableWildBounceAnim();
+    }
+
+    public void EnableWildBounceAnim ()
+    {
+        wildBounceAnim.Rebind();
+        wildBounceAnim.enabled = true;
+    }
+
+    public void DisableWildBounceAnim ()
+    {
+        wildBounceAnim.Rebind();
+        wildBounceAnim.enabled = false;
+    }
+
+    public GameObject wildEffects ()
+    {
+        return wildAnimEffects;
+    }
+
+    public void ShowGoldenEffect ()
+    {
+        if (!goldenCard) { return; }
+        goldenCardEffect.gameObject.SetActive(true);
+        Invoke(nameof(HideGoldenEffect) , 1f);
+    }
+
+    public void HideGoldenEffect ()
+    {
+        goldenCardEffect.gameObject.SetActive(false);
+    }
+
+
+    public void ShowCardBg ()
+    {
+        CardBg.gameObject.SetActive(false);
+        card.gameObject.SetActive(false);
+        CardRear.gameObject.SetActive(true);
+    }
+
+    public void HideCardBg ()
+    {
+        if (cardType == CardType.SCATTER)
+        {
+            CardBg.gameObject.SetActive(false);
+        }
+        else
+        {
+            CardBg.gameObject.SetActive(true);
+        }
+        card.gameObject.SetActive(true);
+
+        CardRear.gameObject.SetActive(false);
+    }
+
+    public void ShowCardWinGlow ()
+    {
+        winCardGlow.gameObject.SetActive(true);
+    }
+
+    public void HideCardWinGlow ()
+    {
+        winCardGlow.gameObject.SetActive(false);
+    }
+
+    public GameObject GetJokerGlow ()
+    {
+        return JokerGlow;
+    }
+
+    public GameObject GetJokerBg ()
+    {
+        return SuperJokerBg;
+    }
+
+    public GameObject GetJokerEffects ()
+    {
+        return Effects;
+    }
+
+    public GameObject GetJokerAnim ()
+    {
+        return SuperJockerAnim;
+    }
+    public GameObject GetSuperJokerBg ()
+    {
+        return SuperJokerBg;
     }
 }

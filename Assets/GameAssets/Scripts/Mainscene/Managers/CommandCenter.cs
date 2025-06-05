@@ -20,6 +20,7 @@ public class CommandCenter : MonoBehaviour
     public HintsManager hintsManager_;
     public CardManager cardManager_;
     public ComboManager comboManager_;
+    public APIManager apiManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
