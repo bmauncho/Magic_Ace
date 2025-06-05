@@ -1,4 +1,9 @@
 using UnityEngine;
+public enum GameMode
+{
+    Demo,
+    Live,
+}
 public enum GameType
 {
     Base,
@@ -7,6 +12,7 @@ public enum GameType
 public class CommandCenter : MonoBehaviour
 {
     public static CommandCenter Instance { get; private set; }
+    public GameMode gameMode; // Live or Demo
     public GameType gameType;
     public PoolManager poolManager_;
     public DeckManager deckManager_;
@@ -21,6 +27,8 @@ public class CommandCenter : MonoBehaviour
     public CardManager cardManager_;
     public ComboManager comboManager_;
     public APIManager apiManager_;
+    public GridManager gridManager_;
+    public FeatureManager featureManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
@@ -44,6 +52,15 @@ public class CommandCenter : MonoBehaviour
     void Update()
     {
         
+    }
+    public void SetGameMode ( GameMode mode )
+    {
+        gameMode = mode;
+    }
+
+    public GameMode GetTheGameMode ()
+    {
+        return gameMode;
     }
 
     public void SetGameType ( GameType type )

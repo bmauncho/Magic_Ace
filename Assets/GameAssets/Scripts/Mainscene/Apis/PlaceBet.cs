@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Text;
-using System.Xml;
 using UnityEngine;
 using UnityEngine.Networking;
 using Random = UnityEngine.Random;
@@ -105,7 +105,7 @@ public class PlaceBet : MonoBehaviour
             {
                 string responseText = webRequest.downloadHandler.text;
                 betResponse = JsonUtility.FromJson<BetResponse>(responseText);
-                string formattedOutput = JsonConvert.SerializeObject(webRequest.downloadHandler.text,Formatting.Indented);
+                string formattedOutput = JsonConvert.SerializeObject(webRequest.downloadHandler.text , Formatting.Indented);
                 Debug.Log($"Bet placed successfully:{formattedOutput}");
                 double CashAmount = betResponse.new_wallet_balance;
                 CommandCenter.Instance.currencyManager_.UpdateCashAmount(CashAmount);

@@ -28,22 +28,6 @@ public class Card : MonoBehaviour
     [SerializeField] private bool bigJockerCard;
     [SerializeField] private bool smallJockerCard;
     [SerializeField] private bool wildCard;
-
-    [Header("Card Animations")]
-    [SerializeField] private Animator WildAnim_;
-    [SerializeField] private GameObject wildAnimEffects;
-    [SerializeField] private GameObject goldenCardEffect;
-    [SerializeField] private Animator wildBounceAnim;
-
-    [Header("Card Effects")]
-    [SerializeField] private GameObject cardGlowEffect;
-    [SerializeField] private GameObject winCardGlow;
-
-    [Header("Jocker's")]
-    [SerializeField] private GameObject SuperJockerAnim;
-    [SerializeField] private GameObject Effects;
-    [SerializeField] private GameObject JokerGlow;
-    [SerializeField] private GameObject SuperJokerBg;
     //[SerializeField] private SuperJokerCard superJokerCard_;
 
 
@@ -63,12 +47,11 @@ public class Card : MonoBehaviour
                 transform.position = target.position; // Ensure it reaches the target
                 OnComplete?.Invoke();
                 SetAsOwner();
-                ShowGoldenEffect();
             }
         }
     }
 
-    public void moveCard ( Transform _target , Slot _Slot  ,bool isInitialization_ = false )
+    public void moveCard ( Transform _target , Slot _Slot , bool isInitialization_ = false )
     {
         SetDuration();
         target = _target;
@@ -121,11 +104,6 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
-        SuperJockerAnim.SetActive(false);
-        SuperJokerBg.SetActive(false);
-        Effects.SetActive(false);
-        JokerGlow.SetActive(false);
-        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -143,11 +121,6 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
-        SuperJockerAnim.SetActive(false);
-        SuperJokerBg.SetActive(false);
-        Effects.SetActive(false);
-        JokerGlow.SetActive(false);
-        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -164,12 +137,6 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(false);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
-        CardRear.gameObject.SetActive(true);
-        SuperJockerAnim.SetActive(false);
-        SuperJokerBg.SetActive(false);
-        Effects.SetActive(false);
-        JokerGlow.SetActive(false);
-        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -186,11 +153,6 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
-        SuperJockerAnim.SetActive(false);
-        SuperJokerBg.SetActive(false);
-        Effects.SetActive(false);
-        JokerGlow.SetActive(false);
-        DisableWildBounceAnim();
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -209,11 +171,6 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
-        SuperJockerAnim.SetActive(false);
-        SuperJokerBg.SetActive(false);
-        Effects.SetActive(false);
-        JokerGlow.SetActive(false);
-        DisableWildBounceAnim();
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -232,12 +189,6 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(false);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
-        SuperJockerAnim.SetActive(false);
-        SuperJokerBg.SetActive(false);
-        Effects.SetActive(false);
-        JokerGlow.SetActive(false);
-        wildBounceAnim.Rebind();
-        EnableWildBounceAnim();
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         card.sprite = _card;
     }
@@ -261,70 +212,6 @@ public class Card : MonoBehaviour
 
     #endregion
 
-    public void showWildAnim ()
-    {
-        StartCoroutine(wildAnim());
-    }
-
-    private IEnumerator wildAnim ()
-    {
-        DisableWildBounceAnim();
-        WildAnim_.gameObject.SetActive(true);
-        int loopCount = 3;
-        card.gameObject.SetActive(false);
-        for (int i = 0 ; i < loopCount ; i++)
-        {
-            WildAnim_.Rebind();
-            WildAnim_.Play("WildCardAnim");
-
-            // Wait for animation to start
-            yield return new WaitUntil(() => WildAnim_.GetCurrentAnimatorStateInfo(0).IsName("WildCardAnim"));
-
-            // Wait for animation to finish
-            yield return new WaitWhile(() =>
-                WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
-
-            //Debug.Log($"Wild Animation {i + 1} Done");
-
-            // Optional delay
-            yield return new WaitForSeconds(0.1f);
-        }
-        WildAnim_.gameObject.SetActive(false);
-        card.gameObject.SetActive(true);
-        OnWildAnimComplete?.Invoke();
-        DisableWildBounceAnim();
-    }
-
-    public void EnableWildBounceAnim ()
-    {
-        wildBounceAnim.Rebind();
-        wildBounceAnim.enabled = true;
-    }
-
-    public void DisableWildBounceAnim ()
-    {
-        wildBounceAnim.Rebind();
-        wildBounceAnim.enabled = false;
-    }
-
-    public GameObject wildEffects ()
-    {
-        return wildAnimEffects;
-    }
-
-    public void ShowGoldenEffect ()
-    {
-        if (!goldenCard) { return; }
-        goldenCardEffect.gameObject.SetActive(true);
-        Invoke(nameof(HideGoldenEffect) , 1f);
-    }
-
-    public void HideGoldenEffect ()
-    {
-        goldenCardEffect.gameObject.SetActive(false);
-    }
-
-
     public void ShowCardBg ()
     {
         CardBg.gameObject.SetActive(false);
@@ -345,39 +232,5 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
 
         CardRear.gameObject.SetActive(false);
-    }
-
-    public void ShowCardWinGlow ()
-    {
-        winCardGlow.gameObject.SetActive(true);
-    }
-
-    public void HideCardWinGlow ()
-    {
-        winCardGlow.gameObject.SetActive(false);
-    }
-
-    public GameObject GetJokerGlow ()
-    {
-        return JokerGlow;
-    }
-
-    public GameObject GetJokerBg ()
-    {
-        return SuperJokerBg;
-    }
-
-    public GameObject GetJokerEffects ()
-    {
-        return Effects;
-    }
-
-    public GameObject GetJokerAnim ()
-    {
-        return SuperJockerAnim;
-    }
-    public GameObject GetSuperJokerBg ()
-    {
-        return SuperJokerBg;
     }
 }
