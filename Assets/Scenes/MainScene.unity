@@ -15194,8 +15194,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 53725fefea56748e7b47214ad10510c0, type: 3}
     - {fileID: 21300000, guid: 1b8226efe16f04f538b14ed9e0b96082, type: 3}
     - {fileID: 21300000, guid: 8901e314b84c34461bd2c8d42db22fdc, type: 3}
-    OneMoreScatter: {fileID: 0}
-    FreeSpinWon: {fileID: 0}
+    OneMoreScatter: {fileID: 21300000, guid: b15d618a1da8a4cd5bcae68a4e5f344d, type: 3}
+    FreeSpinWon: {fileID: 21300000, guid: e2d9e43a8c9c74e1295991214136cb7b, type: 3}
   - language: 1
     hint:
     - {fileID: 21300000, guid: 688ef2e3f769c3549b91f8cb9a24bf1a, type: 3}
@@ -15206,8 +15206,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: c8b5e672f9a071a4bb800a79c98a78b0, type: 3}
     - {fileID: 21300000, guid: 44cdca4201c06bb438417107390f475d, type: 3}
     - {fileID: 21300000, guid: 310069544d358be4eb663175ffed9618, type: 3}
-    OneMoreScatter: {fileID: 0}
-    FreeSpinWon: {fileID: 0}
+    OneMoreScatter: {fileID: 21300000, guid: 2d9d330f8b2a56f438a204611e292037, type: 3}
+    FreeSpinWon: {fileID: 21300000, guid: 5b75343efd85e4447971aff46980632f, type: 3}
   - language: 9
     hint:
     - {fileID: 21300000, guid: 9c696065765d81c48923d2c881134824, type: 3}
@@ -15218,8 +15218,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 24f54bf31c6bd2847a1cb4f4a1fc84c2, type: 3}
     - {fileID: 21300000, guid: 89b5b1e45505a4940ae381608edff6a2, type: 3}
     - {fileID: 21300000, guid: 19022cd5ba413ed4788e3f4eaf905b47, type: 3}
-    OneMoreScatter: {fileID: 0}
-    FreeSpinWon: {fileID: 0}
+    OneMoreScatter: {fileID: 21300000, guid: 89264c2058fdbb14185e24bbca335f26, type: 3}
+    FreeSpinWon: {fileID: 21300000, guid: b9aaf913940cc3c4c85cc22ccd6336b2, type: 3}
   - language: 6
     hint:
     - {fileID: 21300000, guid: f9ac96589022ed2468b63d9ccb78ca7f, type: 3}
@@ -15230,8 +15230,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 67b57255bfb0b4a4490b903ae7634d73, type: 3}
     - {fileID: 21300000, guid: 3a4d7a231ff57c74c958e2945ee784d5, type: 3}
     - {fileID: 21300000, guid: 41947bf06f2718f44b21a8da2c9e0d52, type: 3}
-    OneMoreScatter: {fileID: 0}
-    FreeSpinWon: {fileID: 0}
+    OneMoreScatter: {fileID: 21300000, guid: 9b693b55a423cfc449135eb8ed58efb1, type: 3}
+    FreeSpinWon: {fileID: 21300000, guid: c01efe5471d9f394a9b3c43168bd16ab, type: 3}
   hint: {fileID: 215218903}
   duration: 10
 --- !u!4 &525686332

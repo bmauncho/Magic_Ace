@@ -34,11 +34,7 @@ public class HintsManager : MonoBehaviour
 
     private void Update ()
     {
-        if (LanguageMan.instance && currentLanguage != LanguageMan.instance.ActiveLanguage)
-        {
-            Debug.Log("Language changed to: " + LanguageMan.instance.ActiveLanguage);
-            currentLanguage = LanguageMan.instance.ActiveLanguage;
-        }
+
     }
     [ContextMenu("Show Hints")]
     public void ShowHints ()
@@ -61,25 +57,21 @@ public class HintsManager : MonoBehaviour
 
         while (true)
         {
-            // Detect language change dynamically
-            if (LanguageMan.instance && currentLanguage != LanguageMan.instance.ActiveLanguage)
+            if (IsLanguageChanged())
             {
-                Debug.Log("Language changed during coroutine. Updating hints.");
+                Debug.Log("Language changed. Updating hints.");
                 currentLanguage = LanguageMan.instance.ActiveLanguage;
                 currentHintInfo = GetHintInfo(currentLanguage);
-
                 if (currentHintInfo == null || currentHintInfo.hint.Length == 0)
                 {
                     Debug.LogWarning("No hints for new language. Using first available.");
                     currentHintInfo = hintsInfo.Length > 0 ? hintsInfo [0] : null;
-
                     if (currentHintInfo == null)
                     {
                         Debug.LogError("No fallback hints found.");
                         yield break;
                     }
                 }
-
                 currentIndex = 0;
             }
 
@@ -99,7 +91,7 @@ public class HintsManager : MonoBehaviour
             Debug.Log($"Showing hint: {currentHintInfo.hint [currentIndex].name}");
 
             yield return tween.WaitForCompletion();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             hint.hintRect.gameObject.SetActive(true);
 
             // Next hint
@@ -164,5 +156,10 @@ public class HintsManager : MonoBehaviour
         hint.wintextholder.SetActive(false);
         hint.winText.gameObject.SetActive(false);
         StartHintsCoroutine();
+    }
+
+    public bool IsLanguageChanged ()
+    {
+        return currentLanguage != LanguageMan.instance.ActiveLanguage;
     }
 }
