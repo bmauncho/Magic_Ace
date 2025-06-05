@@ -18,6 +18,8 @@ public class CommandCenter : MonoBehaviour
     public AutoSpinManager autoSpinManager_;
     public MultiplierManager multiplierManager_;
     public HintsManager hintsManager_;
+    public CardManager cardManager_;
+    public ComboManager comboManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
