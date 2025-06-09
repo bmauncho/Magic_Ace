@@ -29,6 +29,10 @@ public class WinLoseManager : MonoBehaviour
     public LoseSequence loseSequence_;
     public EndWin endWin_;
     public RefillGrid refillGrid;
+    public RotateGoldenCards rotateGoldenCards;
+    public FlipCards flipCards;
+    public JumpCards jumpCards;
+
     [Header("Win Data")]
     [SerializeField] private WinType currentWinType;
     [SerializeField] private bool isWin = false;
@@ -253,6 +257,45 @@ public class WinLoseManager : MonoBehaviour
                 WinningCards.AddRange(tempWildCards);
             }
         }
+    }
+
+    public void EndTheWinSequence ( List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
+        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+    {
+        StartCoroutine(endWin(remainingGoldenCards , remainingBigJokerCards , OnComplete));
+    }
+
+    private IEnumerator endWin ( List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
+        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+    {
+        yield return new WaitWhile(() => !winSequence_.IsWinSequenceDone());
+
+        yield return StartCoroutine(refillGrid.RefillTheGrid());
+        yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
+
+        yield return StartCoroutine(flipCards.flipBack(remainingGoldenCards , remainingBigJokerCards));
+
+        yield return new WaitWhile(() => gridManager.IsGridRefilling());
+        yield return new WaitWhile(() => winSequence_.IsFlipping());
+        //Debug.Log($"is grid reflling! : {gridManager.IsGridRefilling()}");
+        WinSequence winSequence = GetComponent<WinSequence>();
+        //Debug.Log($"remaining Big joker cards {remainingBigJokerCards.Count}");
+        if (remainingBigJokerCards != null)
+        {
+            //Debug.Log("List is not null");
+            if (remainingBigJokerCards.Count > 0)
+            {
+                yield return StartCoroutine(flipCards.JumpBigJokerCards(remainingBigJokerCards));
+            }
+        }
+
+        //Debug.Log("Grid Refilled");
+        isWin = false;
+        OnComplete?.Invoke();
+
+        yield return new WaitForSeconds(.5f);
+        isWinSequenceRunning = false;
+        yield return StartCoroutine(RecheckWin());
     }
 
     public bool IsWinSequencerunning ()

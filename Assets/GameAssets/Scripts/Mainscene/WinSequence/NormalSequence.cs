@@ -14,8 +14,12 @@ public class NormalSequence : MonoBehaviour
         winSequence = GetComponentInParent<WinSequence>();
     }
 
-    public IEnumerator NormalCompletionSequence ( List<GameObject> occuppiedSlots , List<winCardData> winningCards , List<GameObject> remainingCards , 
-        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null , List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+    public IEnumerator NormalCompletionSequence ( 
+        List<GameObject> occuppiedSlots , 
+        List<winCardData> winningCards , 
+        List<GameObject> remainingCards , 
+        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null , 
+        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
     {
         winLoseManager.ClearWinningCards();
         yield return new WaitForSeconds(.25f);

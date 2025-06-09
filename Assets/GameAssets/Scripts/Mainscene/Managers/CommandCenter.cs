@@ -31,6 +31,7 @@ public class CommandCenter : MonoBehaviour
     public GridManager gridManager_;
     public FeatureManager featureManager_;
     public WinLoseManager winLoseManager_;
+    public FreeSpinManager freeSpinManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)

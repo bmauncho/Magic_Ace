@@ -29,7 +29,7 @@ public class RefillGrid : MonoBehaviour
         Debug.Log("Refill Grid");
         apiManager.refillApi.FetchData();
         yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
-        //gridManager.RefillGrid();
+        gridManager.RefillGrid();
         yield return new WaitForSeconds(.1f);
         yield return null;
     }

@@ -27,6 +27,7 @@ public class CannonData
 public class TopBanner : MonoBehaviour
 {
     [Header("Cannon Data")]
+    public Image BackGround;
     public CannonData [] cannons;
     int activeIndex = -1;
     public void UpdateCanon(cannonType cannonType,Multipliers multipliers,

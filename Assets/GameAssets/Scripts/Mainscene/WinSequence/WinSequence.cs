@@ -290,8 +290,14 @@ public class WinSequence : MonoBehaviour
             //playwild effect
             ActivateWinBg();
 
-            //yield return StartCoroutine(WildCardsSequnce(newRemainingWildCards , newOccupiedSlots , winningCards , remainingCards , 
-            //    remainingGoldenCards , remainingBigJokerCards , OnComplete));
+            yield return StartCoroutine(winLoseManager.wildSequnce_.WildCardsSequnce(
+                newRemainingWildCards , 
+                newOccupiedSlots , 
+                winningCards , 
+                remainingCards ,
+                remainingGoldenCards , 
+                remainingBigJokerCards , 
+                OnComplete));
         }
     }
 
@@ -326,7 +332,9 @@ public class WinSequence : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator HideCards ( List<GameObject> cardsToHide , List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , List<GameObject> remainingBigJokerCards )
+    private IEnumerator HideCards ( List<GameObject> cardsToHide 
+        , List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , 
+        List<GameObject> remainingBigJokerCards )
     {
         //hide cards from the grid
         //return the cards to the pool
@@ -363,7 +371,7 @@ public class WinSequence : MonoBehaviour
 
         if (remainingGoldenCards.Count > 0)
         {
-            //yield return StartCoroutine(rotateGoldenCards(remainingGoldenCards , remainingBigJokerCards));
+            yield return StartCoroutine(winLoseManager.rotateGoldenCards.rotateGoldenCards(remainingGoldenCards , remainingBigJokerCards));
         }
         yield return null;
     }
@@ -388,5 +396,19 @@ public class WinSequence : MonoBehaviour
     public void SetIsWinSequence ( bool isActive )
     {
         isWinSequenceDone = isActive;
+    }
+
+    public void SetIsFlipping ( bool isActive )
+    {
+        isFlipping = isActive;
+    }
+
+    public bool IsWinSequenceDone ()
+    {
+        return isWinSequenceDone;
+    }
+    public bool IsFlipping ()
+    {
+        return isFlipping;
     }
 }
