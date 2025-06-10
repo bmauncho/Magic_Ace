@@ -32,12 +32,7 @@ public class FreeSpinManager : MonoBehaviour
 
     private IEnumerator FreeSpinIntro ()
     {
-
-        CanvasGroup canvasGroup = freeSpinIntro.GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 0;
-        Tween myTween = canvasGroup.DOFade(1 , 0.5f);
-        yield return new WaitForSeconds(0.25f);
-        //
+        yield return StartCoroutine(freeSpinIntro.ShowFreeSpinIntro());
         OnFreeSpinIntroComplete?.Invoke();
     }
 
