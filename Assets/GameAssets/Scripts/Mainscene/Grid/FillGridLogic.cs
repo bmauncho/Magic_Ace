@@ -88,6 +88,10 @@ public class FillGridLogic : MonoBehaviour
             yield return null;
 
         Debug.Log("all animations Done!");
+        CommandCenter.Instance.winLoseManager_.WinLoseSequence(()=>
+        {
+            Debug.Log("WinLoseSequence completed");
+        });
     }
 
     public IEnumerator quickfillGrid ( List<CardPos> CardSlots )
@@ -118,6 +122,10 @@ public class FillGridLogic : MonoBehaviour
         // Wait until all animations are completed
         while (activeAnimations > 0)
             yield return null;
+        CommandCenter.Instance.winLoseManager_.WinLoseSequence(() =>
+        {
+            Debug.Log("WinLoseSequence completed");
+        });
     }
 
     public IEnumerator turbofillGrid ( List<CardPos> CardSlots)
@@ -150,6 +158,10 @@ public class FillGridLogic : MonoBehaviour
         // Wait until all animations are completed
         while (activeAnimations > 0)
             yield return null;
+        CommandCenter.Instance.winLoseManager_.WinLoseSequence(() =>
+        {
+            Debug.Log("WinLoseSequence completed");
+        });
     }
 
     // Separate coroutine to handle individual delays

@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class RefillGrid : MonoBehaviour
 {
+    WinLoseManager winloseManager;
     APIManager apiManager;
     GridManager gridManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        winloseManager = CommandCenter.Instance.winLoseManager_;
         apiManager = CommandCenter.Instance.apiManager_;
         gridManager = CommandCenter.Instance.gridManager_;
     }
@@ -29,7 +31,11 @@ public class RefillGrid : MonoBehaviour
         Debug.Log("Refill Grid");
         apiManager.refillApi.FetchData();
         yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
-        gridManager.RefillGrid();
+        if(winloseManager.GetWinType() == WinType.Normal 
+            ||winloseManager.GetWinType() == WinType.Both )
+        {
+            gridManager.RefillGrid();
+        }
         yield return new WaitForSeconds(.1f);
         yield return null;
     }

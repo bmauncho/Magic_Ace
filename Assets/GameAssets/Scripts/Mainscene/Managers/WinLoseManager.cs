@@ -113,6 +113,7 @@ public class WinLoseManager : MonoBehaviour
         isWinSequenceRunning = true;
 
         Debug.Log("Handle Win");
+        yield return StartCoroutine(winSequence_.WinEffect(WinningCards, OnComplete));
 
         yield return null;
     }  
@@ -170,6 +171,7 @@ public class WinLoseManager : MonoBehaviour
 
     public IEnumerator RecheckWin ()
     {
+        Debug.Log("recheckWin");
         ClearWinningCards();
         if (IsPlayerWin())
         {
@@ -295,7 +297,56 @@ public class WinLoseManager : MonoBehaviour
 
         yield return new WaitForSeconds(.5f);
         isWinSequenceRunning = false;
-        yield return StartCoroutine(RecheckWin());
+        if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+        {
+            CommandCenter.Instance.SetGameType(GameType.Free);
+            if (CommandCenter.Instance.freeSpinManager_.IsFreeGameWin())
+            {
+                //Debug.Log("Free game win");
+                CommandCenter.Instance.freeSpinManager_.ShowStartBtn();
+                CommandCenter.Instance.featureManager_.GetFeatureBuyMenu().ResetOptions();
+                yield break;
+            }
+            else
+            {
+                if (CommandCenter.Instance.freeSpinManager_.IsFreeSpinRetrigger())
+                {
+                    //Debug.Log("Free game Retrigger!");
+                    CommandCenter.Instance.gridManager_.checkForWinings();
+                    yield break;
+                }
+                else
+                {
+                    ClearWinningCards();
+                    if (IsPlayerWin())
+                    {
+                        //Debug.Log("Recheck win - free Game");
+                        yield return StartCoroutine(RecheckWin());
+                    }
+                    else
+                    {
+                        //Debug.Log("Recheck Lose!-free Game");
+                        if (CommandCenter.Instance.freeSpinManager_.IsFreeSpinDone())
+                        {
+                            yield return new WaitForSeconds(1f);
+                            CommandCenter.Instance.gridManager_.checkForWinings();
+                        }
+                        else
+                        {
+                            // Debug.Log("Recheck Lose!-free Game - 2");
+                            StartCoroutine(loseSequence());
+                            yield break;
+                        }
+
+                    }
+                }
+
+            }
+        }
+        else
+        {
+            yield return StartCoroutine(RecheckWin());
+        }
     }
 
     public bool IsWinSequencerunning ()

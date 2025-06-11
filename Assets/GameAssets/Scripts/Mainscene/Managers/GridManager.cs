@@ -233,7 +233,7 @@ public class GridManager : MonoBehaviour
             }
             else
             {
-                Debug.LogError("Not enough available slots to place all the cards.");
+                Debug.LogWarning("Not enough available slots to place all the cards.");
                 return false;
 
             }
@@ -368,7 +368,7 @@ public class GridManager : MonoBehaviour
 
     public void checkForWinings ()
     {
-
+        GetComponentInChildren<CheckForWinnings>().checkForWinings();
     }
 
     public void SetIsRefilling ( bool isRefilling_ )

@@ -64,7 +64,6 @@ public class MainMenuController : MonoBehaviour
 
     public void Spin ()
     {
-        //CommandCenter.Instance.spinManager_.Spin();
-        //CommandCenter.Instance.soundManager_.PlaySound("Base_Spin");
+        CommandCenter.Instance.spinManager_.Spin();
     }
 }

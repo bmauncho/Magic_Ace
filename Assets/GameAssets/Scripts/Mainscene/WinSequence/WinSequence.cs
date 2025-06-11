@@ -43,12 +43,7 @@ public class WinSequence : MonoBehaviour
         yield return StartCoroutine(MoveCardsToWinSlots(WinningCards , OccuppiedSlots));
 
         CommandCenter.Instance.comboManager_.ShowCombo();
-        int combo = CommandCenter.Instance.comboManager_.GetCombo();
-        if (combo > 1)
-        {
-            //show multiplier
-
-        }
+        //show multiplier
         //play win effect
         yield return StartCoroutine(PlayWinEffect(WinningCards , OccuppiedSlots , OnComplete));
 
@@ -238,24 +233,41 @@ public class WinSequence : MonoBehaviour
         //Debug.Log("WinType: " + winLoseManager.GetWinType());
         if (winLoseManager.GetWinType() == WinType.Normal)
         {
-            yield return StartCoroutine(HideCards(cardsToHide , remainingGoldenCards , remainingBigJokerCards));
-            NormalSequence normalSequence = GetComponentInChildren<NormalSequence>();
-            //yield return StartCoroutine(normalSequence.NormalCompletionSequence(newOccupiedSlots , winningCards , remainingCards ,
-            //    remainingGoldenCards , remainingBigJokerCards , OnComplete));
+            yield return StartCoroutine(
+                HideCards(
+                    cardsToHide , 
+                    remainingGoldenCards , 
+                    remainingBigJokerCards));
+
+            NormalSequence normalSequence = winLoseManager.normalSequence_;
+            yield return StartCoroutine(
+                normalSequence.NormalCompletionSequence(
+                    newOccupiedSlots , 
+                    winningCards , 
+                    remainingCards , 
+                    remainingGoldenCards , 
+                    remainingBigJokerCards , 
+                    OnComplete));
         }
         else if (winLoseManager.GetWinType() == WinType.Wild)
         {
             //play wildeffect
-            //yield return StartCoroutine(WildCardsSequnce(remainingWildCards , newOccupiedSlots , winningCards , remainingCards ,
-            //    remainingGoldenCards , remainingBigJokerCards , OnComplete));
+            yield return StartCoroutine(
+                winLoseManager.wildSequnce_.WildCardsSequnce(
+                    remainingWildCards , 
+                    newOccupiedSlots , 
+                    winningCards , 
+                    remainingCards , 
+                    remainingGoldenCards , 
+                    remainingBigJokerCards , 
+                    OnComplete));
         }
         else if (winLoseManager.GetWinType() == WinType.Both)
         {
             yield return StartCoroutine(HideCards(cardsToHide , remainingGoldenCards , remainingBigJokerCards));
 
             //refill the hidden Cards
-            //NormalWildSequence normalWildSequence = GetComponentInChildren<NormalWildSequence>();
-            //yield return StartCoroutine(normalWildSequence.NormalWildCompletionSequence(winningCards));
+            yield return StartCoroutine(winLoseManager.wildSequnce_.NormalWildCompletionSequence(winningCards));
 
             if (remainingBigJokerCards != null && remainingBigJokerCards.Count > 0)
             {
@@ -309,7 +321,7 @@ public class WinSequence : MonoBehaviour
             yield break;
         }
         List<CardPos> CardSlots = new List<CardPos>(gridManager.GetGridCards());
-        List<CardPos> winCardSlots = new List<CardPos>(GetComponent<WinLoseManager>().GetWinCardSlots());
+        List<CardPos> winCardSlots = new List<CardPos>(winLoseManager.GetWinCardSlots());
 
         for (int i = 0 ; i < remainingCards.Count ; i++)
         {
@@ -344,7 +356,7 @@ public class WinSequence : MonoBehaviour
         {
             yield break;
         }
-        List<CardPos> winCardSlots = new List<CardPos>(GetComponent<WinLoseManager>().GetWinCardSlots());
+        List<CardPos> winCardSlots = new List<CardPos>(winLoseManager.GetWinCardSlots());
         List<CardPos> CardSlots = new List<CardPos>(gridManager.GetGridCards());
         List<(int row, int col)> Keys = new List<(int row, int col)>();
         for (int i = 0 ; i < cardsToHide.Count ; i++)
@@ -379,7 +391,7 @@ public class WinSequence : MonoBehaviour
     public void clearWinSlots ()
     {
         //clear remaining cards in winslots
-        List<CardPos> winCardSlots = new List<CardPos>(GetComponent<WinLoseManager>().GetWinCardSlots());
+        List<CardPos> winCardSlots = new List<CardPos>(winLoseManager.GetWinCardSlots());
         for (int col = 0 ; col < winCardSlots.Count ; col++)
         {
             for (int row = 0 ; row < winCardSlots [col].CardPosInRow.Count ; row++)

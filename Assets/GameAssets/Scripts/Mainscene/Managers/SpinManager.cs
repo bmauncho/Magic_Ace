@@ -166,6 +166,7 @@ public class SpinManager : MonoBehaviour
     }
     public void enableButtons ()
     {
+        Debug.Log("enable Buttons!");
         for (int i = 0 ; i < Buttons.Length ; i++)
         {
             Button btn = Buttons [i].GetComponentInChildren<Button>();

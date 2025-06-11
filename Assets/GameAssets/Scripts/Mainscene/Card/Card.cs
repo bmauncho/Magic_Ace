@@ -32,6 +32,11 @@ public class Card : MonoBehaviour
 
 
     public Action OnWildAnimComplete;
+
+    private void OnEnable ()
+    {
+        transform.localScale = Vector3.one;
+    }
     #region
     void FixedUpdate ()
     {

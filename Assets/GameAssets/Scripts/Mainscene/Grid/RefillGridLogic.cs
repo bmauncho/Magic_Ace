@@ -47,6 +47,8 @@ public class RefillGridLogic : MonoBehaviour
 
         while (activeAnimations > 0)
             yield return null;
+
+        CommandCenter.Instance.gridManager_.SetIsRefilling(false);
     }
 
     public IEnumerator quickRefillGrid ( List<CardPos> CardSlots )
@@ -89,6 +91,8 @@ public class RefillGridLogic : MonoBehaviour
         // Wait until all animations are completed
         while (activeAnimations > 0)
             yield return null;
+
+        CommandCenter.Instance.gridManager_.SetIsRefilling(false);
     }
 
     public IEnumerator turboRefillGrid ( List<CardPos> CardSlots )
@@ -132,6 +136,7 @@ public class RefillGridLogic : MonoBehaviour
         // Wait until all animations are completed
         while (activeAnimations > 0)
             yield return null;
+        CommandCenter.Instance.gridManager_.SetIsRefilling(false);
     }
 
     // Separate coroutine to handle individual delays

@@ -10,7 +10,6 @@ public class DemoCheckWin : MonoBehaviour
 
         List<CardPos> Cards = new List<CardPos>(CommandCenter.Instance.gridManager_.GetGridCards());
         GetComponentInParent<WinLoseManager>().ClearWinningCards();
-        Debug.Log(Cards.Count);
         HashSet<string> allTypes = GetAllCardTypes(Cards , rowCount , colCount);
         Dictionary<int , bool> wildCols = GetWildColumns(Cards , rowCount , colCount);
 

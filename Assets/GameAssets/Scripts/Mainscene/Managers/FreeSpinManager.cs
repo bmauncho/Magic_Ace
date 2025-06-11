@@ -13,6 +13,7 @@ public class FreeSpinManager : MonoBehaviour
     [SerializeField] private bool isFreeGame;
     [SerializeField] private bool isFreeSpinRetrigger;
     [SerializeField] private bool isFreeSpinGameStarted;
+    [SerializeField] private bool isFreeSpinDone;
     [Header("Free spin references")]
     public FreeSpinIntro freeSpinIntro;
     public FreeSpinRetrigger freeSpinRetrigger;
@@ -37,20 +38,20 @@ public class FreeSpinManager : MonoBehaviour
     }
 
     [ContextMenu("Show FreeSpinRetrigger")]
-    public void ShowFreeSpeinRetrigger ()
+    public void ShowFreeSpinRetrigger ()
     {
         isFreeSpinRetrigger = true;
-
         StartCoroutine(FreeSpinRetrigger());
     }
 
     private IEnumerator FreeSpinRetrigger ()
     {
+        freeSpinRetrigger.animator_.Rebind();
+        freeSpinRetrigger.gameObject.SetActive(true);
         CanvasGroup canvasGroup = freeSpinRetrigger.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
         Tween myTween = canvasGroup.DOFade(1 , 0.5f);
-        yield return new WaitForSeconds(0.25f);
-        //
+        yield return StartCoroutine(freeSpinRetrigger.retriggerFreeSpin());
         OnFreeSpinIntroComplete?.Invoke();
     }
 
@@ -62,12 +63,29 @@ public class FreeSpinManager : MonoBehaviour
 
     private IEnumerator FreeSpinTotalWin ()
     {
-        CanvasGroup canvasGroup = freeSpinRetrigger.GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 0;
-        Tween myTween = canvasGroup.DOFade(1 , 0.5f);
-        yield return new WaitForSeconds(0.25f);
-        //
+        freeSpinTotalWin.gameObject.SetActive(true);
+        yield return StartCoroutine (freeSpinTotalWin.showTotalWin());
         OnFreeSpinIntroComplete?.Invoke();
+    }
+
+    public void ShowStartBtn ()
+    {
+        freeSpinIntro.StartBtn.SetActive(true);
+    }
+
+    public void HideStartBtn ()
+    {
+        freeSpinIntro.StartBtn.SetActive(false);
+    }
+
+    public void StartFreeGame ()
+    {
+        freeSpinIntro.DeactivateFreeIntro();
+        CommandCenter.Instance.uiManager_.ShowFreeGameUI();
+    }
+    public bool IsFreeGame ()
+    {
+        return isFreeGame;
     }
 
     public bool IsFreeSpinGameStarted ()
@@ -83,6 +101,11 @@ public class FreeSpinManager : MonoBehaviour
     public bool IsFreeGameWin ()
     {
         return isFreeGameWin;
+    }
+
+    public bool IsFreeSpinDone ()
+    {
+        return isFreeSpinDone;
     }
 
 }

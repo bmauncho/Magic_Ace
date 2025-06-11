@@ -11,7 +11,7 @@ public class NormalSequence : MonoBehaviour
     void Start ()
     {
         winLoseManager = GetComponentInParent<WinLoseManager>();
-        winSequence = GetComponentInParent<WinSequence>();
+        winSequence = winLoseManager.winSequence_;
     }
 
     public IEnumerator NormalCompletionSequence ( 

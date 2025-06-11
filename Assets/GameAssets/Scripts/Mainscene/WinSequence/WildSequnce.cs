@@ -11,7 +11,7 @@ public class WildSequnce : MonoBehaviour
     void Start ()
     {
         winLoseManager = GetComponentInParent<WinLoseManager>();
-        winSequence = GetComponentInParent<WinSequence>();
+        winSequence = winLoseManager.winSequence_;
     }
 
     public IEnumerator WildCardsSequnce ( 
@@ -25,20 +25,37 @@ public class WildSequnce : MonoBehaviour
         //play wild card effect
         //show FreeSpin intro
         //Activate freeSpin
-        //Debug.Log("Play Wild Card Effect");
-        int activeCoroutines = wildCards.Count;
-        if (wildCards.Count >= 3)
-        {
-            for (int i = 0 ; i < wildCards.Count ; i++)
-            {
-                wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
-            }
-        }
+
+        //int activeCoroutines = wildCards.Count;
+        //if (wildCards.Count >= 3)
+        //{
+        //    for (int i = 0 ; i < wildCards.Count ; i++)
+        //    {
+        //        wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
+        //    }
+        //}
 
 
-        yield return new WaitUntil(() => activeCoroutines <= 0);
-        // Debug.Log("Show Free Spin Intro");
+        //yield return new WaitUntil(() => activeCoroutines <= 0);
+
         //show free spin intro
+        FreeSpinManager freeSpinManager = CommandCenter.Instance.freeSpinManager_;
+        if(CommandCenter.Instance.gameType != GameType.Free)
+        {
+            CommandCenter.Instance.cardManager_.SetWildChance(0.005f);
+            bool isFreeSpinIntroComplete = false;
+            freeSpinManager.ShowFreeSpinIntro();
+            freeSpinManager.OnFreeSpinIntroComplete += () => isFreeSpinIntroComplete = true;
+            yield return new WaitUntil(() => isFreeSpinIntroComplete);
+        }
+        else
+        {
+            //show Retrigger
+            bool isFreeSpinRetriggerComplete = false;
+            freeSpinManager.ShowFreeSpinRetrigger();
+            freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
+            yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
+        }
         //activate free spin
         StartCoroutine(WildCompletionSequence(occuppiedSlots , winningCards , remainingCards , remainingGoldenCards , remainingBigJokerCards));
         yield return null;
@@ -71,6 +88,18 @@ public class WildSequnce : MonoBehaviour
         winSequence.SetIsWinSequence(true);
 
         winLoseManager.EndTheWinSequence(remainingGoldenCards , remainingBigJokerCards , OnComplete);
+        yield return null;
+    }
+
+    public IEnumerator NormalWildCompletionSequence ( List<winCardData> winningCards )
+    {
+        yield return new WaitForSeconds(.25f);
+        winSequence.DeactivateWinBg();
+
+        yield return StartCoroutine(winLoseManager.refillGrid.RefillTheGrid());
+
+        yield return new WaitWhile(() => CommandCenter.Instance.gridManager_.IsGridRefilling());
+
         yield return null;
     }
 }
