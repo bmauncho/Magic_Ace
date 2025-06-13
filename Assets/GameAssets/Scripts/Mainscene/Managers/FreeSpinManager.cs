@@ -8,7 +8,7 @@ public class FreeSpinManager : MonoBehaviour
 {
     [SerializeField] private int FreeSpins;
     [SerializeField] private int scatterCards;
-    [SerializeField] private int retriggeScatterCards;
+    [SerializeField] private int retriggerScatterCards;
     [SerializeField] private bool isFreeGameWin;
     [SerializeField] private bool isFreeGame;
     [SerializeField] private bool isFreeSpinRetrigger;
@@ -18,16 +18,17 @@ public class FreeSpinManager : MonoBehaviour
     public FreeSpinIntro freeSpinIntro;
     public FreeSpinRetrigger freeSpinRetrigger;
     public FreeSpinTotalWin freeSpinTotalWin;
+    public FreeSpinUI freeSpinUI;
 
     public Action OnFreeSpinIntroComplete;
     public Action OnFreeSpinRetriggerComplete;
+    public Action OnFreeSpinComplete;
 
     [ContextMenu("Show FreeSpinIntro")]
     public void ShowFreeSpinIntro ()
     {
         isFreeGameWin = true;
         isFreeGame = true;
-
         StartCoroutine(FreeSpinIntro());
     }
 
@@ -41,6 +42,7 @@ public class FreeSpinManager : MonoBehaviour
     public void ShowFreeSpinRetrigger ()
     {
         isFreeSpinRetrigger = true;
+
         StartCoroutine(FreeSpinRetrigger());
     }
 
@@ -65,7 +67,7 @@ public class FreeSpinManager : MonoBehaviour
     {
         freeSpinTotalWin.gameObject.SetActive(true);
         yield return StartCoroutine (freeSpinTotalWin.showTotalWin());
-        OnFreeSpinIntroComplete?.Invoke();
+        OnFreeSpinComplete?.Invoke();
     }
 
     public void ShowStartBtn ()
@@ -82,30 +84,84 @@ public class FreeSpinManager : MonoBehaviour
     {
         freeSpinIntro.DeactivateFreeIntro();
         CommandCenter.Instance.uiManager_.ShowFreeGameUI();
+        CommandCenter.Instance.spinManager_.SetCanSpin(true);
+        StartCoroutine(DelayStart());
     }
+
+    IEnumerator DelayStart ()
+    {
+        yield return new WaitForSeconds(1f);
+        CommandCenter.Instance.spinManager_.Spin();
+    }
+
+    public void SetFreeSpins (int value)
+    {
+        FreeSpins += value;
+        freeSpinUI.SetTotalSpins(FreeSpins);
+    }
+
+    public void UpdateFreeSpins ()
+    {
+        if (FreeSpins > 0)
+        {
+            FreeSpins--;
+        }
+        freeSpinUI.UpdateFreeSpinCount(FreeSpins);
+    }
+
     public bool IsFreeGame ()
     {
         return isFreeGame;
     }
-
     public bool IsFreeSpinGameStarted ()
     {
         return isFreeSpinGameStarted;
     }
-
+   
     public bool IsFreeSpinRetrigger ()
     {
         return isFreeSpinRetrigger;
     }
-
+   
     public bool IsFreeGameWin ()
     {
         return isFreeGameWin;
     }
-
+   
     public bool IsFreeSpinDone ()
     {
+        if (FreeSpins <= 0)
+        {
+            isFreeSpinDone = true;
+        }
+        else
+        {
+            isFreeSpinDone = false;
+        }
         return isFreeSpinDone;
     }
+   
+    public void SetIsFreeGameStarted ( bool value )
+    {
+        isFreeSpinGameStarted = value;
+    }
 
+    public void SetIsFreeSpinRetrigger ( bool value )
+    {
+        isFreeSpinRetrigger = value;
+    }
+
+    public void SetIsFreeGameWin ( bool value )
+    {
+        isFreeGameWin = value;
+    }
+
+    public void SetIsFreeSpinDone ( bool value )
+    {
+        isFreeSpinDone = value;
+    }
+    public void SetIsFreeGame ( bool value )
+    {
+        isFreeGame = value;
+    }
 }

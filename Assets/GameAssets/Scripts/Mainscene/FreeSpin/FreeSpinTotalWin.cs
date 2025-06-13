@@ -109,7 +109,6 @@ public class FreeSpinTotalWin : MonoBehaviour
     {
         yield return new WaitWhile(() => isAnimating);
         isFreeSpinWinUIDone = true;
-
         yield return new WaitForSeconds(1f);
         Content.SetActive(false);
         this.gameObject.SetActive(false);

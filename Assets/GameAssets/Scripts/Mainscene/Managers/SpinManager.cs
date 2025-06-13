@@ -130,15 +130,15 @@ public class SpinManager : MonoBehaviour
     {
         Debug.Log("spin");
         if (!CanSpin) { return; }
-        //Debug.Log("Can spin");
+        Debug.Log("Can spin");
         if (CommandCenter.Instance.gridManager_.IsRefreshingGrid()) { return; }
-        //Debug.Log("1");
+        Debug.Log("1");
         if (CommandCenter.Instance.gridManager_.IsGridRefilling()) { return; }
-        // Debug.Log("2");
+        Debug.Log("2");
         if (CommandCenter.Instance.gridManager_.IsCascading()) { return; }
-        //Debug.Log("3");
+        Debug.Log("3");
         if (!CommandCenter.Instance.gridManager_.IsNormalWinSequenceDone()) { return; }
-        //Debug.Log("4");
+        Debug.Log("4");
         if (CanSpin)
         {
             ActivateFillSpin();

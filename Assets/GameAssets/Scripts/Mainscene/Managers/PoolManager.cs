@@ -35,7 +35,7 @@ public class PoolManager : MonoBehaviour
 
     private void InitializePool ( PoolConfig config )
     {
-        Queue<GameObject> queue = new Queue<GameObject>();
+        Queue<GameObject> queue = new();
         for (int i = 0 ; i < config.initialSize ; i++)
         {
             GameObject obj = Instantiate(config.prefab , config.parent);
@@ -75,8 +75,9 @@ public class PoolManager : MonoBehaviour
 
         GameObject obj = pool.Dequeue();
         obj.transform.SetPositionAndRotation(position , rotation);
+        obj.transform.localScale = Vector3.one;
         obj.SetActive(true);
-        if (parent != null) obj.transform.SetParent(parent);
+        obj.transform.SetParent(parent ?? config.parent , worldPositionStays: true);
         return obj;
     }
 
@@ -88,12 +89,12 @@ public class PoolManager : MonoBehaviour
             Destroy(obj);
             return;
         }
-        Transform Parent = GetParent(key);
-        obj.transform.SetParent(Parent);
+
+        obj.SetActive(false);
+        obj.transform.SetParent(configLookup [key].parent , worldPositionStays: false);
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localRotation = Quaternion.identity;
         obj.transform.localScale = Vector3.one;
-        obj.SetActive(false);
         pools [key].Enqueue(obj);
     }
 
@@ -105,7 +106,7 @@ public class PoolManager : MonoBehaviour
 
         for (int i = 0 ; i < toAdd ; i++)
         {
-            GameObject obj = Instantiate(config.prefab , transform);
+            GameObject obj = Instantiate(config.prefab , config.parent);
             obj.name = $"{key}_{currentCount + i}";
             obj.SetActive(false);
             pool.Enqueue(obj);
@@ -114,19 +115,11 @@ public class PoolManager : MonoBehaviour
         totalCountLookup [key] += toAdd;
     }
 
-    private Transform GetParent (PoolType pooltype)
+    private Transform GetParent ( PoolType pooltype )
     {
+        if (configLookup.TryGetValue(pooltype , out var config))
+            return config.parent;
 
-        if(pooltype == PoolType.Cards)
-        {
-            return configLookup [PoolType.Cards].parent;
-        }
-
-        if(pooltype == PoolType.Fx)
-        {
-            return configLookup [PoolType.Fx].parent;
-        }
-       
         return transform;
     }
 }

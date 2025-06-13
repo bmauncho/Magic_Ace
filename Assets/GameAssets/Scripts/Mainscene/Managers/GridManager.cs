@@ -274,10 +274,10 @@ public class GridManager : MonoBehaviour
         if (isFirstTime)
             isFirstTime = false;
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
-        yield return new WaitForSeconds(.25f);
-        //return cards to slots
-        yield return new WaitForSeconds(.25f);
-        // Check for win
+        if(CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+        {
+            CommandCenter.Instance.freeSpinManager_.UpdateFreeSpins();
+        }
         yield return null;
     }
 

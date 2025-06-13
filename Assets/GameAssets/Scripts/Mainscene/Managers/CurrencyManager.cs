@@ -1,5 +1,7 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +24,7 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField] private Button DecreaseBet;
     [SerializeField] private ExtraBetMenu ExtraBetMenu_;
     public string TheBetAmount;
-
+    public BetLimitsInfo BetLimitsInfo;
     private Dictionary<string , string> baseToExtra = new Dictionary<string , string>
     {
         { "2", "3" },
@@ -180,6 +182,7 @@ public class CurrencyManager : MonoBehaviour
             for (int i = 0 ; i < BetAmount_.Length ; i++)
             {
                 BetAmount_ [i].text = BetAmount.ToString();
+                BetAmount_ [i].transform.DOPunchScale(new Vector3(0.25f , 0.25f , 0.25f) , 0.2f , 10 , 1);
             }
 
             UpdateBetButtons();
@@ -196,6 +199,7 @@ public class CurrencyManager : MonoBehaviour
             for (int i = 0 ; i < BetAmount_.Length ; i++)
             {
                 BetAmount_ [i].text = BetAmount.ToString();
+                BetAmount_ [i].transform.DOPunchScale(new Vector3(0.25f , 0.25f , 0.25f) , 0.2f , 10 , 1);
             }
 
             UpdateBetButtons();
@@ -244,6 +248,52 @@ public class CurrencyManager : MonoBehaviour
     {
         IncreaseBet.interactable = betIndex > 0;
         DecreaseBet.interactable = betIndex < betAmounts.Length - 1;
+        ShowBetLimits();
+    }
+
+    public void ShowBetLimits ()
+    {
+        if (betIndex >= betAmounts.Length - 1)
+        {
+            //show maximum bet limit
+            minimumBetLimit();
+           
+        }
+        else if(betIndex <= 0)
+        {
+            //show minimum bet limit
+            maximumBetLimit();
+        }
+    }
+
+    public void minimumBetLimit ()
+    {
+        string text = "Minimum Bet";
+        BetLimitsInfo.gameObject.SetActive(true);
+        if (BetLimitsInfo != null)
+        {
+            BetLimitsInfo.SetText(text);
+            StartCoroutine(BetLimitsInfo.bounce());
+        }
+        else
+        {
+            Debug.LogWarning("BetLimitsInfo is not assigned in the CurrencyManager.");
+        }
+    }
+
+    public void maximumBetLimit ()
+    {
+        BetLimitsInfo.gameObject.SetActive(true);
+        string text = "Maximum Bet";
+        if (BetLimitsInfo != null)
+        {
+            BetLimitsInfo.SetText(text);
+            StartCoroutine(BetLimitsInfo.bounce());
+        }
+        else
+        {
+            Debug.LogWarning("BetLimitsInfo is not assigned in the CurrencyManager.");
+        }
     }
 
     public void UpdateWinAmount ( double winAmount_ )

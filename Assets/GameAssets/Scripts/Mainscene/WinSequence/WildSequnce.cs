@@ -47,6 +47,7 @@ public class WildSequnce : MonoBehaviour
             freeSpinManager.ShowFreeSpinIntro();
             freeSpinManager.OnFreeSpinIntroComplete += () => isFreeSpinIntroComplete = true;
             yield return new WaitUntil(() => isFreeSpinIntroComplete);
+            CommandCenter.Instance.freeSpinManager_.SetFreeSpins(10);
         }
         else
         {
@@ -55,6 +56,7 @@ public class WildSequnce : MonoBehaviour
             freeSpinManager.ShowFreeSpinRetrigger();
             freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
             yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
+            CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
         }
         //activate free spin
         StartCoroutine(WildCompletionSequence(occuppiedSlots , winningCards , remainingCards , remainingGoldenCards , remainingBigJokerCards));
