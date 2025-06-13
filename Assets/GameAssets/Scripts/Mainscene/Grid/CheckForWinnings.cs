@@ -112,13 +112,26 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.freeSpinManager_.OnFreeSpinComplete += OnFreeSpinsComnplete;
                         yield return new WaitWhile(() => !isFreeSpinComplete);
                         CommandCenter.Instance.freeSpinManager_.OnFreeSpinComplete -= OnFreeSpinsReset;
-                        CommandCenter.Instance.freeSpinManager_.SetIsFreeSpinDone(true);
+                        Debug.Log("Free Spin Complete!");
                         CommandCenter.Instance.uiManager_.ShowNormalGameUI();
                         CommandCenter.Instance.comboManager_.HideCombo();
                         isCheckingForWins = false;
                         CommandCenter.Instance.SetGameType(GameType.Base);
+                        CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.Normal);
+                        CommandCenter.Instance.freeSpinManager_.SetIsFreeSpinDone(true);
+                        CommandCenter.Instance.freeSpinManager_.SetIsFreeGame(false);
                         CommandCenter.Instance.spinManager_.SetCanSpin(true);
+                        CommandCenter.Instance.freeSpinManager_.freeSpinUI.ResetFreeSpinCount();
                         CommandCenter.Instance.spinManager_.enableButtons();
+                        CommandCenter.Instance.multiplierManager_.ResetMultiplier();
+                        if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
+                        {
+                            CommandCenter.Instance.winLoseManager_.ClearWinningCards();
+                            CommandCenter.Instance.winLoseManager_.ResetWinType();
+                            yield return new WaitForSeconds(0.5f);
+                            CommandCenter.Instance.mainMenuController_.Spin();
+                        }
+
                     }
                     else
                     {
@@ -129,6 +142,7 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.winLoseManager_.ResetWinType();
                         isCheckingForWins = false;
                         CommandCenter.Instance.comboManager_.HideCombo();
+                        CommandCenter.Instance.multiplierManager_.ResetMultiplier();
                         yield return new WaitForSeconds(0.5f);
                         CommandCenter.Instance.spinManager_.Spin();
                         yield break;
@@ -147,31 +161,38 @@ public class CheckForWinnings : MonoBehaviour
         CommandCenter.Instance.winLoseManager_.ClearWinningCards();
         CommandCenter.Instance.winLoseManager_.ResetWinType();
         CommandCenter.Instance.comboManager_.HideCombo();
+        CommandCenter.Instance.multiplierManager_.ResetMultiplier();
         gridManager.setisNormalWnSequenceDone(true);
 
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
         {
-            CommandCenter.Instance.cardManager_.SetWildChance();
-            CommandCenter.Instance.featureManager_.ResetFeatures();
-            CommandCenter.Instance.featureManager_.GetFeatureBuyMenu().ResetOptions();
-
-            if (CommandCenter.Instance.autoSpinManager_.Spins() > 0)
-            {
-                CommandCenter.Instance.spinManager_.SetCanSpin(true);
-                CommandCenter.Instance.mainMenuController_.Spin();
-                CommandCenter.Instance.autoSpinManager_.ReduceSpins();
-            }
-            else if (CommandCenter.Instance.autoSpinManager_.Spins() <= 0)
-            {
-                CommandCenter.Instance.autoSpinManager_.DeactivateAutospin();
-                CommandCenter.Instance.mainMenuController_.ToggleAutoSpinMenu();
-            }
+           yield return StartCoroutine(Autospin());
         }
         else
         {
             CommandCenter.Instance.spinManager_.SetCanSpin(true);
         }
         isCheckingForWins = false;
+        yield return null;
+    }
+
+    IEnumerator Autospin ()
+    {
+        CommandCenter.Instance.cardManager_.SetWildChance();
+        CommandCenter.Instance.featureManager_.ResetFeatures();
+        CommandCenter.Instance.featureManager_.GetFeatureBuyMenu().ResetOptions();
+        CommandCenter.Instance.spinManager_.SetCanSpin(true);
+
+        if (CommandCenter.Instance.autoSpinManager_.Spins() > 0)
+        {
+            CommandCenter.Instance.mainMenuController_.Spin();
+        }
+        else if (CommandCenter.Instance.autoSpinManager_.Spins() <= 0)
+        {
+            CommandCenter.Instance.autoSpinManager_.DeactivateAutospin();
+            yield return new WaitForSeconds(0.5f);
+            CommandCenter.Instance.mainMenuController_.ToggleAutoSpinMenu();
+        }
         yield return null;
     }
 

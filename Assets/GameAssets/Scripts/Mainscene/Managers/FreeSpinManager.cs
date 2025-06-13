@@ -29,6 +29,7 @@ public class FreeSpinManager : MonoBehaviour
     {
         isFreeGameWin = true;
         isFreeGame = true;
+        CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.Free);
         StartCoroutine(FreeSpinIntro());
     }
 
@@ -67,6 +68,7 @@ public class FreeSpinManager : MonoBehaviour
     {
         freeSpinTotalWin.gameObject.SetActive(true);
         yield return StartCoroutine (freeSpinTotalWin.showTotalWin());
+        freeSpinTotalWin.gameObject.SetActive(false);
         OnFreeSpinComplete?.Invoke();
     }
 

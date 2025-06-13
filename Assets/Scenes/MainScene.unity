@@ -14081,6 +14081,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 4
+  DeckSize: 0
+  TotalDeckCards: []
 --- !u!1 &407529779
 GameObject:
   m_ObjectHideFlags: 0
@@ -27263,7 +27265,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FreeSpins: 0
   scatterCards: 0
-  retriggeScatterCards: 0
+  retriggerScatterCards: 0
   isFreeGameWin: 0
   isFreeGame: 0
   isFreeSpinRetrigger: 0
@@ -29362,6 +29364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 4
+  DeckSize: 0
+  TotalDeckCards: []
 --- !u!1 &934559247
 GameObject:
   m_ObjectHideFlags: 0
@@ -38624,6 +38628,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 4
+  DeckSize: 0
+  TotalDeckCards: []
 --- !u!1 &1204307132
 GameObject:
   m_ObjectHideFlags: 0
@@ -46941,9 +46947,9 @@ MonoBehaviour:
     card: {fileID: 21300000, guid: e82bd4703c9374921a27ab2bf98b8b3d, type: 3}
   goldenChance: 0.2
   wildChance: 0.1
-  smalljokerChance: 0.1
-  bigjokerChance: 0.05
-  SuperjokerChance: 0.025
+  smalljokerChance: 0
+  bigjokerChance: 0.3
+  SuperjokerChance: 0
   cardWeights: []
 --- !u!1 &1437270931
 GameObject:
@@ -54666,6 +54672,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 4
+  DeckSize: 0
+  TotalDeckCards: []
 --- !u!1 &1682362460
 GameObject:
   m_ObjectHideFlags: 0
@@ -62707,6 +62715,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   capacity: 4
+  DeckSize: 0
+  TotalDeckCards: []
 --- !u!1 &1945480287
 GameObject:
   m_ObjectHideFlags: 0
@@ -69940,6 +69950,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2818cdb9922a84742a34d231ddbcd00a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isCheckingForWins: 0
+  freeSpinRetriggerComplete: 0
+  isFreeSpinComplete: 0
 --- !u!1 &2129588469
 GameObject:
   m_ObjectHideFlags: 0

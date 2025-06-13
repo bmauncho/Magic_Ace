@@ -278,6 +278,15 @@ public class GridManager : MonoBehaviour
         {
             CommandCenter.Instance.freeSpinManager_.UpdateFreeSpins();
         }
+        else
+        {
+            if(CommandCenter.Instance.autoSpinManager_.isAutoSpin()
+                && CommandCenter.Instance.autoSpinManager_.Spins()>0)
+            {
+                CommandCenter.Instance.autoSpinManager_.ReduceSpins();
+            }
+        }
+
         yield return null;
     }
 
@@ -293,7 +302,18 @@ public class GridManager : MonoBehaviour
         }
         Debug.Log("all animations Done!");
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
-        yield return new WaitForSeconds(.5f);
+        if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+        {
+            CommandCenter.Instance.freeSpinManager_.UpdateFreeSpins();
+        }
+        else
+        {
+            if (CommandCenter.Instance.autoSpinManager_.isAutoSpin()
+                && CommandCenter.Instance.autoSpinManager_.Spins() > 0)
+            {
+                CommandCenter.Instance.autoSpinManager_.ReduceSpins();
+            }
+        }
     }
 
     public IEnumerator TurboFill ()
@@ -306,7 +326,18 @@ public class GridManager : MonoBehaviour
         }
         Debug.Log("all animations Done!");
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
-        yield return new WaitForSeconds(.5f);
+        if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+        {
+            CommandCenter.Instance.freeSpinManager_.UpdateFreeSpins();
+        }
+        else
+        {
+            if (CommandCenter.Instance.autoSpinManager_.isAutoSpin()
+                && CommandCenter.Instance.autoSpinManager_.Spins() > 0)
+            {
+                CommandCenter.Instance.autoSpinManager_.ReduceSpins();
+            }
+        }
     }
 
     #endregion

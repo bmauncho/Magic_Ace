@@ -298,7 +298,6 @@ public class WinLoseManager : MonoBehaviour
         isWinSequenceRunning = false;
         if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
         {
-            CommandCenter.Instance.SetGameType(GameType.Free);
             CommandCenter.Instance.gridManager_.checkForWinings();
         }
         else

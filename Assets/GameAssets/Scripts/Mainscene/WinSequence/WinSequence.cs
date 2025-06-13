@@ -44,6 +44,7 @@ public class WinSequence : MonoBehaviour
 
         CommandCenter.Instance.comboManager_.ShowCombo();
         //show multiplier
+        CommandCenter.Instance.multiplierManager_.ShowMultiplier();
         //play win effect
         yield return StartCoroutine(PlayWinEffect(WinningCards , OccuppiedSlots , OnComplete));
 

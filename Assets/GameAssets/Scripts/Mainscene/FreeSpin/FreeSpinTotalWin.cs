@@ -85,7 +85,7 @@ public class FreeSpinTotalWin : MonoBehaviour
         AnimateWinAmount();
         yield return new WaitForSeconds(.25f);
         Stars.SetActive(true);
-        StartCoroutine(DeactivateFreeSpinsTotalWins());
+        yield return StartCoroutine(DeactivateFreeSpinsTotalWins());
         yield return null;
     }
 
@@ -111,7 +111,6 @@ public class FreeSpinTotalWin : MonoBehaviour
         isFreeSpinWinUIDone = true;
         yield return new WaitForSeconds(1f);
         Content.SetActive(false);
-        this.gameObject.SetActive(false);
         yield return null;
     }
 }

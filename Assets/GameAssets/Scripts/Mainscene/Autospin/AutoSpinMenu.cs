@@ -67,6 +67,5 @@ public class AutoSpinMenu : MonoBehaviour
     void StartSpin ()
     {
         CommandCenter.Instance.mainMenuController_.Spin();
-        CommandCenter.Instance.autoSpinManager_.ReduceSpins();
     }
 }

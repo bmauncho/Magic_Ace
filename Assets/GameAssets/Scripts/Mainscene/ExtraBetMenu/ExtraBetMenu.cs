@@ -152,6 +152,7 @@ public class ExtraBetMenu : MonoBehaviour
         Invoke(nameof(ShowExtraBetEffect) , 0.5f);
         BetAmountBg_BetMenu.sprite = BetAmountBgEx;
         BetAmountBg_MainScene.sprite = BetAmountBgEx;
+        CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.ExtraBet);
     }
 
     void ShowExtraBetEffect ()
@@ -188,6 +189,7 @@ public class ExtraBetMenu : MonoBehaviour
         ExtraBetToggle.sprite = ExtraBetOff;
         BetAmountBg_BetMenu.sprite = BetAmountBgMain;
         BetAmountBg_MainScene.sprite = BetAmountBgMain;
+        CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.Normal);
     }
 
     public bool HasExtraBetEffect ()

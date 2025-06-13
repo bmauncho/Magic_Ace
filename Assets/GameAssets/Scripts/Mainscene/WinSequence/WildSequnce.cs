@@ -48,6 +48,7 @@ public class WildSequnce : MonoBehaviour
             freeSpinManager.OnFreeSpinIntroComplete += () => isFreeSpinIntroComplete = true;
             yield return new WaitUntil(() => isFreeSpinIntroComplete);
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(10);
+            CommandCenter.Instance.SetGameType(GameType.Free);
         }
         else
         {

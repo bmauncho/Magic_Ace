@@ -77,6 +77,7 @@ public class MultiplierManager : MonoBehaviour
     [ContextMenu("Reset Multiplier")]
     public void ResetMultiplier ()
     {
+        Debug.Log("reseting multiplier");
         orderOfMultipliers.Clear();
         activeMultiplier = multiplierProgressions [currentType] [0];
         cannonIndex = 0;
@@ -106,7 +107,7 @@ public class MultiplierManager : MonoBehaviour
     {
         if (!multiplierProgressions.TryGetValue(currentType , out var list))
             return;
-
+        Debug.Log(list.Count);
         int index = list.IndexOf(activeMultiplier);
         if (index >= 0 && index < list.Count - 1)
         {
@@ -200,10 +201,11 @@ public class MultiplierManager : MonoBehaviour
     }
 
     [ContextMenu("Test")]
-    public void Test ()
+    public void ShowMultiplier ()
     {
+        Debug.Log("show multiplier");
         AdvanceMultiplier();
-        
+        Debug.Log($"Active Multiplier: {activeMultiplier}");
         for (int i = 0 ; i < 4 ; i++)
         {
             updateUI();

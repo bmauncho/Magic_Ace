@@ -8,11 +8,13 @@ using Random = System.Random;
 
 public class FlipCards : MonoBehaviour
 {
+    WinLoseManager winLoseManager;
     GridManager gridManager;
     PoolManager poolManager;
     int refill = 0;
     private void Start ()
     {
+        winLoseManager = CommandCenter.Instance.winLoseManager_;
         gridManager = CommandCenter.Instance.gridManager_;
         poolManager = CommandCenter.Instance.poolManager_;
     }
@@ -426,7 +428,7 @@ public class FlipCards : MonoBehaviour
         // Store initial position and rotation
         Vector3 initialPosition = target.transform.position;
         Quaternion initialRotation = target.transform.rotation;
-        List<CardPos> winningCardSlots = new List<CardPos>(GetComponent<WinLoseManager>().GetWinCardSlots());
+        List<CardPos> winningCardSlots = new List<CardPos>(winLoseManager.GetWinCardSlots());
         List<(GameObject card, Transform parent)> newCards = new List<(GameObject card, Transform parent)>();
 
         foreach (var jumpCard in jumpCards)
