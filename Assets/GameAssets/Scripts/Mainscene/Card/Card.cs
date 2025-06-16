@@ -107,6 +107,7 @@ public class Card : MonoBehaviour
         Outline.gameObject.SetActive(false);
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
+        CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
         CardBg.sprite = _cardBg;
@@ -124,6 +125,7 @@ public class Card : MonoBehaviour
         Outline.gameObject.SetActive(false);
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
+        CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
         CardBg.sprite = _cardBg;
@@ -138,9 +140,10 @@ public class Card : MonoBehaviour
         bigJockerCard = false;
         smallJockerCard = false;
         wildCard = false;
-        Outline.gameObject.SetActive(true);
+        Outline.gameObject.SetActive(false);
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(false);
+        CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -158,6 +161,7 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
+        CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -176,6 +180,7 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
+        CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;

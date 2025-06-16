@@ -203,9 +203,9 @@ public class MultiplierManager : MonoBehaviour
     [ContextMenu("Test")]
     public void ShowMultiplier ()
     {
-        Debug.Log("show multiplier");
+        //Debug.Log("show multiplier");
         AdvanceMultiplier();
-        Debug.Log($"Active Multiplier: {activeMultiplier}");
+        //Debug.Log($"Active Multiplier: {activeMultiplier}");
         for (int i = 0 ; i < 4 ; i++)
         {
             updateUI();

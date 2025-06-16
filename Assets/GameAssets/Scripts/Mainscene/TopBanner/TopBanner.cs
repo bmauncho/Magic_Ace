@@ -48,14 +48,14 @@ public class TopBanner : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("Active index : " + activeIndex);
+        //Debug.Log("Active index : " + activeIndex);
         List<int> previousIndices = new List<int>();
 
         for (int i = 0 ; i < activeIndex && i < cannons.Length ; i++)
         {
             previousIndices.Add(i);
         }
-        Debug.Log("previous cannons count: " + previousIndices.Count);
+        //Debug.Log("previous cannons count: " + previousIndices.Count);
 
 
         for (int i = 0 ; i < cannons.Length ; i++)

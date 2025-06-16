@@ -285,7 +285,10 @@ public class WinLoseManager : MonoBehaviour
         yield return StartCoroutine(refillGrid.RefillTheGrid());
         yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
 
-        yield return StartCoroutine(flipCards.flipBack(remainingGoldenCards , remainingBigJokerCards));
+        yield return StartCoroutine(flipCards.flipBack(
+            remainingGoldenCards , 
+            remainingBigJokerCards,
+            remainingSuperJokerCards));
 
         yield return new WaitWhile(() => gridManager.IsGridRefilling());
         yield return new WaitWhile(() => winSequence_.IsFlipping());

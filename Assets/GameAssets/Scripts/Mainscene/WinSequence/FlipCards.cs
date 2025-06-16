@@ -19,7 +19,10 @@ public class FlipCards : MonoBehaviour
         poolManager = CommandCenter.Instance.poolManager_;
     }
 
-    public IEnumerator flipBack ( List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , List<GameObject> remainingBigJokerCards )
+    public IEnumerator flipBack ( 
+        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , 
+        List<GameObject> remainingBigJokerCards,
+        List<GameObject> remainingSuperJokerCards)
     {
         if (remainingGoldenCards == null || remainingGoldenCards.Count == 0)
         {
@@ -66,6 +69,11 @@ public class FlipCards : MonoBehaviour
             if (cardComponent.GetCardType() == CardType.BIG_JOKER)
             {
                 remainingBigJokerCards.Add(cardObject);
+            }
+
+            if(cardComponent.GetCardType() == CardType.SUPER_JOKER)
+            {
+                remainingSuperJokerCards.Add(cardObject);
             }
 
             CardDatas cardDatas = new CardDatas
