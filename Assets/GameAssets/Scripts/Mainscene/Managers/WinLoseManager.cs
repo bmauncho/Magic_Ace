@@ -261,14 +261,24 @@ public class WinLoseManager : MonoBehaviour
         }
     }
 
-    public void EndTheWinSequence ( List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
-        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+    public void EndTheWinSequence ( 
+        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
+        List<GameObject> remainingBigJokerCards = null , 
+        List<GameObject> remainingSuperJokerCards = null , 
+        Action OnComplete = null )
     {
-        StartCoroutine(endWin(remainingGoldenCards , remainingBigJokerCards , OnComplete));
+        StartCoroutine(endWin(
+            remainingGoldenCards , 
+            remainingBigJokerCards ,
+            remainingSuperJokerCards,
+            OnComplete));
     }
 
-    private IEnumerator endWin ( List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
-        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+    private IEnumerator endWin ( 
+        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
+        List<GameObject> remainingBigJokerCards = null , 
+        List<GameObject> remainingSuperJokerCards = null , 
+        Action OnComplete = null )
     {
         yield return new WaitWhile(() => !winSequence_.IsWinSequenceDone());
 
@@ -288,6 +298,14 @@ public class WinLoseManager : MonoBehaviour
             if (remainingBigJokerCards.Count > 0)
             {
                 yield return StartCoroutine(flipCards.JumpBigJokerCards(remainingBigJokerCards));
+            }
+        }
+
+        if (remainingSuperJokerCards != null)
+        {
+            if(remainingSuperJokerCards.Count > 0)
+            {
+               Debug.Log("Super joker cards are present");
             }
         }
 

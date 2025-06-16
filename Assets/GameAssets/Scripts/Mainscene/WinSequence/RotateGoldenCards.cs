@@ -6,7 +6,7 @@ using UnityEngine;
 public class RotateGoldenCards : MonoBehaviour
 {
     public WinSequence winSequence_;
-    public IEnumerator rotateGoldenCards ( List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , List<GameObject> remainingBigJokerCards )
+    public IEnumerator rotateGoldenCards (List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards)
     {
         winSequence_.SetIsFlipping(true);
         Debug.Log("Rotate");

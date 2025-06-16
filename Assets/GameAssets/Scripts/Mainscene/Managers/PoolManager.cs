@@ -4,6 +4,7 @@ using UnityEngine;
 public enum PoolType
 {
     Cards,
+    Gems,
     Fx,
 }
 

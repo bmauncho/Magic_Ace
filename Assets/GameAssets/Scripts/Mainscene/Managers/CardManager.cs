@@ -263,7 +263,7 @@ public class CardManager : MonoBehaviour
     public CardType GetRandomJoker ()
     {
         float roll = Random.value;
-
+        CardType cardType = CardType.SUPER_JOKER; // Default card type if no joker is selected
         if (roll < SuperjokerChance)
             return CardType.SUPER_JOKER;
         else if (roll < SuperjokerChance + bigjokerChance)
@@ -272,7 +272,19 @@ public class CardManager : MonoBehaviour
             return CardType.SMALL_JOKER;
 
         // If no joker is selected
-        return CardType.SMALL_JOKER;
+        List<CardType> available = new List<CardType>();
+
+        if (SuperjokerChance > 0) available.Add(CardType.SUPER_JOKER);
+        if (bigjokerChance > 0) available.Add(CardType.BIG_JOKER);
+        if (smalljokerChance > 0) available.Add(CardType.SMALL_JOKER);
+
+        if (available.Count > 0)
+        {
+            int randomIndex = Random.Range(0 , available.Count);
+            cardType = available [randomIndex];
+        }
+
+        return cardType;
     }
 
 

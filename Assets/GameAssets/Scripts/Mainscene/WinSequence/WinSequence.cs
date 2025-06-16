@@ -201,6 +201,7 @@ public class WinSequence : MonoBehaviour
         List<GameObject> remainingWildCards = new List<GameObject>();
         List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = new List<(GameObject card, List<(int col, int row)> Positions)>();
         List<GameObject> remainingBigJokerCards = new List<GameObject>();
+        List<GameObject> remainingSuperJokerCards = new List<GameObject>();
         List<GameObject> cardsToHide = new List<GameObject>();
         List<GameObject> newOccupiedSlots = new List<GameObject>();
         for (int i = 0 ; i < occuppiedSlots.Count ; i++)
@@ -238,7 +239,8 @@ public class WinSequence : MonoBehaviour
                 HideCards(
                     cardsToHide , 
                     remainingGoldenCards , 
-                    remainingBigJokerCards));
+                    remainingBigJokerCards,
+                    remainingSuperJokerCards));
 
             NormalSequence normalSequence = winLoseManager.normalSequence_;
             yield return StartCoroutine(
@@ -247,7 +249,8 @@ public class WinSequence : MonoBehaviour
                     winningCards , 
                     remainingCards , 
                     remainingGoldenCards , 
-                    remainingBigJokerCards , 
+                    remainingBigJokerCards ,
+                    remainingSuperJokerCards ,
                     OnComplete));
         }
         else if (winLoseManager.GetWinType() == WinType.Wild)
@@ -260,21 +263,34 @@ public class WinSequence : MonoBehaviour
                     winningCards , 
                     remainingCards , 
                     remainingGoldenCards , 
-                    remainingBigJokerCards , 
+                    remainingBigJokerCards ,
+                    remainingSuperJokerCards ,
                     OnComplete));
         }
         else if (winLoseManager.GetWinType() == WinType.Both)
         {
-            yield return StartCoroutine(HideCards(cardsToHide , remainingGoldenCards , remainingBigJokerCards));
+            yield return StartCoroutine(HideCards(
+                cardsToHide , 
+                remainingGoldenCards , 
+                remainingBigJokerCards,
+                remainingSuperJokerCards));
 
             //refill the hidden Cards
             yield return StartCoroutine(winLoseManager.wildSequnce_.NormalWildCompletionSequence(winningCards));
 
-            if (remainingBigJokerCards != null && remainingBigJokerCards.Count > 0)
+            if (remainingBigJokerCards != null && remainingBigJokerCards.Count > 0 )
             {
                 for (int i = 0 ; i < remainingBigJokerCards.Count ; i++)
                 {
                     remainingCards.Add(remainingBigJokerCards [i]);
+                }
+            }
+
+            if(remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
+            {
+                for (int i = 0 ; i < remainingSuperJokerCards.Count ; i++)
+                {
+                    remainingCards.Add(remainingSuperJokerCards [i]);
                 }
             }
 
@@ -310,6 +326,7 @@ public class WinSequence : MonoBehaviour
                 remainingCards ,
                 remainingGoldenCards , 
                 remainingBigJokerCards , 
+                remainingSuperJokerCards ,
                 OnComplete));
         }
     }
@@ -345,9 +362,11 @@ public class WinSequence : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator HideCards ( List<GameObject> cardsToHide 
-        , List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , 
-        List<GameObject> remainingBigJokerCards )
+    private IEnumerator HideCards ( 
+        List<GameObject> cardsToHide , 
+        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , 
+        List<GameObject> remainingBigJokerCards, 
+        List<GameObject> remainingSuperJokerCards )
     {
         //hide cards from the grid
         //return the cards to the pool
@@ -384,7 +403,7 @@ public class WinSequence : MonoBehaviour
 
         if (remainingGoldenCards.Count > 0)
         {
-            yield return StartCoroutine(winLoseManager.rotateGoldenCards.rotateGoldenCards(remainingGoldenCards , remainingBigJokerCards));
+            yield return StartCoroutine(winLoseManager.rotateGoldenCards.rotateGoldenCards(remainingGoldenCards));
         }
         yield return null;
     }

@@ -20,7 +20,9 @@ public class WildSequnce : MonoBehaviour
         List<winCardData> winningCards , 
         List<GameObject> remainingCards , 
         List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
-        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+        List<GameObject> remainingBigJokerCards = null ,
+        List<GameObject> remainingSuperJokerCards = null ,
+        Action OnComplete = null )
     {
         //play wild card effect
         //show FreeSpin intro
@@ -60,7 +62,14 @@ public class WildSequnce : MonoBehaviour
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
         }
         //activate free spin
-        StartCoroutine(WildCompletionSequence(occuppiedSlots , winningCards , remainingCards , remainingGoldenCards , remainingBigJokerCards));
+        StartCoroutine(WildCompletionSequence(
+            occuppiedSlots , 
+            winningCards , 
+            remainingCards , 
+            remainingGoldenCards , 
+            remainingBigJokerCards,
+            remainingSuperJokerCards));
+
         yield return null;
     }
 
@@ -68,7 +77,9 @@ public class WildSequnce : MonoBehaviour
         List<GameObject> occuppiedSlots , List<winCardData> winningCards ,
         List<GameObject> remainingCards ,
         List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
-        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+        List<GameObject> remainingBigJokerCards = null , 
+        List<GameObject> remainingSuperJokerCards = null , 
+        Action OnComplete = null )
     {
         winLoseManager.ClearWinningCards();
         yield return new WaitForSeconds(.25f);
@@ -82,6 +93,14 @@ public class WildSequnce : MonoBehaviour
             }
         }
 
+        if (remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
+        {
+            for (int i = 0 ; i < remainingSuperJokerCards.Count ; i++)
+            {
+                remainingCards.Add(remainingSuperJokerCards [i]);
+            }
+        }
+
         //return the "wild cards" to the normal slots from win slots
         yield return StartCoroutine(winSequence.MoveCardsToNormalSlots(remainingCards));
         winSequence.clearWinSlots();
@@ -90,7 +109,11 @@ public class WildSequnce : MonoBehaviour
         Debug.Log("WinSequence Done!");
         winSequence.SetIsWinSequence(true);
 
-        winLoseManager.EndTheWinSequence(remainingGoldenCards , remainingBigJokerCards , OnComplete);
+        winLoseManager.EndTheWinSequence(
+            remainingGoldenCards , 
+            remainingBigJokerCards ,
+            remainingSuperJokerCards ,
+            OnComplete);
         yield return null;
     }
 

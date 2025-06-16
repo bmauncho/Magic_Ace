@@ -19,7 +19,9 @@ public class NormalSequence : MonoBehaviour
         List<winCardData> winningCards , 
         List<GameObject> remainingCards , 
         List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null , 
-        List<GameObject> remainingBigJokerCards = null , Action OnComplete = null )
+        List<GameObject> remainingBigJokerCards = null ,
+        List<GameObject> remainingSuperJokerCards = null ,
+        Action OnComplete = null )
     {
         winLoseManager.ClearWinningCards();
         yield return new WaitForSeconds(.25f);
@@ -35,12 +37,24 @@ public class NormalSequence : MonoBehaviour
             }
         }
 
+        if (remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
+        {
+            for (int i = 0 ; i < remainingSuperJokerCards.Count ; i++)
+            {
+                remainingCards.Add(remainingSuperJokerCards [i]);
+            }
+        }
+
         yield return StartCoroutine(winSequence.MoveCardsToNormalSlots(remainingCards));
         winSequence.clearWinSlots();
         yield return new WaitForSeconds(.25f);
         //Debug.Log("WinSequence Done!");
         winSequence.SetIsWinSequence(true);
-        winLoseManager.EndTheWinSequence(remainingGoldenCards , remainingBigJokerCards , OnComplete);
+        winLoseManager.EndTheWinSequence(
+            remainingGoldenCards , 
+            remainingBigJokerCards ,
+            remainingSuperJokerCards,
+            OnComplete);
         yield return null;
     }
 }
