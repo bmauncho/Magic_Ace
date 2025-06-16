@@ -32,6 +32,7 @@ public class WinLoseManager : MonoBehaviour
     public RotateGoldenCards rotateGoldenCards;
     public FlipCards flipCards;
     public JumpCards jumpCards;
+    public GemCollector gemCollector;
 
     [Header("Win Data")]
     [SerializeField] private WinType currentWinType;
@@ -309,6 +310,7 @@ public class WinLoseManager : MonoBehaviour
             if(remainingSuperJokerCards.Count > 0)
             {
                Debug.Log("Super joker cards are present");
+                yield return StartCoroutine(gemCollector.CollectGems(remainingSuperJokerCards));
             }
         }
 

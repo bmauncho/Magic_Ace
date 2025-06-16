@@ -28,6 +28,7 @@ public class Card : MonoBehaviour
     [SerializeField] private bool bigJockerCard;
     [SerializeField] private bool smallJockerCard;
     [SerializeField] private bool wildCard;
+    [SerializeField] private RectTransform cardImgHolder;
     //[SerializeField] private SuperJokerCard superJokerCard_;
 
 
@@ -242,5 +243,15 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
 
         CardRear.gameObject.SetActive(false);
+    }
+
+    public RectTransform GetCardImgHolder ()
+    {
+        return cardImgHolder;
+    }
+
+    public RectTransform GetCard ()
+    {
+        return card.rectTransform;
     }
 }

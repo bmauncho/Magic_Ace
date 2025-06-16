@@ -216,6 +216,7 @@ MonoBehaviour:
   bigJockerCard: 0
   smallJockerCard: 0
   wildCard: 0
+  cardImgHolder: {fileID: 8291036113932437938}
 --- !u!1 &2144044001583191831
 GameObject:
   m_ObjectHideFlags: 0

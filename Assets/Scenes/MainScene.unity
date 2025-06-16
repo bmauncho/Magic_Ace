@@ -2552,6 +2552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 62657100}
+  - component: {fileID: 62657101}
   m_Layer: 0
   m_Name: GemCollection
   m_TagString: Untagged
@@ -2574,6 +2575,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1015453808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &62657101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62657099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2ed436895b56c498d25da8a253389a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 206704477}
+  targetRectTransform:
+  - {fileID: 245431857}
+  - {fileID: 1770940179}
+  - {fileID: 165854838}
+  - {fileID: 1964375782}
+  - {fileID: 1588018655}
 --- !u!1 &63378944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6090,6 +6110,7 @@ GameObject:
   - component: {fileID: 165854838}
   - component: {fileID: 165854840}
   - component: {fileID: 165854839}
+  - component: {fileID: 165854841}
   m_Layer: 5
   m_Name: Gem (2)
   m_TagString: Untagged
@@ -6154,6 +6175,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165854837}
   m_CullTransparentMesh: 1
+--- !u!114 &165854841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165854837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64cd1f039179df4588b70b8dcc1af53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheOwner: {fileID: 0}
 --- !u!1 &166914679
 GameObject:
   m_ObjectHideFlags: 0
@@ -6204,13 +6238,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b2ed11d675446c5a49da1ea296d490, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EffectFactor: 1
+  m_EffectFactor: 0
   m_ColorFactor: 1
   m_BlurFactor: 1
   m_EffectMode: 0
   m_ColorMode: 0
-  m_BlurMode: 3
-  m_AdvancedBlur: 1
+  m_BlurMode: 2
+  m_AdvancedBlur: 0
 --- !u!114 &166914682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7374,6 +7408,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1053963918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &206704476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 206704477}
+  m_Layer: 5
+  m_Name: BaseBoard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &206704477
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206704476}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1591659954}
+  m_Father: {fileID: 1312615438}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &208205020
 GameObject:
   m_ObjectHideFlags: 0
@@ -9085,6 +9155,7 @@ GameObject:
   - component: {fileID: 245431857}
   - component: {fileID: 245431859}
   - component: {fileID: 245431858}
+  - component: {fileID: 245431860}
   m_Layer: 5
   m_Name: Gem
   m_TagString: Untagged
@@ -9149,6 +9220,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245431856}
   m_CullTransparentMesh: 1
+--- !u!114 &245431860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245431856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64cd1f039179df4588b70b8dcc1af53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheOwner: {fileID: 0}
 --- !u!1 &251403392
 GameObject:
   m_ObjectHideFlags: 0
@@ -11805,7 +11889,6 @@ RectTransform:
   - {fileID: 154187225}
   - {fileID: 124923170}
   - {fileID: 32254992}
-  - {fileID: 1591659954}
   m_Father: {fileID: 1312615438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -18723,6 +18806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FeatureMenu: {fileID: 386065816}
+  SafeArea: {fileID: 1312615438}
   extraBetMenu: {fileID: 1548230449}
   settings: {fileID: 2145602112}
   gameRules: {fileID: 1053017923}
@@ -31928,6 +32012,7 @@ MonoBehaviour:
   rotateGoldenCards: {fileID: 928937847}
   flipCards: {fileID: 53718253}
   jumpCards: {fileID: 1317411822}
+  gemCollector: {fileID: 62657101}
   currentWinType: 0
   isWin: 0
   isWinSequenceRunning: 0
@@ -42802,6 +42887,7 @@ RectTransform:
   - {fileID: 532350443}
   - {fileID: 1898304726}
   - {fileID: 1321916159}
+  - {fileID: 206704477}
   - {fileID: 215218902}
   - {fileID: 1607641626}
   - {fileID: 146431686}
@@ -47058,8 +47144,8 @@ MonoBehaviour:
     card: {fileID: 21300000, guid: fcac8857139c8c9409c4c42b5047f76f, type: 3}
   - CardType: 11
     card: {fileID: 21300000, guid: e82bd4703c9374921a27ab2bf98b8b3d, type: 3}
-  goldenChance: 0.2
-  wildChance: 0.1
+  goldenChance: 0.452
+  wildChance: 0
   smalljokerChance: 0
   bigjokerChance: 0
   SuperjokerChance: 0.3
@@ -51953,6 +52039,7 @@ GameObject:
   - component: {fileID: 1588018655}
   - component: {fileID: 1588018657}
   - component: {fileID: 1588018656}
+  - component: {fileID: 1588018658}
   m_Layer: 5
   m_Name: Gem (4)
   m_TagString: Untagged
@@ -52017,6 +52104,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1588018654}
   m_CullTransparentMesh: 1
+--- !u!114 &1588018658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1588018654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64cd1f039179df4588b70b8dcc1af53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheOwner: {fileID: 0}
 --- !u!1 &1589138364
 GameObject:
   m_ObjectHideFlags: 0
@@ -52344,7 +52444,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591659953}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -52354,11 +52454,11 @@ RectTransform:
   - {fileID: 1305720612}
   - {fileID: 946535647}
   - {fileID: 1137227079}
-  m_Father: {fileID: 309845690}
+  m_Father: {fileID: 206704477}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 593.32635}
   m_SizeDelta: {x: 0, y: 70.9543}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1591659955
@@ -57213,6 +57313,7 @@ GameObject:
   - component: {fileID: 1770940179}
   - component: {fileID: 1770940181}
   - component: {fileID: 1770940180}
+  - component: {fileID: 1770940182}
   m_Layer: 5
   m_Name: Gem (1)
   m_TagString: Untagged
@@ -57277,6 +57378,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770940178}
   m_CullTransparentMesh: 1
+--- !u!114 &1770940182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770940178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64cd1f039179df4588b70b8dcc1af53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheOwner: {fileID: 0}
 --- !u!1 &1774532004
 GameObject:
   m_ObjectHideFlags: 0
@@ -63540,6 +63654,7 @@ GameObject:
   - component: {fileID: 1964375782}
   - component: {fileID: 1964375784}
   - component: {fileID: 1964375783}
+  - component: {fileID: 1964375785}
   m_Layer: 5
   m_Name: Gem (3)
   m_TagString: Untagged
@@ -63604,6 +63719,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964375781}
   m_CullTransparentMesh: 1
+--- !u!114 &1964375785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964375781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64cd1f039179df4588b70b8dcc1af53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheOwner: {fileID: 0}
 --- !u!1 &1966465994
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject FeatureMenu;
+    [SerializeField] private RectTransform SafeArea;
 
     [Header("References")]
     public ExtraBetMenu extraBetMenu;
@@ -65,5 +66,10 @@ public class MainMenuController : MonoBehaviour
     public void Spin ()
     {
         CommandCenter.Instance.spinManager_.Spin();
+    }
+
+    public RectTransform GetSafeArea ()
+    {
+        return SafeArea;
     }
 }

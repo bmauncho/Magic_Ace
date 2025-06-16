@@ -74,7 +74,7 @@ public class TopBanner : MonoBehaviour
             {
                 if (previousIndices == null || previousIndices.Count == 0)
                 {
-                    Debug.Log("prev cannon is null");
+                    Debug.LogWarning("prev cannon is null");
                 }
                 else
                 {
@@ -86,13 +86,13 @@ public class TopBanner : MonoBehaviour
                         if (prevCannon == cannon) continue;
 
                         string prevAnimName = $"Canon_{index + 1}_inactive";
-                        Debug.Log($"Playing animation: {prevAnimName} for INACTIVE cannon type: {cannonType}");
+                        //Debug.Log($"Playing animation: {prevAnimName} for INACTIVE cannon type: {cannonType}");
                         StartCoroutine(PlayAnim(prevCannon.Anim , prevAnimName));
                     }
                 }
                 yield return new WaitForSeconds(0.1f); // Wait a bit before playing the active animation
                 string animName = $"Canon_{i + 1}_Anim";
-                Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
+                //Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
                 StartCoroutine(PlayAnim(cannon.Anim , animName));
             }
  
