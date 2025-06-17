@@ -33,6 +33,7 @@ public class WinLoseManager : MonoBehaviour
     public FlipCards flipCards;
     public JumpCards jumpCards;
     public GemCollector gemCollector;
+    public WinAmount winAmount;
 
     [Header("Win Data")]
     [SerializeField] private WinType currentWinType;
@@ -44,7 +45,6 @@ public class WinLoseManager : MonoBehaviour
 
     [Header("Win Slots Data")]
     [SerializeField] private GameObject SlotsHolder;
-    [SerializeField] private NormalWinUI normalGameWinUi;
     [SerializeField] private List<CardPos> AvailableWinCardSlots = new List<CardPos>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -332,10 +332,5 @@ public class WinLoseManager : MonoBehaviour
     public bool IsWinSequencerunning ()
     {
         return isWinSequenceRunning;
-    }
-
-    public NormalWinUI NormalGameWinUi ()
-    {
-        return normalGameWinUi;
     }
 }

@@ -178,14 +178,17 @@ public class WinSequence : MonoBehaviour
         if (winLoseManager.GetWinType() == WinType.Normal)
         {
             // show normal win effect
+            yield return StartCoroutine(winLoseManager.winAmount.winAmountEffect(WinningCards));
         }
         else if (winLoseManager.GetWinType() == WinType.Wild)
         {
             //play wild effect
+
         }
         else if (winLoseManager.GetWinType() == WinType.Both)
         {
             //show win effect for both wild and normal
+            yield return StartCoroutine(winLoseManager.winAmount.winAmountEffect(WinningCards));
         }
 
         yield return sequence.WaitForCompletion();

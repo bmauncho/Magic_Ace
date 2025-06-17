@@ -33,6 +33,7 @@ public class CommandCenter : MonoBehaviour
     public WinLoseManager winLoseManager_;
     public FreeSpinManager freeSpinManager_;
     public UIManager uiManager_;
+    public PayOutManager payOutManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)

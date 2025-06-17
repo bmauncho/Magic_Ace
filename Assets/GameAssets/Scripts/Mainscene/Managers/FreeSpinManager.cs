@@ -93,6 +93,7 @@ public class FreeSpinManager : MonoBehaviour
     IEnumerator DelayStart ()
     {
         yield return new WaitForSeconds(1f);
+        CommandCenter.Instance.currencyManager_.ResetWinAmount();
         CommandCenter.Instance.spinManager_.Spin();
     }
 

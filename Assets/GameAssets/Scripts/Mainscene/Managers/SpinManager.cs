@@ -162,6 +162,12 @@ public class SpinManager : MonoBehaviour
 
            
         }
+
+        if (!CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+        {
+            CommandCenter.Instance.currencyManager_.ResetWinAmount();
+        }
+
         yield return null;
     }
     public void enableButtons ()

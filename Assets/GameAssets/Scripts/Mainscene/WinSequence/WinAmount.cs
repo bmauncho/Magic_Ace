@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WinAmount : MonoBehaviour
+{
+    public IEnumerator winAmountEffect ( List<winCardData> WinningCards )
+    {
+        PayOutManager payOutManager = CommandCenter.Instance.payOutManager_;
+        CurrencyManager currencyManager = CommandCenter.Instance.currencyManager_;
+        yield return new WaitForSeconds(.25f);
+        //play win amount effect
+        // Debug.Log("Play Win Amount Effect");
+        bool isDemo = CommandCenter.Instance.gameMode == GameMode.Demo;
+        bool canShowFeature = CommandCenter.Instance.apiManager_.gameDataApi.CanShowFeature();
+        if (isDemo)
+        {
+            double totalPayOut = payOutManager.GetTotalPayOut(WinningCards);
+            // Debug.Log("Total PayOut: " + totalPayOut);
+            CommandCenter.Instance.currencyManager_.IncreaseCash(totalPayOut);
+            CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
+            double hintTotalWinAmount = currencyManager.GetWinAmount();
+            payOutManager.GetPayOut().ShowWin(totalPayOut);
+        }
+        else
+        {
+            if (canShowFeature)
+            {
+                double totalPayOut = payOutManager.GetTotalPayOut(WinningCards);
+                //Debug.Log("Total PayOut: " + totalPayOut);
+                CommandCenter.Instance.currencyManager_.IncreaseCash(totalPayOut);
+                CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
+                double hintTotalWinAmount = currencyManager.GetWinAmount();
+                payOutManager.GetPayOut().ShowWin(totalPayOut);
+            }
+            else
+            {
+                
+            }
+
+        }
+        yield return null;
+    }
+}

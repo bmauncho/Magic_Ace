@@ -79,6 +79,15 @@ public class GemCollector : MonoBehaviour
         }
 
         yield return new WaitUntil(() => activeAnims <= 0);
+        // After all animations are complete, check if all gems are collected
+        if (collected > 0)
+        {
+            for(int i = 0 ; i < collected ; i++)
+            {
+                CommandCenter.Instance.multiplierManager_.TriggerCollector();
+            }
+        }
+        yield return null;
         Debug.Log("All allowed gems collected!");
     }
 

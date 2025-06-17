@@ -221,7 +221,7 @@ public class MultiplierManager : MonoBehaviour
         Multipliers multiplier = list [cannonIndex];
         topBanner_.UpdateCanon(cannon , multiplier,activeMultiplier ,GetCannon() ,GetCanonBg() , GetSpriteAsset(),isReset);
         cannonIndex++;
-        Debug.Log(cannonIndex);
+       // Debug.Log(cannonIndex);
         if (cannonIndex > 3)
         {
             cannonIndex = 0; // Reset cannon index if it exceeds the number of cannons
@@ -311,5 +311,25 @@ public class MultiplierManager : MonoBehaviour
         }
         return activeMultiplier;
     }
+
+    public int GetMultiplier ()
+    {
+        string multiplierString = activeMultiplier.ToString();
+        string digits = string.Empty;
+
+        foreach (char c in multiplierString)
+        {
+            if (char.IsDigit(c)) // Fix 1: Use static method correctly
+            {
+                digits += c;
+            }
+        }
+
+        if (int.TryParse(digits , out int result))
+            return result;
+        Debug.LogWarning("fallback multiplier!");
+        return 1; // Fix 2: Provide a fallback value
+    }
+
 
 }
