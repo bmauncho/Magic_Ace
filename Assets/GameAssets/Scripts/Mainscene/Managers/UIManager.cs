@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     [Header("Top Banner")]
 
     public TopBanner topBanner;
+    public Baseboard baseboard;
     [ContextMenu("Show Normal Game")]
     public void ShowNormalGameUI ()
     {
@@ -40,6 +41,8 @@ public class UIManager : MonoBehaviour
         AutoSpinMenuBtn.SetActive(true);
         FreeSpinUi.SetActive(false);
         FreeSpin_baseBoardBg.SetActive(false);
+        baseboard.Gems.SetActive(true);
+        baseboard.FreeGameGems.SetActive(false);
         SetNormalGameBG();
         SetNormalGameTopBanner();
     }
@@ -57,6 +60,8 @@ public class UIManager : MonoBehaviour
         AutoSpinMenuBtn.SetActive(false);
         FreeSpinUi.SetActive(true);
         FreeSpin_baseBoardBg.SetActive(true);
+        baseboard.Gems.SetActive(false);
+        baseboard.FreeGameGems.SetActive(true);
         SetFreeGameBG();
         SetFreeGameTopBanner();
     }
