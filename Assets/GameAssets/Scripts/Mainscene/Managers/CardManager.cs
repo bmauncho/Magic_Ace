@@ -283,6 +283,11 @@ public class CardManager : MonoBehaviour
             int randomIndex = Random.Range(0 , available.Count);
             cardType = available [randomIndex];
         }
+        else
+        {
+            Debug.LogWarning("No jokers available, returning default SMALL_JOKER.");
+            cardType = CardType.SMALL_JOKER; // Fallback to a default joker type
+        }
 
         return cardType;
     }
@@ -297,5 +302,20 @@ public class CardManager : MonoBehaviour
     {
         if (wildChance <= 0) { return; }
         wildChance = wildchance;
+    }
+
+    public void SetSuperJokerChance (float superjokerChance_ = 0.05f)
+    {
+        SuperjokerChance = superjokerChance_;
+    }
+
+    public void SetSmallJokerChance ( float smalljokerChance_ = 0.05f )
+    {
+        smalljokerChance = smalljokerChance_;
+    }
+
+    public void SetBigJokerChance ( float bigjokerChance_ = 0.05f )
+    {
+        bigjokerChance = bigjokerChance_;
     }
 }

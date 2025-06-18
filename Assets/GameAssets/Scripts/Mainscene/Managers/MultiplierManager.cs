@@ -36,6 +36,7 @@ public enum MultiplierType
     Normal,
     Free,
     ExtraBet,
+    Collector,
 }
 
 [System.Serializable]
@@ -57,7 +58,8 @@ public class MultiplierManager : MonoBehaviour
         {
             { MultiplierType.Normal,   new List<Multipliers> { Multipliers.x1, Multipliers.x2, Multipliers.x3, Multipliers.x5 } },
             { MultiplierType.Free, new List<Multipliers> { Multipliers.x2, Multipliers.x4, Multipliers.x6, Multipliers.x10 } },
-            { MultiplierType.ExtraBet, new List<Multipliers> { Multipliers.x2, Multipliers.x3, Multipliers.x4, Multipliers.x6 } }
+            { MultiplierType.ExtraBet, new List<Multipliers> { Multipliers.x2, Multipliers.x3, Multipliers.x4, Multipliers.x6 } },
+            { MultiplierType.Collector, new List<Multipliers> { Multipliers.x2, Multipliers.x3, Multipliers.x4, Multipliers.x6 } }
         };
 
     [SerializeField] private Multipliers activeMultiplier = Multipliers.x1;
@@ -73,18 +75,26 @@ public class MultiplierManager : MonoBehaviour
     [SerializeField] private int upgradeRoundsRemaining = 0;
     private const int MAX_FREE_SPIN_UPGRADES = 10;
     [SerializeField] private int freeSpinUpgradeCount = 0;
+    [SerializeField] private Baseboard baseboard;
     private int cannonIndex = 0;
     [ContextMenu("Reset Multiplier")]
     public void ResetMultiplier ()
     {
         Debug.Log("reseting multiplier");
-        orderOfMultipliers.Clear();
-        activeMultiplier = multiplierProgressions [currentType] [0];
-        cannonIndex = 0;
-        hasRecalled = false;
-        for (int i =0 ;i<4 ;i++)
+        if (collectorCount >= 5 && !isInUpgradeMode)
         {
-            updateUI(true);
+            EnterUpgradeMode();
+        }
+        else
+        {
+            orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
+            activeMultiplier = orderOfMultipliers [0];
+            cannonIndex = 0;
+            hasRecalled = false;
+            for (int i = 0 ; i < 4 ; i++)
+            {
+                updateUI(true);
+            }
         }
     }
 
@@ -107,7 +117,7 @@ public class MultiplierManager : MonoBehaviour
     {
         if (!multiplierProgressions.TryGetValue(currentType , out var list))
             return;
-        Debug.Log(list.Count);
+       // Debug.Log(list.Count);
         int index = list.IndexOf(activeMultiplier);
         if (index >= 0 && index < list.Count - 1)
         {
@@ -120,9 +130,14 @@ public class MultiplierManager : MonoBehaviour
             // If in upgrade mode, decrement rounds
             if (isInUpgradeMode)
             {
+                if(activeMultiplier > orderOfMultipliers [0]) { return; }
                 upgradeRoundsRemaining--;
+                baseboard.UseTicket(); // Use a ticket for the upgrade effect
+                //show used effect
                 if (upgradeRoundsRemaining <= 0)
-                    ExitUpgradeMode();
+                {
+                   ExitUpgradeMode();
+                }
             }
         }
     }
@@ -132,10 +147,7 @@ public class MultiplierManager : MonoBehaviour
         if (currentType == MultiplierType.Normal)
         {
             collectorCount++;
-            if (collectorCount >= 5 && !isInUpgradeMode)
-            {
-                EnterUpgradeMode();
-            }
+           
         }
         else if (currentType == MultiplierType.Free)
         {
@@ -150,6 +162,7 @@ public class MultiplierManager : MonoBehaviour
                 .ToList();
 
             multiplierProgressions [currentType] = upgradedList;
+            orderOfMultipliers = upgradedList;
 
             // Keep same active index but update multiplier
             int currentIndex = multiplierProgressions [currentType].IndexOf(activeMultiplier);
@@ -162,6 +175,9 @@ public class MultiplierManager : MonoBehaviour
 
     private void EnterUpgradeMode ()
     {
+        SetMultiplierType(MultiplierType.Collector);
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance(0f);
+        baseboard.ActivateUpgradeMultipliers();
         isInUpgradeMode = true;
         upgradeRoundsRemaining = 3;
         collectorCount = 0;
@@ -174,12 +190,16 @@ public class MultiplierManager : MonoBehaviour
             Multipliers.x6
         };
 
-        activeMultiplier = multiplierProgressions [currentType] [0];
+        orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
+        activeMultiplier = orderOfMultipliers [0];
         ResetUI();
     }
 
     private void ExitUpgradeMode ()
     {
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance(.3f);
+        SetMultiplierType(MultiplierType.Normal);
+        baseboard.DeactivateUpgradeMultipliers();
         isInUpgradeMode = false;
 
         multiplierProgressions [currentType] = new List<Multipliers>
@@ -190,7 +210,8 @@ public class MultiplierManager : MonoBehaviour
             Multipliers.x5
         };
 
-        activeMultiplier = multiplierProgressions [currentType] [0];
+        orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
+        activeMultiplier = orderOfMultipliers [0];
         ResetUI();
     }
 
@@ -242,6 +263,7 @@ public class MultiplierManager : MonoBehaviour
             MultiplierType.Normal => 0,
             MultiplierType.Free => 1,
             MultiplierType.ExtraBet => 2,
+            MultiplierType.Collector => 3,
             _ => -1
         };
 
@@ -270,6 +292,7 @@ public class MultiplierManager : MonoBehaviour
             MultiplierType.Normal => 0,
             MultiplierType.Free => 1,
             MultiplierType.ExtraBet => 2,
+            MultiplierType.Collector => 3,
             _ => -1
         };
         var info = multiplierCanonInfos [typeIndex];

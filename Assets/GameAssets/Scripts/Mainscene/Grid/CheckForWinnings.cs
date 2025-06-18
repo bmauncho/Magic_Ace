@@ -123,12 +123,15 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.spinManager_.SetCanSpin(true);
                         CommandCenter.Instance.freeSpinManager_.freeSpinUI.ResetFreeSpinCount();
                         CommandCenter.Instance.spinManager_.enableButtons();
+                        // change base board
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
+
+
                         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
                         {
                             CommandCenter.Instance.winLoseManager_.ClearWinningCards();
                             CommandCenter.Instance.winLoseManager_.ResetWinType();
-                            yield return new WaitForSeconds(0.5f);
+                            yield return new WaitForSeconds(0.25f);
                             CommandCenter.Instance.mainMenuController_.Spin();
                         }
 
@@ -142,8 +145,10 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.winLoseManager_.ResetWinType();
                         isCheckingForWins = false;
                         CommandCenter.Instance.comboManager_.HideCombo();
+                        // change base board
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
-                        yield return new WaitForSeconds(0.5f);
+
+                        yield return new WaitForSeconds(0.25f);
                         CommandCenter.Instance.spinManager_.Spin();
                         yield break;
                     }
@@ -161,6 +166,7 @@ public class CheckForWinnings : MonoBehaviour
         CommandCenter.Instance.winLoseManager_.ClearWinningCards();
         CommandCenter.Instance.winLoseManager_.ResetWinType();
         CommandCenter.Instance.comboManager_.HideCombo();
+        // change base board
         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
         gridManager.setisNormalWnSequenceDone(true);
 
@@ -190,7 +196,7 @@ public class CheckForWinnings : MonoBehaviour
         else if (CommandCenter.Instance.autoSpinManager_.Spins() <= 0)
         {
             CommandCenter.Instance.autoSpinManager_.DeactivateAutospin();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             CommandCenter.Instance.mainMenuController_.ToggleAutoSpinMenu();
         }
         yield return null;

@@ -9,6 +9,7 @@ public class GemCollector : MonoBehaviour
     PoolManager poolManager;
     public RectTransform container;
     public RectTransform [] targetRectTransform;
+    public RectTransform FreeGameTarget;
     private void Start ()
     {
         poolManager = CommandCenter.Instance.poolManager_;
@@ -133,6 +134,53 @@ public class GemCollector : MonoBehaviour
             return true; // All gems are collected
         }
         return false; 
+    }
+
+    public IEnumerator collectFreeGameGems ( List<GameObject> remainingSuperJokerCards )
+    {
+        if (remainingSuperJokerCards == null || remainingSuperJokerCards.Count == 0)
+        {
+            Debug.LogWarning("No Super Joker cards to collect gems from.");
+            yield break;
+        }
+
+        int activeAnims = remainingSuperJokerCards.Count;
+        List<GameObject> Gems = new List<GameObject>();
+        foreach (var card in remainingSuperJokerCards)
+        {
+            Card cardComponent = card.GetComponent<Card>();
+            RectTransform cardRect = cardComponent.GetCard();
+            RectTransform parent = cardComponent.GetCardImgHolder();
+            Vector3 cardPos = cardRect.transform.position;
+
+            GameObject Gem = poolManager.GetFromPool(PoolType.Gems , cardPos , Quaternion.identity , parent.transform);
+            Gem gemComponent = Gem.GetComponent<Gem>();
+            Gems.Add(Gem);
+            // jump to target
+            RectTransform target = FreeGameTarget;
+            if (target == null)
+                continue;
+
+            GemSlot gemSlotComponent = target.GetComponent<GemSlot>();
+            if (gemSlotComponent != null)
+            {
+                gemSlotComponent.AddOwner(gemComponent.gameObject);
+            }
+
+            gemComponent.CollectGem(target , container);
+            gemComponent.OnComplete += () => activeAnims--;
+        }
+
+        yield return new WaitUntil(() => activeAnims <= 0);
+
+        yield return new WaitForSeconds(0.25f); // Wait for a short duration before checking
+
+        for(int i = 0 ; i < Gems.Count ; i++)
+        {
+           CommandCenter.Instance.poolManager_.ReturnToPool(PoolType.Gems , Gems [i]);
+        }
+
+        yield return null;
     }
 
 }

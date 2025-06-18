@@ -78,7 +78,7 @@ public class TopBanner : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("previous cannons count: " + previousIndices.Count);
+                    //Debug.Log("previous cannons count: " + previousIndices.Count);
                     // Play the previous cannon's animation if it exists and is not the same as the current cannon
                     foreach (int index in previousIndices)
                     {
