@@ -18,6 +18,7 @@ public enum WinType
 }
 public class WinLoseManager : MonoBehaviour
 {
+    [SerializeField] private WinType currentWinType;
     [Header("References")]
     MultiplierManager multiplierManager;
     APIManager apiManager;
@@ -37,7 +38,6 @@ public class WinLoseManager : MonoBehaviour
     public WinAmount winAmount;
 
     [Header("Win Data")]
-    [SerializeField] private WinType currentWinType;
     [SerializeField] private bool isWin = false;
     [SerializeField] private bool isWinSequenceRunning = false;
 
@@ -268,20 +268,26 @@ public class WinLoseManager : MonoBehaviour
         List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
         List<GameObject> remainingBigJokerCards = null , 
         List<GameObject> remainingSuperJokerCards = null , 
-        Action OnComplete = null )
+        Action OnComplete = null,
+        List<GameObject> wildCards =null,
+        List<GameObject> remainingCards = null)
     {
         StartCoroutine(endWin(
             remainingGoldenCards , 
             remainingBigJokerCards ,
             remainingSuperJokerCards,
-            OnComplete));
+            OnComplete,
+            wildCards,
+            remainingCards));
     }
 
     private IEnumerator endWin ( 
         List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards = null ,
         List<GameObject> remainingBigJokerCards = null , 
         List<GameObject> remainingSuperJokerCards = null , 
-        Action OnComplete = null )
+        Action OnComplete = null,
+        List<GameObject> wildCards = null,
+        List<GameObject> remainingCards = null)
     {
         yield return new WaitWhile(() => !winSequence_.IsWinSequenceDone());
 
@@ -325,6 +331,17 @@ public class WinLoseManager : MonoBehaviour
                     yield return StartCoroutine(gemCollector.CollectGems(remainingSuperJokerCards));
                 }
             }
+        }
+
+        if (wildCards != null && remainingCards!= null)
+        {
+            if(wildCards.Count > 0 && remainingCards.Count >0)
+            {
+                yield return StartCoroutine(wildSequnce_.BothWildSequence(
+                    wildCards,
+                    remainingCards));
+            }
+            
         }
 
         //Debug.Log("Grid Refilled");

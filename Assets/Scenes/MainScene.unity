@@ -32201,6 +32201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81baec68d783b414b975d22b38ea48ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWinType: 0
   winSequence_: {fileID: 1608739285}
   normalSequence_: {fileID: 2005093465}
   wildSequnce_: {fileID: 575216731}
@@ -32214,7 +32215,6 @@ MonoBehaviour:
   jumpCards: {fileID: 1317411822}
   gemCollector: {fileID: 62657101}
   winAmount: {fileID: 1366329543}
-  currentWinType: 0
   isWin: 0
   isWinSequenceRunning: 0
   WinningCards: []
@@ -35433,16 +35433,19 @@ MonoBehaviour:
   BetAmount_:
   - {fileID: 1569024072}
   - {fileID: 1880455654}
+  - {fileID: 1978359602}
   cash:
   - {fileID: 2140679774}
   - {fileID: 704573780}
   - {fileID: 920183575}
   - {fileID: 1063142051}
+  - {fileID: 214676549}
   WinAmount:
   - {fileID: 953018734}
   - {fileID: 50524680}
   - {fileID: 818711733}
   - {fileID: 401375533}
+  - {fileID: 1828698524}
   BetMultiplier:
   - {fileID: 152815889}
   - {fileID: 107794237}
@@ -47640,7 +47643,7 @@ MonoBehaviour:
     card: {fileID: 21300000, guid: fcac8857139c8c9409c4c42b5047f76f, type: 3}
   - CardType: 11
     card: {fileID: 21300000, guid: e82bd4703c9374921a27ab2bf98b8b3d, type: 3}
-  goldenChance: 0.452
+  goldenChance: 0.1
   wildChance: 0.1
   smalljokerChance: 0.3
   bigjokerChance: 0.15

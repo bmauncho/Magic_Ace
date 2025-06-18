@@ -23,7 +23,7 @@ public class WinSequence : MonoBehaviour
         winLoseManager = CommandCenter.Instance.winLoseManager_;
     }
 
-    private void ActivateWinBg ()
+    public void ActivateWinBg ()
     {
         WinBg.GetComponent<CanvasGroup>().alpha = 1;
     }
@@ -320,17 +320,23 @@ public class WinSequence : MonoBehaviour
                 }
             }
             //playwild effect
-            ActivateWinBg();
+            winLoseManager.EndTheWinSequence(
+                    remainingGoldenCards ,
+                    remainingBigJokerCards ,
+                    remainingSuperJokerCards ,
+                    OnComplete,
+                    remainingWildCards ,
+                    remainingCards);
 
-            yield return StartCoroutine(winLoseManager.wildSequnce_.WildCardsSequnce(
-                newRemainingWildCards , 
-                newOccupiedSlots , 
-                winningCards , 
-                remainingCards ,
-                remainingGoldenCards , 
-                remainingBigJokerCards , 
-                remainingSuperJokerCards ,
-                OnComplete));
+            //yield return StartCoroutine(winLoseManager.wildSequnce_.WildCardsSequnce(
+            //    newRemainingWildCards , 
+            //    newOccupiedSlots , 
+            //    winningCards , 
+            //    remainingCards ,
+            //    remainingGoldenCards , 
+            //    remainingBigJokerCards , 
+            //    remainingSuperJokerCards ,
+            //    OnComplete));
         }
     }
 
