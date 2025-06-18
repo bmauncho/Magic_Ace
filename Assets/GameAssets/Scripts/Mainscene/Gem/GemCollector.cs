@@ -177,9 +177,9 @@ public class GemCollector : MonoBehaviour
 
         for(int i = 0 ; i < Gems.Count ; i++)
         {
-           CommandCenter.Instance.poolManager_.ReturnToPool(PoolType.Gems , Gems [i]);
+            CommandCenter.Instance.multiplierManager_.TriggerCollector();
+            CommandCenter.Instance.poolManager_.ReturnToPool(PoolType.Gems , Gems [i]);
         }
-
         yield return null;
     }
 

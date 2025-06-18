@@ -93,6 +93,17 @@ public class MultiplierManager : MonoBehaviour
                 {
                     ExitUpgradeMode();
                 }
+                else
+                {
+                    orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
+                    activeMultiplier = orderOfMultipliers [0];
+                    cannonIndex = 0;
+                    hasRecalled = false;
+                    for (int i = 0 ; i < 4 ; i++)
+                    {
+                        updateUI(true);
+                    }
+                }
             }
             else
             {
@@ -115,6 +126,8 @@ public class MultiplierManager : MonoBehaviour
             updateUI(true);
     }
 
+
+
     public void SetMultiplierType ( MultiplierType type )
     {
         currentType = type;
@@ -134,6 +147,7 @@ public class MultiplierManager : MonoBehaviour
             if (!hasRecalled) 
             {
                 hasRecalled = true;
+                Debug.Log($"IsinUpgradeMode : {isInUpgradeMode}");
                 if (isInUpgradeMode)
                 {
                     Debug.Log($"active Multiplier index: {(int)activeMultiplier} \n, order of multipliers multiplier: {(int)orderOfMultipliers [0]}");
@@ -164,7 +178,6 @@ public class MultiplierManager : MonoBehaviour
         if (currentType == MultiplierType.Normal)
         {
             collectorCount++;
-           
         }
         else if (currentType == MultiplierType.Free)
         {
@@ -184,9 +197,20 @@ public class MultiplierManager : MonoBehaviour
             // Keep same active index but update multiplier
             int currentIndex = multiplierProgressions [currentType].IndexOf(activeMultiplier);
             if (currentIndex == -1 && upgradedList.Count > 0)
+            {
                 activeMultiplier = upgradedList [0];
+            }
             else
+            {
                 activeMultiplier = upgradedList [Mathf.Clamp(currentIndex , 0 , upgradedList.Count - 1)];
+            }
+
+            for (int i = 0 ; i < 4 ; i++)
+            {
+                updateUI(true);
+            }
+
+            AdvanceMultiplier();
         }
     }
 
@@ -209,12 +233,15 @@ public class MultiplierManager : MonoBehaviour
 
         orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
         activeMultiplier = orderOfMultipliers [0];
+        cannonIndex = 0;
+        hasRecalled = false;
         ResetUI();
     }
 
     private void ExitUpgradeMode ()
     {
-        CommandCenter.Instance.cardManager_.SetSuperJokerChance();
+        //test - remove 0.3f
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance(.3f);
         currentType = MultiplierType.Normal;
         baseboard.DeactivateUpgradeMultipliers();
         isInUpgradeMode = false;
@@ -229,6 +256,8 @@ public class MultiplierManager : MonoBehaviour
 
         orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
         activeMultiplier = orderOfMultipliers [0];
+        cannonIndex = 0;
+        hasRecalled = false;
         ResetUI();
     }
 
@@ -371,5 +400,13 @@ public class MultiplierManager : MonoBehaviour
         return 1; // Fix 2: Provide a fallback value
     }
 
+    public int GetFreeSpinUpgradeCount ()
+    {
+        return freeSpinUpgradeCount;
+    }
 
+    public int GetMaxFreeSpinUpgradeCount ()
+    {
+        return MAX_FREE_SPIN_UPGRADES;
+    }
 }

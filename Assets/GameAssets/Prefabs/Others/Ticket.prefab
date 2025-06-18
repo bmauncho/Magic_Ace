@@ -148,7 +148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 908afa467fe588b40961b8f61ebb84d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Ticket: {fileID: 114478952637172101}
   TicketAnimator: {fileID: 4962245499407511566}
+  isTicketUsed: 0
 --- !u!1 &5585614694390098127
 GameObject:
   m_ObjectHideFlags: 0

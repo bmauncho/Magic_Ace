@@ -19,6 +19,7 @@ public enum WinType
 public class WinLoseManager : MonoBehaviour
 {
     [Header("References")]
+    MultiplierManager multiplierManager;
     APIManager apiManager;
     GridManager gridManager;
     public WinSequence winSequence_;
@@ -51,6 +52,7 @@ public class WinLoseManager : MonoBehaviour
     {
         apiManager = CommandCenter.Instance.apiManager_;
         gridManager = CommandCenter.Instance.gridManager_;
+        multiplierManager = CommandCenter.Instance.multiplierManager_;
     }
 
     [ContextMenu("InitializeWinSlots")]
@@ -309,8 +311,19 @@ public class WinLoseManager : MonoBehaviour
         {
             if(remainingSuperJokerCards.Count > 0)
             {
+
                Debug.Log("Super joker cards are present");
-                yield return StartCoroutine(gemCollector.CollectGems(remainingSuperJokerCards));
+                if(multiplierManager.GetCurrentType() == MultiplierType.Free)
+                {
+                    if(multiplierManager.GetFreeSpinUpgradeCount() < multiplierManager.GetMaxFreeSpinUpgradeCount())
+                    {
+                        yield return StartCoroutine(gemCollector.collectFreeGameGems(remainingSuperJokerCards));
+                    }
+                }
+                else
+                {
+                    yield return StartCoroutine(gemCollector.CollectGems(remainingSuperJokerCards));
+                }
             }
         }
 
