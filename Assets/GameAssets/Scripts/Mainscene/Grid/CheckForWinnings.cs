@@ -125,7 +125,7 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.spinManager_.enableButtons();
                         // change base board
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
-
+                        CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
 
                         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
                         {
@@ -168,6 +168,7 @@ public class CheckForWinnings : MonoBehaviour
         CommandCenter.Instance.comboManager_.HideCombo();
         // change base board
         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
+        CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
         gridManager.setisNormalWnSequenceDone(true);
 
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())

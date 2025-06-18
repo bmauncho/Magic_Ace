@@ -17,7 +17,6 @@ public class WinAmount : MonoBehaviour
         {
             double totalPayOut = payOutManager.GetTotalPayOut(WinningCards);
             // Debug.Log("Total PayOut: " + totalPayOut);
-            CommandCenter.Instance.currencyManager_.IncreaseCash(totalPayOut);
             CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
             double hintTotalWinAmount = currencyManager.GetWinAmount();
             payOutManager.GetPayOut().ShowWin(totalPayOut);
@@ -28,7 +27,6 @@ public class WinAmount : MonoBehaviour
             {
                 double totalPayOut = payOutManager.GetTotalPayOut(WinningCards);
                 //Debug.Log("Total PayOut: " + totalPayOut);
-                CommandCenter.Instance.currencyManager_.IncreaseCash(totalPayOut);
                 CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
                 double hintTotalWinAmount = currencyManager.GetWinAmount();
                 payOutManager.GetPayOut().ShowWin(totalPayOut);

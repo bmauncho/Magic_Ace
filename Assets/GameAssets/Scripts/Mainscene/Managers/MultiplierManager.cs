@@ -214,7 +214,7 @@ public class MultiplierManager : MonoBehaviour
 
     private void ExitUpgradeMode ()
     {
-        CommandCenter.Instance.cardManager_.SetSuperJokerChance(.3f);
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance();
         currentType = MultiplierType.Normal;
         baseboard.DeactivateUpgradeMultipliers();
         isInUpgradeMode = false;

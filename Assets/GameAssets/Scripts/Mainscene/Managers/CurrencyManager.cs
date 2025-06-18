@@ -208,7 +208,16 @@ public class CurrencyManager : MonoBehaviour
 
     public void IncreaseCash ( double amount )
     {
+        if(CommandCenter.Instance.gameMode != GameMode.Demo)
+        {
+            return;
+        }
+        double prevCashAmount = CashAmount;
+        double currentCashAmount = 0;
         CashAmount += amount;
+        currentCashAmount = CashAmount;
+        //Debug.Log($"Prev : {prevCashAmount} current : {CashAmount}");
+        //Debug.Log($"currnt - prev = {currentCashAmount - prevCashAmount}");
         UpdateCashUI();
     }
 
