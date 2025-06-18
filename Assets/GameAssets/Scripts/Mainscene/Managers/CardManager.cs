@@ -309,12 +309,12 @@ public class CardManager : MonoBehaviour
         SuperjokerChance = superjokerChance_;
     }
 
-    public void SetSmallJokerChance ( float smalljokerChance_ = 0.05f )
+    public void SetSmallJokerChance ( float smalljokerChance_ = 0.3f )
     {
         smalljokerChance = smalljokerChance_;
     }
 
-    public void SetBigJokerChance ( float bigjokerChance_ = 0.05f )
+    public void SetBigJokerChance ( float bigjokerChance_ = 0.15f )
     {
         bigjokerChance = bigjokerChance_;
     }

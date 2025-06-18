@@ -47641,10 +47641,10 @@ MonoBehaviour:
   - CardType: 11
     card: {fileID: 21300000, guid: e82bd4703c9374921a27ab2bf98b8b3d, type: 3}
   goldenChance: 0.452
-  wildChance: 0.3
-  smalljokerChance: 0
-  bigjokerChance: 0
-  SuperjokerChance: 0.1
+  wildChance: 0.1
+  smalljokerChance: 0.3
+  bigjokerChance: 0.15
+  SuperjokerChance: 0.05
   cardWeights: []
 --- !u!1 &1437270931
 GameObject:

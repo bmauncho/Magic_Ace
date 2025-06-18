@@ -216,8 +216,8 @@ public class CurrencyManager : MonoBehaviour
         double currentCashAmount = 0;
         CashAmount += amount;
         currentCashAmount = CashAmount;
-        //Debug.Log($"Prev : {prevCashAmount} current : {CashAmount}");
-        //Debug.Log($"currnt - prev = {currentCashAmount - prevCashAmount}");
+        Debug.Log($"Prev : {prevCashAmount} current : {CashAmount}");
+        Debug.Log($"currnt - prev = {currentCashAmount - prevCashAmount}");
         UpdateCashUI();
     }
 

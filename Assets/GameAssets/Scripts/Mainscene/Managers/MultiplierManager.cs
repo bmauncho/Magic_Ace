@@ -193,17 +193,18 @@ public class MultiplierManager : MonoBehaviour
 
             multiplierProgressions [currentType] = upgradedList;
             orderOfMultipliers = upgradedList;
-
-            // Keep same active index but update multiplier
-            int currentIndex = multiplierProgressions [currentType].IndexOf(activeMultiplier);
-            if (currentIndex == -1 && upgradedList.Count > 0)
-            {
-                activeMultiplier = upgradedList [0];
-            }
-            else
-            {
-                activeMultiplier = upgradedList [Mathf.Clamp(currentIndex , 0 , upgradedList.Count - 1)];
-            }
+            int nextValue = Mathf.Min((int)activeMultiplier + 1 , (int)Multipliers.x20);
+            activeMultiplier = (Multipliers)nextValue;
+            //// Keep same active index but update multiplier
+            //int currentIndex = multiplierProgressions [currentType].IndexOf(activeMultiplier);
+            //if (currentIndex == -1 && upgradedList.Count > 0)
+            //{
+            //    activeMultiplier = upgradedList [0];
+            //}
+            //else
+            //{
+            //    activeMultiplier = upgradedList [Mathf.Clamp(currentIndex , 0 , upgradedList.Count - 1)];
+            //}
 
             for (int i = 0 ; i < 4 ; i++)
             {
@@ -240,7 +241,7 @@ public class MultiplierManager : MonoBehaviour
     private void ExitUpgradeMode ()
     {
         //test - remove 0.3f
-        CommandCenter.Instance.cardManager_.SetSuperJokerChance(.3f);
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance();
         currentType = MultiplierType.Normal;
         baseboard.DeactivateUpgradeMultipliers();
         isInUpgradeMode = false;
@@ -269,7 +270,7 @@ public class MultiplierManager : MonoBehaviour
     [ContextMenu("Test")]
     public void ShowMultiplier ()
     {
-        //Debug.Log("show multiplier");
+        Debug.Log("show multiplier");
         AdvanceMultiplier();
         //Debug.Log($"Active Multiplier: {activeMultiplier}");
         for (int i = 0 ; i < 4 ; i++)
