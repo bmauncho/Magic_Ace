@@ -87,13 +87,23 @@ public class MultiplierManager : MonoBehaviour
         }
         else
         {
-            orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
-            activeMultiplier = orderOfMultipliers [0];
-            cannonIndex = 0;
-            hasRecalled = false;
-            for (int i = 0 ; i < 4 ; i++)
+            if (isInUpgradeMode)
             {
-                updateUI(true);
+                if (upgradeRoundsRemaining <= 0)
+                {
+                    ExitUpgradeMode();
+                }
+            }
+            else
+            {
+                orderOfMultipliers = multiplierProgressions [currentType]; //  sync the list
+                activeMultiplier = orderOfMultipliers [0];
+                cannonIndex = 0;
+                hasRecalled = false;
+                for (int i = 0 ; i < 4 ; i++)
+                {
+                    updateUI(true);
+                }
             }
         }
     }
@@ -124,21 +134,28 @@ public class MultiplierManager : MonoBehaviour
             if (!hasRecalled) 
             {
                 hasRecalled = true;
+                if (isInUpgradeMode)
+                {
+                    Debug.Log($"active Multiplier index: {(int)activeMultiplier} \n, order of multipliers multiplier: {(int)orderOfMultipliers [0]}");
+                    if ((int)activeMultiplier > (int)orderOfMultipliers [0])
+                    {
+                        return;
+                    }
+
+                    if(upgradeRoundsRemaining <= 0)
+                    {
+                        return;
+                    }
+
+                    upgradeRoundsRemaining--;
+                    baseboard.UseTicket(); // Use a ticket for the upgrade effect
+                                           //show used effect
+                }
                 return; 
             } 
             activeMultiplier = list [index + 1];
             // If in upgrade mode, decrement rounds
-            if (isInUpgradeMode)
-            {
-                if(activeMultiplier > orderOfMultipliers [0]) { return; }
-                upgradeRoundsRemaining--;
-                baseboard.UseTicket(); // Use a ticket for the upgrade effect
-                //show used effect
-                if (upgradeRoundsRemaining <= 0)
-                {
-                   ExitUpgradeMode();
-                }
-            }
+            
         }
     }
     [ContextMenu("Trigger collector")]
@@ -175,7 +192,7 @@ public class MultiplierManager : MonoBehaviour
 
     private void EnterUpgradeMode ()
     {
-        SetMultiplierType(MultiplierType.Collector);
+        currentType = MultiplierType.Collector;
         CommandCenter.Instance.cardManager_.SetSuperJokerChance(0f);
         baseboard.ActivateUpgradeMultipliers();
         isInUpgradeMode = true;
@@ -198,7 +215,7 @@ public class MultiplierManager : MonoBehaviour
     private void ExitUpgradeMode ()
     {
         CommandCenter.Instance.cardManager_.SetSuperJokerChance(.3f);
-        SetMultiplierType(MultiplierType.Normal);
+        currentType = MultiplierType.Normal;
         baseboard.DeactivateUpgradeMultipliers();
         isInUpgradeMode = false;
 
