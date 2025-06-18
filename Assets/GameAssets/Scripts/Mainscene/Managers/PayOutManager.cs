@@ -31,7 +31,7 @@ public class PayOutManager : MonoBehaviour
 
         double payout = 0f;
         int multiplier = CommandCenter.Instance.multiplierManager_.GetMultiplier();
-        double totalBet = double.Parse(CommandCenter.Instance.currencyManager_.GetBetAmount());
+        double totalBet = double.Parse(CommandCenter.Instance.currencyManager_.GetTheBetAmount());
         foreach (CardType cardType in cardTypeSet)
         {
             int totalWinningWays = GetWiningWays(cardType , WinningCards);

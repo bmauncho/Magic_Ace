@@ -153,6 +153,12 @@ public class ExtraBetMenu : MonoBehaviour
         BetAmountBg_BetMenu.sprite = BetAmountBgEx;
         BetAmountBg_MainScene.sprite = BetAmountBgEx;
         CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.ExtraBet);
+        CommandCenter.Instance.cardManager_.SetWildChance(0);
+        CommandCenter.Instance.cardManager_.SetBigJokerChance(0);
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance(0);
+        CurrencyManager currencyManager = CommandCenter.Instance.currencyManager_;
+        string betAmount = currencyManager.GetBetAmount();
+        currencyManager.UpdateBetAmount(betAmount);
     }
 
     void ShowExtraBetEffect ()
@@ -190,6 +196,12 @@ public class ExtraBetMenu : MonoBehaviour
         BetAmountBg_BetMenu.sprite = BetAmountBgMain;
         BetAmountBg_MainScene.sprite = BetAmountBgMain;
         CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.Normal);
+        CommandCenter.Instance.cardManager_.SetWildChance();
+        CommandCenter.Instance.cardManager_.SetBigJokerChance();
+        CommandCenter.Instance.cardManager_.SetSuperJokerChance();
+        CurrencyManager currencyManager = CommandCenter.Instance.currencyManager_;
+        string betAmount = currencyManager.GetBetAmount();
+        currencyManager.UpdateBetAmount(betAmount);
     }
 
     public bool HasExtraBetEffect ()

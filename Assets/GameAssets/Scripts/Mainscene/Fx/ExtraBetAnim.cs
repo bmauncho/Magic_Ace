@@ -11,7 +11,7 @@ public class ExtraBetAnim : MonoBehaviour
         extraBetMenu.Holder_1.SetActive(true);
         extraBetMenu.Holder_2.SetActive(true);
         extraBetMenu.Ticket.SetActive(true);
-        Invoke(nameof(HideAnims) , 1f); 
+        //Invoke(nameof(HideAnims) , .5f); 
     }
 
     public void HideAnims ()
@@ -21,5 +21,10 @@ public class ExtraBetAnim : MonoBehaviour
         extraBetMenu.Banner_light.SetActive(false);
         extraBetMenu.Holder_1.SetActive(false);
         extraBetMenu.Holder_2.SetActive(false);
+    }
+
+    public void HideEffect ()
+    {
+        gameObject.SetActive(false);
     }
 }

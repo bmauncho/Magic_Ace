@@ -25,7 +25,7 @@ public class BetOptions : MonoBehaviour
     {
         foreach (Bet Bet in bets)
         {
-            if (Bet.GetBet() == CommandCenter.Instance.currencyManager_.GetBetAmount())
+            if (Bet.GetBet() == CommandCenter.Instance.currencyManager_.GetTheBetAmount())
             {
                 Bet.GetComponent<Button>().Select();
             }

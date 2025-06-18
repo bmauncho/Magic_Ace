@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -83,12 +84,30 @@ public class CurrencyManager : MonoBehaviour
         {
             if (ExtraBetMenu_.HasExtraBetEffect())
             {
-                BetAmount = TheBetAmount;
+                Debug.Log("Extra Bet Enabled");
+                if (baseToExtra.TryGetValue(BetAmount , out string newBet))
+                {
+                    Debug.Log($"Bet Amount: {BetAmount} : Extra Bet Amount: {newBet}");
+                    TheBetAmount = newBet;
+                    //set bet index
+
+                    betIndex = Array.IndexOf(betAmountsExtraBet , TheBetAmount);
+                }
             }
             else
             {
-                BetAmount = TheBetAmount;
+                Debug.Log("Extra Bet Disabled");
+                if (extraToBase.TryGetValue(BetAmount , out string newBet))
+                {
+                    Debug.Log($"Bet Amount: {BetAmount} : Base Bet Amount: {newBet}");
+                    TheBetAmount = newBet;
+
+                    betIndex = Array.IndexOf(betAmounts , TheBetAmount);
+                }
             }
+
+            BetAmount = TheBetAmount;
+           
         }
         else
         {
@@ -108,6 +127,7 @@ public class CurrencyManager : MonoBehaviour
                     {
                         Debug.Log($"Bet Amount: {BetAmount} : Extra Bet Amount: {newBet}");
                         TheBetAmount = newBet;
+                        betIndex = Array.IndexOf(betAmountsExtraBet , TheBetAmount);
                     }
                 }
                 else
@@ -117,15 +137,17 @@ public class CurrencyManager : MonoBehaviour
                     {
                         Debug.Log($"Bet Amount: {BetAmount} : Base Bet Amount: {newBet}");
                         TheBetAmount = newBet;
+                        betIndex = Array.IndexOf(betAmounts , TheBetAmount);
                     }
                 }
 
                 BetAmount = TheBetAmount;
-                for (int i = 0 ; i < BetAmount_.Length ; i++)
-                {
-                    BetAmount_ [i].text = BetAmount.ToString();
-                }
             }
+        }
+
+        for (int i = 0 ; i < BetAmount_.Length ; i++)
+        {
+            BetAmount_ [i].text = BetAmount.ToString();
         }
 
         return BetAmount;
