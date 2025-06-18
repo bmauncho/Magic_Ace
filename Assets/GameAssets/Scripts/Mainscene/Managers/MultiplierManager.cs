@@ -210,7 +210,6 @@ public class MultiplierManager : MonoBehaviour
                 updateUI(true);
             }
 
-            AdvanceMultiplier();
         }
     }
 
