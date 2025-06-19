@@ -4097,8 +4097,6 @@ GameObject:
   m_Component:
   - component: {fileID: 91024345}
   - component: {fileID: 91024346}
-  - component: {fileID: 91024349}
-  - component: {fileID: 91024348}
   - component: {fileID: 91024347}
   m_Layer: 0
   m_Name: FeatureManager
@@ -4119,7 +4117,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1459797237}
+  - {fileID: 1878040795}
+  - {fileID: 2080290039}
   m_Father: {fileID: 1053963918}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &91024346
@@ -4135,6 +4136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   featureBuyMenu: {fileID: 1639740614}
+  featurePicker: {fileID: 91024347}
   features: 0
   refillCounter: 0
   spinCounter: 0
@@ -4148,33 +4150,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 91024344}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8d036e4401c0e446ba15705071396ec, type: 3}
+  m_Script: {fileID: 11500000, guid: fc10087ec2c92ad43ba407e82951e24b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &91024348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91024344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86d0255d35e02aa4a934a2fd276091df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &91024349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 91024344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1720729f0afa8ab46a11d8222a0214ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  feature_A_sequence: {fileID: 1459797238}
+  feature_B_sequence: {fileID: 1878040796}
+  feature_C_sequence: {fileID: 2080290040}
 --- !u!1 &91758757
 GameObject:
   m_ObjectHideFlags: 0
@@ -17459,7 +17440,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1435835278}
   m_Father: {fileID: 2037820858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &504818989
@@ -17475,6 +17457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRefillCardsfetched: 0
+  refillFeatureDemo: {fileID: 1435835279}
   refillResponse_:
     status: 
     message: 
@@ -27922,7 +27905,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 29134054}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 91024346}
+        m_TargetAssemblyTypeName: FeatureManager, Assembly-CSharp
+        m_MethodName: setFeature_A
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 91024346}
+        m_TargetAssemblyTypeName: FeatureManager, Assembly-CSharp
+        m_MethodName: ShowFeature
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &852876491
 GameObject:
   m_ObjectHideFlags: 0
@@ -44670,7 +44677,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1504841419}
+  - {fileID: 1474644421}
   m_Father: {fileID: 2037820858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1352690997
@@ -44719,6 +44728,7 @@ MonoBehaviour:
   BetAmount: 0
   IsDataFetched: 0
   gridInfos: []
+  featureBuyDemo: {fileID: 1504841420}
   startCards:
   - List:
     - name: HEART
@@ -47649,6 +47659,50 @@ MonoBehaviour:
   bigjokerChance: 0.15
   SuperjokerChance: 0.05
   cardWeights: []
+--- !u!1 &1435835277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1435835278}
+  - component: {fileID: 1435835279}
+  m_Layer: 0
+  m_Name: RefillFeature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1435835278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435835277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 504818988}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1435835279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1435835277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d9d6d41be022bc489558c516677469e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437270931
 GameObject:
   m_ObjectHideFlags: 0
@@ -48250,6 +48304,116 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TheOwner: {fileID: 0}
+--- !u!1 &1459797236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459797237}
+  - component: {fileID: 1459797238}
+  m_Layer: 0
+  m_Name: Feature_A
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459797237
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459797236}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91024345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1459797238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459797236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1720729f0afa8ab46a11d8222a0214ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Spin_1:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
 --- !u!1 &1459928552
 GameObject:
   m_ObjectHideFlags: 0
@@ -48300,7 +48464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1473514102
 RectTransform:
   m_ObjectHideFlags: 0
@@ -48322,6 +48486,50 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1474644420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474644421}
+  - component: {fileID: 1474644422}
+  m_Layer: 0
+  m_Name: FeaturesDemo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1474644421
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474644420}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1352690996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1474644422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474644420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 509dac0c391c2d1419ca04c05f34f360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1476613046
 GameObject:
   m_ObjectHideFlags: 0
@@ -49165,6 +49373,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1497508606}
   m_CullTransparentMesh: 1
+--- !u!1 &1504841418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1504841419}
+  - component: {fileID: 1504841420}
+  m_Layer: 0
+  m_Name: FeaturBuyDemo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1504841419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504841418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1352690996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1504841420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504841418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f212aa8a1f8c34aaa47c65e353a2b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1507064002
 GameObject:
   m_ObjectHideFlags: 0
@@ -51924,7 +52176,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 921417468}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 91024346}
+        m_TargetAssemblyTypeName: FeatureManager, Assembly-CSharp
+        m_MethodName: setFeature_B
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 91024346}
+        m_TargetAssemblyTypeName: FeatureManager, Assembly-CSharp
+        m_MethodName: ShowFeature
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1570491274
 GameObject:
   m_ObjectHideFlags: 0
@@ -55241,6 +55517,7 @@ MonoBehaviour:
   Timer: 0
   selectedBuyAmount: 0
   option: 0
+  FeatureBuyButton: {fileID: 1114102624}
 --- !u!1 &1646754684
 GameObject:
   m_ObjectHideFlags: 0
@@ -61655,6 +61932,248 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1878040794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878040795}
+  - component: {fileID: 1878040796}
+  m_Layer: 0
+  m_Name: Feature_B
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1878040795
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878040794}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91024345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1878040796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878040794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d0255d35e02aa4a934a2fd276091df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Spin_1:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  refill_1:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  refill_2:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
 --- !u!1 &1880455651
 GameObject:
   m_ObjectHideFlags: 0
@@ -65228,7 +65747,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1529307677}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 91024346}
+        m_TargetAssemblyTypeName: FeatureManager, Assembly-CSharp
+        m_MethodName: setFeature_C
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 91024346}
+        m_TargetAssemblyTypeName: FeatureManager, Assembly-CSharp
+        m_MethodName: ShowFeature
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1976505925
 GameObject:
   m_ObjectHideFlags: 0
@@ -69517,6 +70060,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2080252939}
   m_CullTransparentMesh: 1
+--- !u!1 &2080290038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2080290039}
+  - component: {fileID: 2080290040}
+  m_Layer: 0
+  m_Name: Feature_C
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080290039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080290038}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91024345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2080290040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080290038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d036e4401c0e446ba15705071396ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2080823048
 GameObject:
   m_ObjectHideFlags: 0

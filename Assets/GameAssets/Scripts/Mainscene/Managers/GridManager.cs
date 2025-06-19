@@ -271,6 +271,13 @@ public class GridManager : MonoBehaviour
     private IEnumerator NormalFill ()
     {
         yield return StartCoroutine(fillGridLogic.normalfillGrid(CardSlots , isFirstTime));
+
+        if(CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseSpinCounter();
+        }
+
+
         if (isFirstTime)
             isFirstTime = false;
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
@@ -301,6 +308,10 @@ public class GridManager : MonoBehaviour
             isFirstTime = false;
         }
         Debug.Log("all animations Done!");
+        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseSpinCounter();
+        }
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
         if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
         {
@@ -325,6 +336,10 @@ public class GridManager : MonoBehaviour
             isFirstTime = false;
         }
         Debug.Log("all animations Done!");
+        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseSpinCounter();
+        }
         CommandCenter.Instance.spinManager_.DeactivateFillSpin();
         if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
         {
@@ -375,6 +390,10 @@ public class GridManager : MonoBehaviour
         isRefillingSequenceDone = false;
         yield return StartCoroutine(refillGridLogic.normalRefillGrid(CardSlots));
         SetIsRefilling(false);
+        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
+        }
     }
 
     public IEnumerator QuickReFill ()
@@ -385,7 +404,10 @@ public class GridManager : MonoBehaviour
         yield return StartCoroutine(refillGridLogic.quickRefillGrid(CardSlots));
 
         SetIsRefilling(false);
-
+        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
+        }
     }
 
     public IEnumerator TurboReFill ()
@@ -394,7 +416,10 @@ public class GridManager : MonoBehaviour
         isRefillingSequenceDone = false;
         yield return StartCoroutine(refillGridLogic.turboRefillGrid(CardSlots));
         SetIsRefilling(false);
-
+        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
+        }
     }
 
     public void checkForWinings ()

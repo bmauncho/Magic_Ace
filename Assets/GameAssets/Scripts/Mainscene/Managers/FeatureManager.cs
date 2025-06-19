@@ -13,6 +13,7 @@ public enum Features
 public class FeatureManager : MonoBehaviour
 {
     [SerializeField] private FeatureBuyMenu featureBuyMenu;
+    [SerializeField] private FeaturePicker featurePicker;
     [SerializeField] private Features features;
     [SerializeField] private int refillCounter = 0;
     [SerializeField] private int spinCounter = 0;
@@ -74,21 +75,6 @@ public class FeatureManager : MonoBehaviour
         features = Features.Feature_C;
     }
 
-    public Feature_A_Sequence GetSequence ()
-    {
-        return GetComponent<Feature_A_Sequence>();
-    }
-
-    public Feature_B_Sequence GetSequence_B ()
-    {
-        return GetComponent<Feature_B_Sequence>();
-    }
-
-    public Feature_C_Sequence GetSequence_C ()
-    {
-        return GetComponent<Feature_C_Sequence>();
-    }
-
     public void ShowFeature ()
     {
         CommandCenter.Instance.mainMenuController_.hideFeatureMenu();
@@ -103,16 +89,7 @@ public class FeatureManager : MonoBehaviour
         }
 
         var spininfo = new List<GridInfo>();
-        switch (features)
-        {
-            case Features.Feature_A:
-                break;
-            case Features.Feature_B:
-                break;
-            case Features.Feature_C:
-                break;
-        }
-
+        spininfo = featurePicker.spinData(features , counter);
         return spininfo;
     }
 
@@ -125,121 +102,35 @@ public class FeatureManager : MonoBehaviour
         }
 
         var refillinfo = new List<GridInfo>();
-
-        switch (features)
-        {
-            case Features.Feature_A:
-                switch (counter)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                }
-                break;
-
-            case Features.Feature_B:
-                switch (counter)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                }
-                break;
-            case Features.Feature_C:
-                switch (counter)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                }
-                break;
-        }
-
+        refillinfo = featurePicker.spinData(features , counter);
         return refillinfo;
     }
-
-
-    public CardDatas Setrefill ( int col , int row )
+    public CardDatas SetSpin_A ( int col , int row )
     {
-        switch (refillCounter)
-        {
-            case 0:
-                return null;
-            case 1:
-                return null;
-            case 2:
-                return null;
-            case 3:
-                return null;
-            case 4:
-                return null;
-            case 5:
-                return null;
-        }
-        return null;
+        return featurePicker.featureA_spin(refillCounter , col , row);
+    }
+    public CardDatas SetSpin_B ( int col , int row )
+    {
+        return featurePicker.featureB_spin(refillCounter , col , row);
+    }
+    public CardDatas SetSpin_C ( int col , int row )
+    {
+        return featurePicker.featureC_spin(refillCounter , col , row);
+    }
+
+    public CardDatas Setrefill_A ( int col , int row )
+    {
+        return featurePicker.featureA_refill(refillCounter , col , row);
     }
 
     public CardDatas Setrefill_B ( int col , int row )
     {
-        switch (refillCounter)
-        {
-            case 0:
-                return null;
-            case 1:
-                return null;
-            case 2:
-                    
-            case 3:
-                return null;
-            case 4:
-                return null;
-            case 5:
-                return null;
-        }
-        return null;
+        return featurePicker.featureB_refill(refillCounter,col,row);
     }
 
     public CardDatas Setrefill_C ( int col , int row )
     {
-        switch (refillCounter)
-        {
-            case 0:
-                return null;
-            case 1:
-                return null;
-            case 2:
-                return null;
-            case 3:
-                return null;
-            case 4:
-                return null;
-        }
-        return null;
+        return featurePicker.featureC_refill(refillCounter , col , row);
     }
 
     private void spin ()
@@ -262,7 +153,13 @@ public class FeatureManager : MonoBehaviour
 
     public void ResetFeatures ()
     {
-        features = Features.None;
+        if(features == Features.None) { return; }
+        if (isFeature_Complete())
+        {
+            features = Features.None;
+            spinCounter = 0;
+            refillCounter = 0;
+        }
     }
 
     public int GetRefillCounter ()
@@ -273,5 +170,58 @@ public class FeatureManager : MonoBehaviour
     public int GetSpinCouter ()
     {
         return spinCounter;
+    }
+
+    public bool isFeature_A_Complete ()
+    {
+        if (features == Features.Feature_A)
+        {
+            if (spinCounter >= 1 && refillCounter >= 6)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool isFeature_B_Complete ()
+    {
+        if (features == Features.Feature_B)
+        {
+            if (spinCounter >= 1 && refillCounter >= 2)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool isFeature_C_Complete ()
+    {
+        if (features == Features.Feature_C)
+        {
+            if (spinCounter >= 1 && refillCounter >= 5)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool isFeature_Complete ()
+    {
+        if (features == Features.Feature_A)
+        {
+            return isFeature_A_Complete();
+        }
+        else if (features == Features.Feature_B)
+        {
+            return isFeature_B_Complete();
+        }
+        else if (features == Features.Feature_C)
+        {
+            return isFeature_C_Complete();
+        }
+        return false;
     }
 }

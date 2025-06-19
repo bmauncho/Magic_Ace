@@ -37,6 +37,7 @@ public class FeatureBuyMenu : MonoBehaviour
     [SerializeField] private float Timer = 0f;
     [SerializeField] private float selectedBuyAmount;
     [SerializeField] private FeaturBuyOption option;
+    [SerializeField] private Button FeatureBuyButton;
     //[SerializeField] private SelectedFeature selectedFeature = null;
 
     private void OnEnable ()
@@ -45,6 +46,7 @@ public class FeatureBuyMenu : MonoBehaviour
         featureBet_.text = featureBet.ToString();
         UpdateFeatureAmounts();
         UpdateBetButtons();
+        UpdateFeatureBuyBtn();
     }
 
     private void Update ()
@@ -119,6 +121,7 @@ public class FeatureBuyMenu : MonoBehaviour
 
             UpdateFeatureAmounts();
             UpdateBetButtons();
+            UpdateFeatureBuyBtn();
         }
     }
 
@@ -133,6 +136,7 @@ public class FeatureBuyMenu : MonoBehaviour
 
             UpdateFeatureAmounts();
             UpdateBetButtons();
+            UpdateFeatureBuyBtn();
         }
     }
 
@@ -142,10 +146,20 @@ public class FeatureBuyMenu : MonoBehaviour
         DecreaseBet.interactable = betIndex < betAmounts.Length - 1;
     }
 
+    public void UpdateFeatureBuyBtn ()
+    {
+        float amountToBuy = GetBuyAmount();
+        TMP_Text buttonText = FeatureBuyButton.GetComponentInChildren<TMP_Text>();
+        buttonText.text = amountToBuy.ToString();
+    }
+
 
     public void ActivateFeatureBuy ()
     {
         hideFeatureBuy();
+        float amounttoDecrease = GetBuyAmount();
+        double myDouble = (double)amounttoDecrease;
+        CommandCenter.Instance.currencyManager_.DecreaseCashAmount(myDouble);
         Invoke(nameof(spin) , .5f);
     }
 
@@ -167,5 +181,19 @@ public class FeatureBuyMenu : MonoBehaviour
     public FeaturBuyOption GetFeatureBuyOption ()
     {
         return option;
+    }
+
+    public float GetBuyAmount ()
+    {
+        for(int i = 0 ; i < featureAmounts.Count ; i++)
+        {
+            if (featureAmounts [i].Item1 == featureBet)
+            {
+                selectedBuyAmount = featureAmounts [i].Item2;
+                break;
+            }
+        }
+
+        return selectedBuyAmount;
     }
 }

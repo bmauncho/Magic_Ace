@@ -126,7 +126,7 @@ public class CheckForWinnings : MonoBehaviour
                         // change base board
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
                         CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
-
+                        CommandCenter.Instance.featureManager_.ResetFeatures();
                         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
                         {
                             CommandCenter.Instance.winLoseManager_.ClearWinningCards();
@@ -147,7 +147,7 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.comboManager_.HideCombo();
                         // change base board
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
-
+                        CommandCenter.Instance.featureManager_.ResetFeatures();
                         yield return new WaitForSeconds(0.25f);
                         CommandCenter.Instance.spinManager_.Spin();
                         yield break;
@@ -170,6 +170,8 @@ public class CheckForWinnings : MonoBehaviour
         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
         CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
         gridManager.setisNormalWnSequenceDone(true);
+
+       CommandCenter.Instance.featureManager_.ResetFeatures();
 
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
         {

@@ -32,6 +32,7 @@ public class RefillApi : MonoBehaviour
     CardManager cardManager;
     GridManager gridManager;
     [SerializeField] private bool isRefillCardsfetched = false;
+    [SerializeField] private RefillFeatureDemo refillFeatureDemo;
     [SerializeField] private refillResponse refillResponse_;
     [SerializeField] private List<GridInfo> RefillCardsData = new List<GridInfo>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -67,9 +68,6 @@ public class RefillApi : MonoBehaviour
                 //Debug.Log("Show Normal refill!");
                 normalGame();
             }
-
-
-
             isRefillCardsfetched = true;
         }
         else
@@ -204,6 +202,20 @@ public class RefillApi : MonoBehaviour
     private void ShowReffillFeature ()
     {
         FeatureManager featureManager = CommandCenter.Instance.featureManager_;
+        switch (featureManager.GetActiveFeature())
+        {
+            case Features.None:
+                break;
+            case Features.Feature_A:
+                refillFeatureDemo.FeatureA(RefillCardsData , isRefillCardsfetched);
+                break;
+            case Features.Feature_B:
+                refillFeatureDemo.FeatureB(RefillCardsData , isRefillCardsfetched);
+                break;
+            case Features.Feature_C:
+                refillFeatureDemo.FeatureC(RefillCardsData , isRefillCardsfetched);
+                break;
+        }
 
     }
 

@@ -135,7 +135,8 @@ public class GameDataApi : MonoBehaviour
     public bool IsDataFetched = false;
     //demo Mode
     [SerializeField] private List<GridInfo> gridInfos = new List<GridInfo>();
-
+    [Header("References")]
+    [SerializeField] private FeatureBuyDemo featureBuyDemo;
     //Production Mode
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -162,7 +163,7 @@ public class GameDataApi : MonoBehaviour
 
         }
     }
-    
+    #region[startCards]
     public List<GridInfo> startCards = new List<GridInfo>()
     {
         new GridInfo
@@ -217,8 +218,7 @@ public class GameDataApi : MonoBehaviour
             }
         }
     };
-
-
+    #endregion
     [ContextMenu("Fetch Data")]
     public void FetchData ()
     {
@@ -234,7 +234,7 @@ public class GameDataApi : MonoBehaviour
         {
             if (CanShowFeature())
             {
-                // Debug.Log("Features Show!");
+                Debug.Log("Features Show!");
                 ShowFeatures();
             }
             else if (CanShowFeatureBuy())
@@ -296,12 +296,35 @@ public class GameDataApi : MonoBehaviour
     private void ShowFeatures ()
     {
         FeatureManager featureManager = CommandCenter.Instance.featureManager_;
-       
+        FeaturesDemo featuresDemo = GetComponentInChildren<FeaturesDemo>();
+        switch (featureManager.GetActiveFeature())
+        {
+            case Features.None:
+                break;
+            case Features.Feature_A:
+                featuresDemo.featureA(gridInfos);
+                break;
+            case Features.Feature_B:
+                featuresDemo.featureB(gridInfos);
+                break;
+            case Features.Feature_C:
+                featuresDemo.featureC(gridInfos);
+                break;
+        }
+
     }
 
     private void showFeatureBuy ()
     {
-        
+        FeatureBuyMenu featureBuyMenu = CommandCenter.Instance.featureManager_.GetFeatureBuyMenu();
+        switch (featureBuyMenu.GetFeatureBuyOption())
+        {
+            case FeaturBuyOption.None:
+                break;
+            case FeaturBuyOption.FeatureBuy:
+                featureBuyDemo.FeatureBuy(gridInfos);
+                break;
+        }
     }
 
     private void normalGame ()
@@ -329,112 +352,27 @@ public class GameDataApi : MonoBehaviour
             }
         }
     }
-
-
-   
-
-    private void FeatureBuy_A ()
-    {
-        List<(int row, int col)> gridPositions = GenerateRandomGridPositions(3);
-        HashSet<(int, int)> wildPositions = new HashSet<(int, int)>(gridPositions);
-
-        for (int i = 0 ; i < 5 ; i++)
-        {
-            GridInfo gridInfo = new GridInfo();
-            gridInfos.Add(gridInfo);
-
-            for (int j = 0 ; j < 4 ; j++)
-            {
-                CardDatas cardDatas;
-
-                if (wildPositions.Contains((i, j)))
-                {
-                    cardDatas = new CardDatas
-                    {
-                        name = CardType.SCATTER.ToString() ,
-                        isGolden = false ,
-                        substitute = null ,
-                    };
-                }
-                else
-                {
-                    var randomCard = cardManager.GetRandomnCard(j);
-                    cardDatas = new CardDatas
-                    {
-                        name = randomCard.CardType.ToString() ,
-                        isGolden = randomCard.isGolden ,
-                        substitute = randomCard.isGolden ? randomCard.CardType.ToString() : "" ,
-                    };
-                }
-
-                gridInfo.List.Add(cardDatas);
-            }
-        }
-    }
-
-
-    private void FeatureBuy_B ()
-    {
-        List<(int row, int col)> gridPositions = GenerateRandomGridPositions(3);
-        HashSet<(int, int)> wildPositions = new HashSet<(int, int)>(gridPositions);
-
-        for (int i = 0 ; i < 5 ; i++)
-        {
-            GridInfo gridInfo = new GridInfo();
-            gridInfos.Add(gridInfo);
-
-            for (int j = 0 ; j < 4 ; j++)
-            {
-                CardDatas cardDatas;
-
-                if (wildPositions.Contains((i, j)))
-                {
-                    cardDatas = new CardDatas
-                    {
-                        name = CardType.SCATTER.ToString() ,
-                        isGolden = false ,
-                        substitute = null ,
-
-                    };
-                }
-                else
-                {
-                    var randomCard = cardManager.GetRandomnCard(j);
-                    cardDatas = new CardDatas
-                    {
-                        name = randomCard.CardType.ToString() ,
-                        isGolden = randomCard.isGolden ,
-                        substitute = randomCard.isGolden ? randomCard.CardType.ToString() : "" ,
-
-                    };
-                }
-
-                gridInfo.List.Add(cardDatas);
-            }
-        }
-    }
-
     public bool CanShowFeature ()
     {
-        return false;
+        FeatureManager featureManager = CommandCenter.Instance.featureManager_;
+        if (featureManager.GetActiveFeature() == Features.None)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public bool CanShowFeatureBuy ()
     {
-        return false;
+        FeatureBuyMenu featureBuyMenu = CommandCenter.Instance.featureManager_.GetFeatureBuyMenu();
+        if (featureBuyMenu.GetFeatureBuyOption() == FeaturBuyOption.None)
+        {
+            return false;
+        }
+        return true;
     }
 
-    private List<(int col, int row)> GenerateRandomGridPositions ( int count )
-    {
-        List<(int col, int row)> GridPositions = new List<(int row, int col)>();
-        for (int i = 0 ; i < count ; i++)
-        {
-            int x = UnityEngine.Random.Range(0 , 5); // 0 to 3 inclusive
-            int y = UnityEngine.Random.Range(0 , 4); // 0 to 4 inclusive
-            GridPositions.Add((x, y));
-        }
-        return GridPositions;
-    }
 
     public bool HasJokerCard ()
     {
