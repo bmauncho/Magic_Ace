@@ -166,6 +166,7 @@ public class FeatureBuyMenu : MonoBehaviour
     private void spin ()
     {
         Debug.Log("Spin");
+        CommandCenter.Instance.spinManager_.Spin();
     }
 
     public void SetFeatureBuy ()
