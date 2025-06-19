@@ -28,6 +28,11 @@ public class CheckForWinnings : MonoBehaviour
         freeSpinRetriggerComplete = false;
     }
 
+    public bool IsCheckingForWins ()
+    {
+        return isCheckingForWins;
+    }
+
     public void checkForWinings ()
     {
         Debug.Log("CheckForWinings!");

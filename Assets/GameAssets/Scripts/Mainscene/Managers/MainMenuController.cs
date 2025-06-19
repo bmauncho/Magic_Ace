@@ -15,6 +15,20 @@ public class MainMenuController : MonoBehaviour
 
     public void showFeatureMenu ()
     {
+        if(CommandCenter.Instance.gridManager_.IsFirstTime())
+        {
+            return;
+        }
+
+        if (!CommandCenter.Instance.spinManager_.canSpin())
+        {
+            return;
+        }
+
+        if(CommandCenter.Instance.gridManager_.GetCheckForWinnings().IsCheckingForWins())
+        {
+            return;
+        }
         FeatureMenu.SetActive(true);
     }
 

@@ -120,7 +120,10 @@ public class SpinManager : MonoBehaviour
     {
         IsFillingGrid = false;
     }
-
+    public bool canSpin()
+    {
+        return CanSpin;
+    }   
     public void SetCanSpin ( bool canSpin )
     {
         CanSpin = canSpin;

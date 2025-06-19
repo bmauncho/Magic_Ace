@@ -427,6 +427,11 @@ public class GridManager : MonoBehaviour
         GetComponentInChildren<CheckForWinnings>().checkForWinings();
     }
 
+    public CheckForWinnings GetCheckForWinnings ()
+    {
+        return GetComponentInChildren<CheckForWinnings>();
+    }
+
     public void SetIsRefilling ( bool isRefilling_ )
     {
         isRefilling = isRefilling_;
