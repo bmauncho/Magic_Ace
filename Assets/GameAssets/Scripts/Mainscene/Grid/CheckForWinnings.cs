@@ -91,6 +91,7 @@ public class CheckForWinnings : MonoBehaviour
                 CommandCenter.Instance.spinManager_.SetCanSpin(true);
                 CommandCenter.Instance.comboManager_.HideCombo();
                 isCheckingForWins = false;
+                Debug.Log("Should hide retrigger UI here");
                 yield break;
             }
             else

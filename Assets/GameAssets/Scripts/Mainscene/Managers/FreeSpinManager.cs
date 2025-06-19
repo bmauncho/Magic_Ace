@@ -42,6 +42,7 @@ public class FreeSpinManager : MonoBehaviour
     [ContextMenu("Show FreeSpinRetrigger")]
     public void ShowFreeSpinRetrigger ()
     {
+        Debug.Log("retrigger free spin called!");
         isFreeSpinRetrigger = true;
 
         StartCoroutine(FreeSpinRetrigger());
@@ -55,6 +56,7 @@ public class FreeSpinManager : MonoBehaviour
         canvasGroup.alpha = 0;
         Tween myTween = canvasGroup.DOFade(1 , 0.5f);
         yield return StartCoroutine(freeSpinRetrigger.retriggerFreeSpin());
+        Debug.Log("Free trigger complete!");
         OnFreeSpinIntroComplete?.Invoke();
     }
 

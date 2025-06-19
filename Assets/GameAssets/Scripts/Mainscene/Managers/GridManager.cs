@@ -390,10 +390,6 @@ public class GridManager : MonoBehaviour
         isRefillingSequenceDone = false;
         yield return StartCoroutine(refillGridLogic.normalRefillGrid(CardSlots));
         SetIsRefilling(false);
-        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
-        {
-            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
-        }
     }
 
     public IEnumerator QuickReFill ()
@@ -404,10 +400,6 @@ public class GridManager : MonoBehaviour
         yield return StartCoroutine(refillGridLogic.quickRefillGrid(CardSlots));
 
         SetIsRefilling(false);
-        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
-        {
-            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
-        }
     }
 
     public IEnumerator TurboReFill ()
@@ -416,10 +408,6 @@ public class GridManager : MonoBehaviour
         isRefillingSequenceDone = false;
         yield return StartCoroutine(refillGridLogic.turboRefillGrid(CardSlots));
         SetIsRefilling(false);
-        if (CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
-        {
-            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
-        }
     }
 
     public void checkForWinings ()

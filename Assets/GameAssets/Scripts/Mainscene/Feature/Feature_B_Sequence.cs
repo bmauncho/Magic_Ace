@@ -31,7 +31,7 @@ public class Feature_B_Sequence : MonoBehaviour
             {
                 new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
                 new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
-                new CardDatas { name = CardType.JACK.ToString(), isGolden = true },
+                new CardDatas { name = CardType.JACK.ToString(), isGolden = false},
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
             }
         },
@@ -85,7 +85,7 @@ public class Feature_B_Sequence : MonoBehaviour
             {
                 new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
                 new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
-                new CardDatas { name = CardType.CLUB.ToString(), isGolden = true },
+                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false},
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
             }
         },

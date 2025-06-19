@@ -48348,7 +48348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1720729f0afa8ab46a11d8222a0214ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spin_1:
+  BG_Spin_1:
   - List:
     - name: CLUB
       isGolden: 0
@@ -48356,46 +48356,3188 @@ MonoBehaviour:
     - name: HEART
       isGolden: 0
       substitute: 
-    - name: QUEEN
+    - name: CLUB
       isGolden: 0
       substitute: 
     - name: CLUB
       isGolden: 0
       substitute: 
   - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_Spin_2:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
     - name: CLUB
       isGolden: 0
       substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_1:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_Spin_3:
+  - List:
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+  - List:
     - name: QUEEN
       isGolden: 0
       substitute: 
     - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_Spin_4:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_2:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SUPER_JOKER
       isGolden: 0
       substitute: 
     - name: SPADE
       isGolden: 0
       substitute: 
   - List:
-    - name: SPADE
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
       isGolden: 0
       substitute: 
     - name: QUEEN
       isGolden: 0
       substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_3:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
     - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
       isGolden: 1
       substitute: 
     - name: KING
       isGolden: 0
       substitute: 
   - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
     - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_4:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_5:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_6:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_7:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_Spin_5:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  FG_refill_8:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_Spin_6:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  FG_refill_9:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  FG_refill_10:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  FG_refill_11:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  FG_refill_12:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  FG_refill_13:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  FG_refill_14:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  FG_refill_15:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  FG_Spin_7:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_refill_16:
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_refill_17:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_Spin_8:
+  - List:
+    - name: QUEEN
       isGolden: 0
       substitute: 
     - name: HEART
       isGolden: 0
       substitute: 
     - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_refill_18:
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: BIG_JOKER
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: BIG_JOKER
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: BIG_JOKER
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: BIG_JOKER
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_refill_19:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_refill_20:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_refill_21:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_Spin_9:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_22:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_Spin_10:
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_23:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_24:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  FG_refill_25:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  FG_Spin_11:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_refill_26:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SUPER_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_refill_27:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_Spin_12:
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_28:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: BIG_JOKER
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: BIG_JOKER
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: BIG_JOKER
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: BIG_JOKER
+    - name: HEART
+      isGolden: 0
+      substitute: BIG_JOKER
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_29:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_30:
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_31:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 1
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: ACE
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  FG_refill_32:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_33:
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 1
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_Spin_13:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SCATTER
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+  FG_Spin_14:
+  - List:
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_34:
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_refill_35:
+  - List:
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SMALL_JOKER
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
       isGolden: 0
       substitute: 
     - name: DIAMOND
@@ -48408,10 +51550,234 @@ MonoBehaviour:
     - name: QUEEN
       isGolden: 0
       substitute: 
-    - name: CLUB
+    - name: DIAMOND
       isGolden: 0
       substitute: 
     - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 1
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  FG_Spin_15:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_refill_36:
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: DIAMOND
+      isGolden: 1
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  FG_Spin_16:
+  - List:
+    - name: SPADE
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: ACE
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: HEART
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: KING
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: QUEEN
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 1
+      substitute: 
+  - List:
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: DIAMOND
+      isGolden: 0
+      substitute: 
+  - List:
+    - name: KING
+      isGolden: 0
+      substitute: 
+    - name: CLUB
+      isGolden: 0
+      substitute: 
+    - name: JACK
+      isGolden: 0
+      substitute: 
+    - name: HEART
       isGolden: 0
       substitute: 
 --- !u!1 &1459928552
@@ -62011,7 +65377,7 @@ MonoBehaviour:
       isGolden: 0
       substitute: 
     - name: JACK
-      isGolden: 1
+      isGolden: 0
       substitute: 
     - name: QUEEN
       isGolden: 0
@@ -62077,7 +65443,7 @@ MonoBehaviour:
       isGolden: 0
       substitute: 
     - name: CLUB
-      isGolden: 1
+      isGolden: 0
       substitute: 
     - name: QUEEN
       isGolden: 0

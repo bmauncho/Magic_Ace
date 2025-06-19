@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class FeaturePicker : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class FeaturePicker : MonoBehaviour
         
     }
 
-    public Feature_A_Sequence GetSequence ()
+    public Feature_A_Sequence GetSequence_A ()
     {
         return feature_A_sequence;
     }
@@ -41,20 +42,12 @@ public class FeaturePicker : MonoBehaviour
         switch (features)
         {
             case Features.Feature_A:
-                switch (counter)
+
+                var sequence = GetSequence_A();
+
+                if (counter >= 0 && counter < sequence.AllSpinSequences.Count)
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
+                    return sequence.AllSpinSequences [counter];
                 }
                 break;
             case Features.Feature_B:
@@ -85,27 +78,18 @@ public class FeaturePicker : MonoBehaviour
         }
 
         return null;
-    }  
+    }
+
     public List<GridInfo> refillData ( Features features ,int counter)
     {
         switch (features)
         {
             case Features.Feature_A:
-                switch (counter)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
-                }
+
+                var sequence = GetSequence_A();
+
+                if (counter >= 0 && counter < sequence.AllRefillSequences.Count)
+                    return sequence.AllRefillSequences [counter];
                 break;
 
             case Features.Feature_B:
@@ -139,15 +123,24 @@ public class FeaturePicker : MonoBehaviour
 
     public CardDatas featureA_spin ( int refillCounter , int col , int row )
     {
-        switch (refillCounter)
+        var sequence = GetSequence_A();
+
+        if (refillCounter >= 0 && refillCounter < sequence.AllSpinSequences.Count)
         {
-            case 0:
-                return null;
-            case 1:
-                return null;
+            return sequence.AllSpinSequences [refillCounter][col].List [row];
         }
+
         return null;
     }
+
+    public CardDatas featureA_refill (int refillCounter,int col,int row)
+    {
+        var sequence = GetSequence_A();
+
+        if (refillCounter >= 0 && refillCounter < sequence.AllRefillSequences.Count)
+            return sequence.AllRefillSequences [refillCounter] [col].List [row];
+        return null;
+    } 
     public CardDatas featureB_spin ( int refillCounter , int col , int row )
     {
         switch (refillCounter)
@@ -157,6 +150,18 @@ public class FeaturePicker : MonoBehaviour
         }
         return null;
     }
+
+    public CardDatas featureB_refill ( int refillCounter,int col,int row)
+    {
+        switch (refillCounter)
+        {
+            case 0:
+                return GetSequence_B().refill_1 [col].List [row];
+            case 1:
+                return GetSequence_B().refill_2 [col].List [row];
+        }
+        return null;
+    } 
     public CardDatas featureC_spin ( int refillCounter , int col , int row )
     {
         switch (refillCounter)
@@ -169,28 +174,6 @@ public class FeaturePicker : MonoBehaviour
         return null;
     }
 
-    public CardDatas featureA_refill (int refillCounter,int col,int row)
-    {
-        switch (refillCounter)
-        {
-            case 0:
-                return null;
-            case 1:
-                return null;
-        }
-        return null;
-    } 
-    public CardDatas featureB_refill ( int refillCounter,int col,int row)
-    {
-        switch (refillCounter)
-        {
-            case 0:
-                return GetSequence_B().refill_1 [col].List [row];
-            case 1:
-                return GetSequence_B().refill_2 [col].List [row];
-        }
-        return null;
-    } 
     public CardDatas featureC_refill ( int refillCounter,int col,int row)
     {
         switch (refillCounter)

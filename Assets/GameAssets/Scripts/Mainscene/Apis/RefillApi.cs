@@ -221,7 +221,13 @@ public class RefillApi : MonoBehaviour
 
     private bool CanShowFeature ()
     {
-        return false;
+        FeatureManager featureManager = CommandCenter.Instance.featureManager_;
+        if (featureManager.GetActiveFeature() == Features.None)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public refillResponse RefillResponse ()

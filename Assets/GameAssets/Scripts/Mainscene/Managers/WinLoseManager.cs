@@ -291,8 +291,13 @@ public class WinLoseManager : MonoBehaviour
     {
         yield return new WaitWhile(() => !winSequence_.IsWinSequenceDone());
 
-        yield return StartCoroutine(refillGrid.RefillTheGrid());
-        yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
+        if (!CommandCenter.Instance.freeSpinManager_.IsFreeGameWin() 
+            && CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            yield return StartCoroutine(refillGrid.RefillTheGrid());
+            yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
+        }
+     
 
         yield return StartCoroutine(flipCards.flipBack(
             remainingGoldenCards , 
@@ -309,7 +314,7 @@ public class WinLoseManager : MonoBehaviour
             //Debug.Log("List is not null");
             if (remainingBigJokerCards.Count > 0)
             {
-                yield return StartCoroutine(flipCards.JumpBigJokerCards(remainingBigJokerCards));
+                yield return StartCoroutine(jumpCards.JumpBigJokerCards(remainingBigJokerCards));
             }
         }
 
@@ -349,6 +354,13 @@ public class WinLoseManager : MonoBehaviour
         OnComplete?.Invoke();
 
         isWinSequenceRunning = false;
+        //increase refill counter
+        if (!CommandCenter.Instance.freeSpinManager_.IsFreeGameWin() &&
+            CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        {
+            CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
+        }
+
         if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
         {
             CommandCenter.Instance.gridManager_.checkForWinings();

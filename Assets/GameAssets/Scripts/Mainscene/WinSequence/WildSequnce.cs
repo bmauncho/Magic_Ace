@@ -46,8 +46,8 @@ public class WildSequnce : MonoBehaviour
         {
             CommandCenter.Instance.cardManager_.SetWildChance(0.005f);
             bool isFreeSpinIntroComplete = false;
-            freeSpinManager.ShowFreeSpinIntro();
             freeSpinManager.OnFreeSpinIntroComplete += () => isFreeSpinIntroComplete = true;
+            freeSpinManager.ShowFreeSpinIntro();
             yield return new WaitUntil(() => isFreeSpinIntroComplete);
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(10);
             CommandCenter.Instance.SetGameType(GameType.Free);
@@ -56,10 +56,11 @@ public class WildSequnce : MonoBehaviour
         {
             //show Retrigger
             bool isFreeSpinRetriggerComplete = false;
-            freeSpinManager.ShowFreeSpinRetrigger();
             freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
+            freeSpinManager.ShowFreeSpinRetrigger();
             yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
+            Debug.Log("Should hide retrigger UI here");
         }
         //activate free spin
         StartCoroutine(WildCompletionSequence(
@@ -169,6 +170,7 @@ public class WildSequnce : MonoBehaviour
             freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
             yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
+            Debug.Log("Should hide retrigger UI here");
         }
 
         winLoseManager.ClearWinningCards();

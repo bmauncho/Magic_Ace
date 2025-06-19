@@ -57,6 +57,11 @@ public class FeatureBuyMenu : MonoBehaviour
 
         if (Timer >= 5f)
         {
+            if(effectAnim.gameObject.activeSelf)
+            {
+                Timer = 0;
+                return;
+            }
             EnableEffectAnim();
             Timer = 0f;
         }

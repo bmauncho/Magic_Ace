@@ -102,20 +102,20 @@ public class FeatureManager : MonoBehaviour
         }
 
         var refillinfo = new List<GridInfo>();
-        refillinfo = featurePicker.spinData(features , counter);
+        refillinfo = featurePicker.refillData(features , counter);
         return refillinfo;
     }
     public CardDatas SetSpin_A ( int col , int row )
     {
-        return featurePicker.featureA_spin(refillCounter , col , row);
+        return featurePicker.featureA_spin(spinCounter, col , row);
     }
     public CardDatas SetSpin_B ( int col , int row )
     {
-        return featurePicker.featureB_spin(refillCounter , col , row);
+        return featurePicker.featureB_spin(spinCounter , col , row);
     }
     public CardDatas SetSpin_C ( int col , int row )
     {
-        return featurePicker.featureC_spin(refillCounter , col , row);
+        return featurePicker.featureC_spin(spinCounter , col , row);
     }
 
     public CardDatas Setrefill_A ( int col , int row )
