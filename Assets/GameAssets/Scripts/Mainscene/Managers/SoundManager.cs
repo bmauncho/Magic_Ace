@@ -15,6 +15,11 @@ public class SoundManager : MonoBehaviour
     [ContextMenu("Rename Sources & Add to list")]
     public void RenamePossibleSources ()
     {
+        if(PossibleAudioSource.Count > 0)
+        {
+            PossibleAudioSource.Clear();
+        }
+        
         Transform child = transform.GetChild(1);
         int index = 1;
         foreach (Transform t in child)
