@@ -495,7 +495,7 @@ public class Feature_A_Sequence : MonoBehaviour
             List = new List<CardDatas>()
             {
                 new CardDatas { name = CardType.ACE.ToString(), isGolden = false },
-                new CardDatas { name = CardType.SUPER_JOKER.ToString(), isGolden = false },
+                new CardDatas { name = CardType.SMALL_JOKER.ToString(), isGolden = false },
                 new CardDatas { name = CardType.DIAMOND.ToString(), isGolden = false },
                 new CardDatas { name = CardType.DIAMOND.ToString(), isGolden = false },
             }
@@ -787,7 +787,7 @@ public class Feature_A_Sequence : MonoBehaviour
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
-                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
+                new CardDatas { name = CardType.KING.ToString(), isGolden = false },
             }
         }
     };
@@ -841,7 +841,7 @@ public class Feature_A_Sequence : MonoBehaviour
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
-                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
+                new CardDatas { name = CardType.KING.ToString(), isGolden = false },
             }
         }
     };
@@ -895,7 +895,7 @@ public class Feature_A_Sequence : MonoBehaviour
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
-                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
+                new CardDatas { name = CardType.KING.ToString(), isGolden = false },
             }
         }
     };
@@ -949,7 +949,7 @@ public class Feature_A_Sequence : MonoBehaviour
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
-                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
+                new CardDatas { name = CardType.KING.ToString(), isGolden = false },
             }
         }
     };
@@ -1003,7 +1003,7 @@ public class Feature_A_Sequence : MonoBehaviour
                 new CardDatas { name = CardType.QUEEN.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
                 new CardDatas { name = CardType.KING.ToString(), isGolden = false },
-                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
+                new CardDatas { name = CardType.KING.ToString(), isGolden = false },
             }
         }
     };
@@ -2351,7 +2351,7 @@ public class Feature_A_Sequence : MonoBehaviour
             List = new List<CardDatas>()
             {
                 new CardDatas { name = CardType.HEART.ToString(), isGolden = false },
-                new CardDatas { name = CardType.DIAMOND.ToString(), isGolden = false },
+                new CardDatas { name = CardType.CLUB.ToString(), isGolden = false },
                 new CardDatas { name = CardType.SPADE.ToString(), isGolden = false },
                 new CardDatas { name = CardType.SPADE.ToString(), isGolden = false },
             }

@@ -356,9 +356,14 @@ public class WinLoseManager : MonoBehaviour
         isWinSequenceRunning = false;
         //increase refill counter
         if (!CommandCenter.Instance.freeSpinManager_.IsFreeGameWin() &&
+            !CommandCenter.Instance.freeSpinManager_.IsFreeSpinRetrigger() &&
             CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
         {
             CommandCenter.Instance.featureManager_.IncreaseRefillCounter();
+        }
+        else
+        {
+            Debug.Log("Free Spin Win or freespin Retrigger, not increasing refill counter");
         }
 
         if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())

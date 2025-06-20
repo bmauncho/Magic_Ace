@@ -27636,6 +27636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a787bd7f05f5b8840a6f21a17c28c309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeSpinCount: 0
   FreeSpins: 0
   scatterCards: 0
   retriggerScatterCards: 0
@@ -48907,7 +48908,7 @@ MonoBehaviour:
     - name: ACE
       isGolden: 0
       substitute: 
-    - name: SUPER_JOKER
+    - name: SMALL_JOKER
       isGolden: 0
       substitute: 
     - name: DIAMOND

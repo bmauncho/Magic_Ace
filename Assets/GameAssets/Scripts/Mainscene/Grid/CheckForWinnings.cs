@@ -82,17 +82,27 @@ public class CheckForWinnings : MonoBehaviour
         {
             if (CommandCenter.Instance.freeSpinManager_.IsFreeSpinRetrigger())
             {
-                //show retrigger UI
-                CommandCenter.Instance.freeSpinManager_.ShowFreeSpinRetrigger();
-                CommandCenter.Instance.freeSpinManager_.OnFreeSpinRetriggerComplete += OnRetriggerComplete;
-                yield return new WaitWhile(() => !freeSpinRetriggerComplete);
-                CommandCenter.Instance.freeSpinManager_.OnFreeSpinRetriggerComplete -= OnRetriggerReset;
+                bool isDone = false;
+                yield return new WaitForSeconds(2f);
+                CommandCenter.Instance.freeSpinManager_.DeactivateFreeSpin(() =>
+                {
+                    isDone = true;
+                });
+
+                yield return new WaitUntil(() => isDone);
                 CommandCenter.Instance.freeSpinManager_.SetIsFreeSpinRetrigger(false);
                 CommandCenter.Instance.spinManager_.SetCanSpin(true);
-                CommandCenter.Instance.comboManager_.HideCombo();
+                CommandCenter.Instance.spinManager_.enableButtons();
+                CommandCenter.Instance.winLoseManager_.ClearWinningCards();
+                CommandCenter.Instance.winLoseManager_.ResetWinType();
                 isCheckingForWins = false;
-                Debug.Log("Should hide retrigger UI here");
-                yield break;
+                CommandCenter.Instance.comboManager_.HideCombo();
+                // change base board
+                CommandCenter.Instance.multiplierManager_.ResetMultiplier();
+                CommandCenter.Instance.featureManager_.ResetFeatures();
+                yield return new WaitForSeconds(0.25f);
+                Debug.Log("spin after");
+                CommandCenter.Instance.spinManager_.Spin();
             }
             else
             {

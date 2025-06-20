@@ -176,7 +176,7 @@ public class FeatureManager : MonoBehaviour
     {
         if (features == Features.Feature_A)
         {
-            if (spinCounter >= 1 && refillCounter >= 6)
+            if (spinCounter >= 1 && refillCounter >= 36)
             {
                 return true;
             }

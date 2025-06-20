@@ -54,13 +54,17 @@ public class WildSequnce : MonoBehaviour
         }
         else
         {
-            //show Retrigger
-            bool isFreeSpinRetriggerComplete = false;
-            freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
-            freeSpinManager.ShowFreeSpinRetrigger();
-            yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
-            CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
-            Debug.Log("Should hide retrigger UI here");
+            if(!CommandCenter.Instance.freeSpinManager_.IsFreeSpinRetrigger())
+            {
+                //show Retrigger
+                bool isDone = false;
+                bool isFreeSpinRetriggerComplete = false;
+                freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
+                freeSpinManager.ShowFreeSpinRetrigger();
+                yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
+                CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
+                Debug.Log("Should hide retrigger UI here");
+            }
         }
         //activate free spin
         StartCoroutine(WildCompletionSequence(
@@ -164,13 +168,17 @@ public class WildSequnce : MonoBehaviour
         }
         else
         {
-            //show Retrigger
-            bool isFreeSpinRetriggerComplete = false;
-            freeSpinManager.ShowFreeSpinRetrigger();
-            freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
-            yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
-            CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
-            Debug.Log("Should hide retrigger UI here");
+            if (!CommandCenter.Instance.freeSpinManager_.IsFreeSpinRetrigger())
+            {
+                //show Retrigger
+                bool isDone = false;
+                bool isFreeSpinRetriggerComplete = false;
+                freeSpinManager.OnFreeSpinRetriggerComplete += () => isFreeSpinRetriggerComplete = true;
+                freeSpinManager.ShowFreeSpinRetrigger();
+                yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
+                CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
+                Debug.Log("Should hide retrigger UI here");
+            }
         }
 
         winLoseManager.ClearWinningCards();

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class FreeSpinManager : MonoBehaviour
 {
+    [Header("Free Spin Variables")]
+    [SerializeField] private int freeSpinCount;
     [SerializeField] private int FreeSpins;
     [SerializeField] private int scatterCards;
     [SerializeField] private int retriggerScatterCards;
@@ -57,7 +59,12 @@ public class FreeSpinManager : MonoBehaviour
         Tween myTween = canvasGroup.DOFade(1 , 0.5f);
         yield return StartCoroutine(freeSpinRetrigger.retriggerFreeSpin());
         Debug.Log("Free trigger complete!");
-        OnFreeSpinIntroComplete?.Invoke();
+        OnFreeSpinRetriggerComplete?.Invoke();
+    }
+
+    public void DeactivateFreeSpin (Action OnComplete)
+    {
+        StartCoroutine(freeSpinRetrigger.Deactivate(OnComplete));
     }
 
     [ContextMenu("Show FreeSpin Totalwin")]
@@ -101,8 +108,9 @@ public class FreeSpinManager : MonoBehaviour
 
     public void SetFreeSpins (int value)
     {
+        freeSpinCount += value;
         FreeSpins += value;
-        freeSpinUI.SetTotalSpins(FreeSpins);
+        freeSpinUI.SetTotalSpins(freeSpinCount);
     }
 
     public void UpdateFreeSpins ()

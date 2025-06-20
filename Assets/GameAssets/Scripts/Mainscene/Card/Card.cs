@@ -162,7 +162,7 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
-        CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
+        CardBg.rectTransform.localScale = new Vector3(1, 1, 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -181,7 +181,7 @@ public class Card : MonoBehaviour
         CardBg.gameObject.SetActive(true);
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
-        CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
+        CardBg.rectTransform.localScale = new Vector3(1 , 1 , 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         CardBg.sprite = _cardBg;
         card.sprite = _card;

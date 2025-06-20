@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -41,6 +42,19 @@ public class FreeSpinRetrigger : MonoBehaviour
         yield return new WaitForSeconds(.25f);
         free_Spins.SetActive(true);
         no_FreeSpins.SetActive(true);
+    }
+
+
+    public IEnumerator Deactivate (Action OnComplete)
+    {
+        ResetRetrigger();
+        animator_.Rebind();
+        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 1;
+        Tween myTween = canvasGroup.DOFade(0 , 0.5f);
+        yield return myTween.WaitForCompletion();
+        OnComplete?.Invoke();
+        yield return null;
     }
 
 
