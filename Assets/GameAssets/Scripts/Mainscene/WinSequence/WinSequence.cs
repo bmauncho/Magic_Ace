@@ -234,7 +234,6 @@ public class WinSequence : MonoBehaviour
                 }
             }
         }
-
         //Debug.Log("WinType: " + winLoseManager.GetWinType());
         if (winLoseManager.GetWinType() == WinType.Normal)
         {

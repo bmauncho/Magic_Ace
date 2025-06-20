@@ -34,6 +34,7 @@ public class CommandCenter : MonoBehaviour
     public FreeSpinManager freeSpinManager_;
     public UIManager uiManager_;
     public PayOutManager payOutManager_;
+    public SoundManager soundManager_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
