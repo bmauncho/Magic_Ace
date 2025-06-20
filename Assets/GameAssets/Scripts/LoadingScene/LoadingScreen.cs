@@ -83,8 +83,9 @@ public class LoadingScreen : MonoBehaviour
             while (!handle.IsDone)
             {
                 ShowProgress(handle.PercentComplete);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.2f);
             }
+
             Debug.Log("loading Addressable...");
             //One way to handle manual scene activation.
             if (handle.Status == AsyncOperationStatus.Succeeded)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class FillGridLogic : MonoBehaviour
 {
 
-    public IEnumerator normalfillGrid ( List<CardPos> CardSlots,bool isFirstTime )
+    public IEnumerator normalfillGrid ( List<CardPos> CardSlots,bool isFirstTime,WildEffect wildEffect,winningBg_Wild winningBg_Wild )
     {
         Deck [] Decks = CommandCenter.Instance.deckManager_.GetDecks();
         int rowCount = 4;
@@ -16,6 +16,11 @@ public class FillGridLogic : MonoBehaviour
         float delayIncrement = 0.1f;
 
         // Debug.Log("normal spin");
+
+        if (!isFirstTime)
+        {
+            CommandCenter.Instance.soundManager_.PlaySound("Base_Icon_Land");
+        }
 
         List<int> wildColumns = new List<int>();
         List<(string cardName, List<(int col, int row)>)> wildCards = new List<(string cardName, List<(int col, int row)>)>();
@@ -62,7 +67,7 @@ public class FillGridLogic : MonoBehaviour
 
                     if (preTriggerWild && cardComponent.GetCardType() == CardType.SCATTER)
                     {
-                        //wildEffect.ToggleEffect(col);
+                        wildEffect.ToggleEffect(col);
                         List<(int col, int row)> cardPos = new List<(int col, int row)>();
                         cardPos.Add((col, row));
                         wildWinCards.Add((cardComponent, cardPos));
@@ -80,6 +85,21 @@ public class FillGridLogic : MonoBehaviour
                 yield return StartCoroutine(DelayedMove(cardComponent , target , delay , slot , false));
             }
 
+            if (ScatterFound)
+            {
+                playscaterSound(col);
+            }
+
+
+            if (preTriggerWild)
+            {
+                wildEffect.ToggleEffect(col + 1);
+                winningBg_Wild.Activate();
+                winningBg_Wild.Movebg(col);
+                //move wild card to winslot
+                moveCardsToWinSlot(CardSlots,wildWinCards , col);
+                CommandCenter.Instance.soundManager_.PlaySound("Common_ReelSpeedUp");
+            }
             ScatterFound = false;
         }
 
@@ -170,5 +190,83 @@ public class FillGridLogic : MonoBehaviour
         yield return new WaitForSeconds(delay);
         card.moveCard(target , _slot , isInitialization);
         yield return null;
+    }
+
+    private void playscaterSound ( int col )
+    {
+        SoundManager soundManager = CommandCenter.Instance.soundManager_;
+        switch (col)
+        {
+            case 0:
+                soundManager.PlaySound("Common_C1_Hit_01");
+                break;
+            case 1:
+                soundManager.PlaySound("Common_C1_Hit_02");
+                break;
+            case 2:
+                soundManager.PlaySound("Common_C1_Hit_03");
+                break;
+            case 3:
+                soundManager.PlaySound("Common_C1_Hit_04");
+                break;
+            case 4:
+                soundManager.PlaySound("Common_C1_Hit_05");
+                break;
+        }
+    }
+
+    private void moveCardsToWinSlot ( List<CardPos> CardSlots , List<(Card wildcard, List<(int col, int row)> wildCards)> cardComponents , int column )
+    {
+        List<CardPos> winCardSlots = new List<CardPos>(CommandCenter.Instance.winLoseManager_.GetWinCardSlots());
+
+        foreach (var (wildcard, wildCards) in cardComponents)
+        {
+            foreach (var (col, row) in wildCards)
+            {
+                if (col >= 0 && col < CardSlots.Count && row >= 0 && row < CardSlots [col].CardPosInRow.Count)
+                {
+                    Slot slot = CardSlots [col].CardPosInRow [row].GetComponent<Slot>();
+                    GameObject card = slot.GetTheOwner();
+                    if (card != null)
+                    {
+                        WinSlot winSlot = winCardSlots [col].CardPosInRow [row].GetComponent<WinSlot>();
+                        winSlot.AddOwner(card);
+                        card.transform.SetParent(winSlot.transform);
+                    }
+                }
+            }
+        }
+
+        cardComponents.Clear();
+        int colDiff = 5 - column;
+        int currentCol = column;
+        // so if current col is 1 activate any card type called wild in col 0
+        // if  current col is 2 activate a any card type called wild  in 0,1 
+        //etc
+        if (colDiff > 0)
+        {
+            for (int colIndex = 0 ; colIndex < column ; colIndex++)
+            {
+                int rowCount = CardSlots [colIndex].CardPosInRow.Count;
+
+                for (int row = 0 ; row < rowCount ; row++)
+                {
+                    Slot slot = CardSlots [colIndex].CardPosInRow [row].GetComponent<Slot>();
+                    WinSlot winSlot = winCardSlots [colIndex].CardPosInRow [row].GetComponent<WinSlot>();
+                    GameObject card = slot.GetTheOwner();
+
+                    if (card != null)
+                    {
+                        Card cardComp = card.GetComponent<Card>();
+                        if (cardComp != null && cardComp.GetCardType() == CardType.SCATTER)
+                        {
+                            winSlot.AddOwner(card);
+                            card.transform.SetParent(winSlot.transform);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

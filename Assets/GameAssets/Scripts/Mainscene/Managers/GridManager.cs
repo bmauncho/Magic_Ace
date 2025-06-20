@@ -29,6 +29,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private List<CardPos> CardSlots = new List<CardPos>();
     [SerializeField] private Sprite [] initCards;
     [SerializeField] private winningBg_Wild winningBg_Wild;
+    [Header("Effects")]
+    [SerializeField] private StartEffect startEffect;
+    [SerializeField] private WildEffect wildEffect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
@@ -78,6 +81,8 @@ public class GridManager : MonoBehaviour
         int rowCount = 4;
         float delayIncrement = 0.1f; // Reduce delay for faster animation
         Invoke(nameof(GridPopulator) , 1f);
+        ShowStartEffects();
+        Invoke(nameof(HideStartEffects) , 2f);
         Debug.Log("Initialization");
         string [] sounds = new string [] { "Base_Firstenter_01" , "Base_Firstenter_02" , "Base_Firstenter_03" , "Base_Firstenter_04" , "Base_Firstenter_05" };
 
@@ -108,6 +113,7 @@ public class GridManager : MonoBehaviour
                 }
 
             }
+            CommandCenter.Instance.soundManager_.PlaySound(sounds [col]);
         }
         Debug.Log("All init animations done!");
         CommandCenter.Instance.spinManager_.SetCanSpin(true);
@@ -120,6 +126,17 @@ public class GridManager : MonoBehaviour
     {
         StartCoroutine(PopulateGrid());
     }
+
+    private void ShowStartEffects ()
+    {
+        startEffect.showEffect();
+    }
+
+    public void HideStartEffects ()
+    {
+        startEffect.HideEffect();
+    }
+
 
     // Update is called once per frame
     void Update ()
@@ -270,7 +287,7 @@ public class GridManager : MonoBehaviour
     #region
     private IEnumerator NormalFill ()
     {
-        yield return StartCoroutine(fillGridLogic.normalfillGrid(CardSlots , isFirstTime));
+        yield return StartCoroutine(fillGridLogic.normalfillGrid(CardSlots , isFirstTime,wildEffect,winningBg_Wild));
 
         if(CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
         {
@@ -486,6 +503,38 @@ public class GridManager : MonoBehaviour
     public bool IsNormalWinSequenceDone ()
     {
         return isNormalWnSequenceDone;
+    }
+
+    public void moveCardsBacktoSlots ()
+    {
+        //Debug.Log("Return to normal slots ! " + "Stack trace:\n" + Environment.StackTrace);
+        List<CardPos> winCardSlots = new List<CardPos>(CommandCenter.Instance.winLoseManager_.GetWinCardSlots());
+
+        for (int col = 0 ; col < CardSlots.Count ; col++)
+        {
+            for (int row = 0 ; row < CardSlots [col].CardPosInRow.Count ; row++)
+            {
+                WinSlot winSlot = winCardSlots [col].CardPosInRow [row].GetComponent<WinSlot>();
+                Slot slot = CardSlots [col].CardPosInRow [row].GetComponent<Slot>();
+                if (winSlot.GetTheOwner())
+                {
+                    GameObject card = winSlot.GetTheOwner();
+                    if (card != null)
+                    {
+                        if (card == slot.GetTheOwner())
+                        {
+                            card.transform.SetParent(slot.transform);
+                            card.transform.localPosition = Vector3.zero;
+                        }
+                        else
+                        {
+                            CommandCenter.Instance.poolManager_.ReturnToPool(PoolType.Cards,card);
+                            winSlot.RemoveOwner();
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }
