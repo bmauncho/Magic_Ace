@@ -22,16 +22,21 @@ public class LoadingScreen : MonoBehaviour
     private bool permissionAsked;
     private bool isSliderLoaded;
     private bool isSceneReady;
+    private void Awake ()
+    {
+        
+    }
 
     private void Start ()
     {
         isSliderLoaded = false;
+        isAddressablesEnabled = playScene == null ? false : true;
         StartCoroutine(LoadScene(playScene));
     }
 
     private void Update ()
     {
-        //isAddressablesEnabled = playScene == null ? false : true;
+        isAddressablesEnabled = playScene == null ? false : true;
         UpdateImageFillAmount(loadingSlider , progress);
 
         if (progress >= 1f && !permissionAsked)
@@ -72,6 +77,7 @@ public class LoadingScreen : MonoBehaviour
     {
         if (isAddressablesEnabled)
         {
+            Debug.Log("loading Addressable!");
             //Not allowing scene activation immediately
             AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(Which , LoadSceneMode.Additive , false);
             while (!handle.IsDone)
@@ -79,21 +85,22 @@ public class LoadingScreen : MonoBehaviour
                 ShowProgress(handle.PercentComplete);
                 yield return new WaitForSeconds(0.1f);
             }
-
+            Debug.Log("loading Addressable...");
             //One way to handle manual scene activation.
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 ShowProgress(handle.PercentComplete);
             }
+            Debug.Log("loading Addressable...Done");
             yield return new WaitUntil(() => isSceneReady);
 
-            //Debug.Log($"isSceneReady: {isSceneReady}");
+            Debug.Log($"isSceneReady: {isSceneReady}");
 
             GameManager.Instance.FetchConfigData();
 
             yield return new WaitUntil(() => GameManager.Instance.IsDataFetched());
 
-            //Debug.Log($"isDataFetched : {GameManager.Instance.IsDataFetched()}");
+            Debug.Log($"isDataFetched : {GameManager.Instance.IsDataFetched()}");
             handle.Result.ActivateAsync();
             ConfigMan.Instance.TheDebugObj.SetActive(false);
             yield return new WaitForSeconds(0.5f);
@@ -101,6 +108,7 @@ public class LoadingScreen : MonoBehaviour
         }
         else
         {
+            Debug.Log("loading Scene!");
             AsyncOperation handle = SceneManager.LoadSceneAsync("MainScene" , LoadSceneMode.Additive);
             handle.allowSceneActivation = false;
 

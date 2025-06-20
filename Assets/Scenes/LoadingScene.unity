@@ -2464,7 +2464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playScene:
-    m_AssetGUID: 
+    m_AssetGUID: 25ef30ae08e2be040bf3f83b2bc7e41f
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 
