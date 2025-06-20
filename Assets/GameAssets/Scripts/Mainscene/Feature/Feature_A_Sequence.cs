@@ -12,9 +12,6 @@ public class Feature_A_Sequence : MonoBehaviour
     {
         collectAllSpinSequences();
         collectAllRefillSequences();
-
-        Debug.Log("All Spin Sequences Count: " + AllSpinSequences.Count);
-        Debug.Log("All Refill Sequences Count: " + AllRefillSequences.Count);
     }
 
     void collectAllSpinSequences ()

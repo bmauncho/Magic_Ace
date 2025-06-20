@@ -43,11 +43,11 @@ public class FeaturePicker : MonoBehaviour
         {
             case Features.Feature_A:
 
-                var sequence = GetSequence_A();
+                var sequenceA = GetSequence_A();
 
-                if (counter >= 0 && counter < sequence.AllSpinSequences.Count)
+                if (counter >= 0 && counter < sequenceA.AllSpinSequences.Count)
                 {
-                    return sequence.AllSpinSequences [counter];
+                    return sequenceA.AllSpinSequences [counter];
                 }
                 break;
             case Features.Feature_B:
@@ -59,20 +59,11 @@ public class FeaturePicker : MonoBehaviour
                 }
                 break;
             case Features.Feature_C:
-                switch (counter)
+                var sequenceC = GetSequence_C();
+
+                if (counter >= 0 && counter < sequenceC.AllSpinSequences.Count)
                 {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
+                    return sequenceC.AllSpinSequences [counter];
                 }
                 break;
         }
@@ -86,10 +77,10 @@ public class FeaturePicker : MonoBehaviour
         {
             case Features.Feature_A:
 
-                var sequence = GetSequence_A();
+                var sequenceA = GetSequence_A();
 
-                if (counter >= 0 && counter < sequence.AllRefillSequences.Count)
-                    return sequence.AllRefillSequences [counter];
+                if (counter >= 0 && counter < sequenceA.AllRefillSequences.Count)
+                    return sequenceA.AllRefillSequences [counter];
                 break;
 
             case Features.Feature_B:
@@ -102,19 +93,10 @@ public class FeaturePicker : MonoBehaviour
                 }
                 break;
             case Features.Feature_C:
-                switch (counter)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                }
+                var sequenceC = GetSequence_C();
+
+                if (counter >= 0 && counter < sequenceC.AllRefillSequences.Count)
+                    return sequenceC.AllRefillSequences [counter];
                 break;
         }
 
@@ -141,6 +123,7 @@ public class FeaturePicker : MonoBehaviour
             return sequence.AllRefillSequences [refillCounter] [col].List [row];
         return null;
     } 
+
     public CardDatas featureB_spin ( int refillCounter , int col , int row )
     {
         switch (refillCounter)
@@ -162,27 +145,25 @@ public class FeaturePicker : MonoBehaviour
         }
         return null;
     } 
+
     public CardDatas featureC_spin ( int refillCounter , int col , int row )
     {
-        switch (refillCounter)
+        var sequence = GetSequence_C();
+
+        if (refillCounter >= 0 && refillCounter < sequence.AllSpinSequences.Count)
         {
-            case 0:
-                return null;
-            case 1:
-                return null;
+            return sequence.AllSpinSequences [refillCounter] [col].List [row];
         }
+
         return null;
     }
 
     public CardDatas featureC_refill ( int refillCounter,int col,int row)
     {
-        switch (refillCounter)
-        {
-            case 0:
-                return null;
-            case 1:
-                return null;
-        }
+        var sequence = GetSequence_C();
+
+        if (refillCounter >= 0 && refillCounter < sequence.AllRefillSequences.Count)
+            return sequence.AllRefillSequences [refillCounter] [col].List [row];
         return null;
     }
 
