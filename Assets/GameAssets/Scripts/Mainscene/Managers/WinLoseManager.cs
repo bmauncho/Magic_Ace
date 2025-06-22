@@ -289,6 +289,7 @@ public class WinLoseManager : MonoBehaviour
         List<GameObject> wildCards = null,
         List<GameObject> remainingCards = null)
     {
+        Debug.Log("End Win Sequence Started");
         yield return new WaitWhile(() => !winSequence_.IsWinSequenceDone());
 
         if (!CommandCenter.Instance.freeSpinManager_.IsFreeGameWin())
@@ -296,8 +297,8 @@ public class WinLoseManager : MonoBehaviour
             yield return StartCoroutine(refillGrid.RefillTheGrid());
             yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
         }
-     
 
+        Debug.Log("End Win Sequence ...");
         yield return StartCoroutine(flipCards.flipBack(
             remainingGoldenCards , 
             remainingBigJokerCards,

@@ -28,17 +28,17 @@ public class WildSequnce : MonoBehaviour
         //show FreeSpin intro
         //Activate freeSpin
 
-        //int activeCoroutines = wildCards.Count;
-        //if (wildCards.Count >= 3)
-        //{
-        //    for (int i = 0 ; i < wildCards.Count ; i++)
-        //    {
-        //        wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
-        //    }
-        //}
+        int activeCoroutines = wildCards.Count;
+        if (wildCards.Count >= 3)
+        {
+            for (int i = 0 ; i < wildCards.Count ; i++)
+            {
+                wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
+            }
+        }
 
 
-        //yield return new WaitUntil(() => activeCoroutines <= 0);
+        yield return new WaitUntil(() => activeCoroutines <= 0);
 
         //show free spin intro
         FreeSpinManager freeSpinManager = CommandCenter.Instance.freeSpinManager_;
@@ -87,6 +87,7 @@ public class WildSequnce : MonoBehaviour
         List<GameObject> remainingSuperJokerCards = null , 
         Action OnComplete = null )
     {
+        CommandCenter.Instance.effectsManager_.ShowWinEffect(winningCards);
         winLoseManager.ClearWinningCards();
         yield return new WaitForSeconds(.25f);
         winSequence.DeactivateWinBg();
@@ -125,6 +126,7 @@ public class WildSequnce : MonoBehaviour
 
     public IEnumerator NormalWildCompletionSequence ( List<winCardData> winningCards )
     {
+        CommandCenter.Instance.effectsManager_.ShowWinEffect(winningCards);
         yield return new WaitForSeconds(.25f);
         winSequence.DeactivateWinBg();
 
@@ -145,17 +147,18 @@ public class WildSequnce : MonoBehaviour
         //show FreeSpin intro
         //Activate freeSpin
 
-        //int activeCoroutines = wildCards.Count;
-        //if (wildCards.Count >= 3)
-        //{
-        //    for (int i = 0 ; i < wildCards.Count ; i++)
-        //    {
-        //        wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
-        //    }
-        //}
+        int activeCoroutines = wildCards.Count;
+        if (wildCards.Count >= 3)
+        {
+            for (int i = 0 ; i < wildCards.Count ; i++)
+            {
+                wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
+            }
+        }
 
 
-        //yield return new WaitUntil(() => activeCoroutines <= 0);
+        yield return new WaitUntil(() => activeCoroutines <= 0);
+
         FreeSpinManager freeSpinManager = CommandCenter.Instance.freeSpinManager_;
         if (CommandCenter.Instance.gameType != GameType.Free)
         {

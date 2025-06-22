@@ -80,12 +80,13 @@ public class GridManager : MonoBehaviour
         int colCount = 5;
         int rowCount = 4;
         float delayIncrement = 0.1f; // Reduce delay for faster animation
+        CommandCenter.Instance.spinManager_.disableButtons();
         Invoke(nameof(GridPopulator) , 1f);
         ShowStartEffects();
         Invoke(nameof(HideStartEffects) , 2f);
         Debug.Log("Initialization");
         string [] sounds = new string [] { "Base_Firstenter_01" , "Base_Firstenter_02" , "Base_Firstenter_03" , "Base_Firstenter_04" , "Base_Firstenter_05" };
-
+        int animsToPlay = 20;
         for (int col = 0 ; col < colCount ; col++)
         {
             var currDeck = Decks [col];
@@ -108,6 +109,7 @@ public class GridManager : MonoBehaviour
                 {
                     cardImage.DOFade(0 , 1).OnComplete(() =>
                     {
+                        animsToPlay--;
                         Destroy(card);
                     });
                 }
@@ -115,6 +117,8 @@ public class GridManager : MonoBehaviour
             }
             CommandCenter.Instance.soundManager_.PlaySound(sounds [col]);
         }
+
+        yield return new WaitUntil(() => animsToPlay <= 0);
         Debug.Log("All init animations done!");
         CommandCenter.Instance.spinManager_.SetCanSpin(true);
         CommandCenter.Instance.mainMenuController_.ToggleExtraBetInfo();

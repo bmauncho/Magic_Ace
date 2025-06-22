@@ -23,6 +23,7 @@ public class NormalSequence : MonoBehaviour
         List<GameObject> remainingSuperJokerCards = null ,
         Action OnComplete = null )
     {
+        CommandCenter.Instance.effectsManager_.ShowWinEffect(winningCards);
         winLoseManager.ClearWinningCards();
         yield return new WaitForSeconds(.25f);
         winSequence.DeactivateWinBg();

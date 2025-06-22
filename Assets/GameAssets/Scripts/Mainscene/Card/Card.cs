@@ -29,7 +29,15 @@ public class Card : MonoBehaviour
     [SerializeField] private bool smallJockerCard;
     [SerializeField] private bool wildCard;
     [SerializeField] private RectTransform cardImgHolder;
-    //[SerializeField] private SuperJokerCard superJokerCard_;
+
+    [Header("Card Animations")]
+    [SerializeField] private Animator WildAnim_;
+    [SerializeField] private GameObject wildAnimEffects;
+    [SerializeField] private GameObject goldenCardEffect;
+    [SerializeField] private Animator wildBounceAnim;
+
+    [Header("Card Effects")]
+    [SerializeField] private GameObject winCardGlow;
 
 
     public Action OnWildAnimComplete;
@@ -53,6 +61,7 @@ public class Card : MonoBehaviour
                 transform.position = target.position; // Ensure it reaches the target
                 OnComplete?.Invoke();
                 SetAsOwner();
+                ShowGoldenEffect();
             }
         }
     }
@@ -111,6 +120,7 @@ public class Card : MonoBehaviour
         CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
+        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -129,6 +139,7 @@ public class Card : MonoBehaviour
         CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
+        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -146,6 +157,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -164,6 +176,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1, 1, 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
         Outline.sprite = _outline;
@@ -183,6 +196,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1 , 1 , 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
         Outline.sprite = _outline;
@@ -201,6 +215,8 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        wildBounceAnim.Rebind();
+        EnableWildBounceAnim();
         card.sprite = _card;
     }
 
@@ -253,5 +269,79 @@ public class Card : MonoBehaviour
     public RectTransform GetCard ()
     {
         return card.rectTransform;
+    }
+
+    public void ShowCardWinGlow ()
+    {
+        winCardGlow.gameObject.SetActive(true);
+    }
+
+    public void HideCardWinGlow ()
+    {
+        winCardGlow.gameObject.SetActive(false);
+    }
+
+    public void showWildAnim ()
+    {
+        StartCoroutine(wildAnim());
+    }
+
+    private IEnumerator wildAnim ()
+    {
+        DisableWildBounceAnim();
+        WildAnim_.gameObject.SetActive(true);
+        int loopCount = 3;
+        card.gameObject.SetActive(false);
+        for (int i = 0 ; i < loopCount ; i++)
+        {
+            WildAnim_.Rebind();
+            WildAnim_.Play("WildCardAnim");
+
+            // Wait for animation to start
+            yield return new WaitUntil(() => WildAnim_.GetCurrentAnimatorStateInfo(0).IsName("WildCardAnim"));
+
+            // Wait for animation to finish
+            yield return new WaitWhile(() =>
+                WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+
+            //Debug.Log($"Wild Animation {i + 1} Done");
+
+            // Optional delay
+            yield return new WaitForSeconds(0.1f);
+        }
+        WildAnim_.gameObject.SetActive(false);
+        card.gameObject.SetActive(true);
+        OnWildAnimComplete?.Invoke();
+        DisableWildBounceAnim();
+    }
+
+    public void EnableWildBounceAnim ()
+    {
+        wildBounceAnim.Rebind();
+        wildBounceAnim.enabled = true;
+    }
+
+    public void DisableWildBounceAnim ()
+    {
+        wildBounceAnim.Rebind();
+        wildBounceAnim.enabled = false;
+    }
+
+
+    public GameObject wildEffects ()
+    {
+        return wildAnimEffects;
+    }
+
+    public void ShowGoldenEffect ()
+    {
+        if (!goldenCard) { return; }
+        goldenCardEffect.gameObject.SetActive(true);
+        Invoke(nameof(HideGoldenEffect) , 1f);
+    }
+
+    public void HideGoldenEffect ()
+    {
+        goldenCardEffect.gameObject.SetActive(false);
     }
 }

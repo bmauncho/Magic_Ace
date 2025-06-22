@@ -159,11 +159,13 @@ public class WinSequence : MonoBehaviour
 
                 if (cardComponent.GetCardType() != CardType.SCATTER)
                 {
+                    cardComponent.ShowCardWinGlow();
                     Sequence cardSeq = DOTween.Sequence();
                     cardSeq.AppendCallback(() => card.transform.localScale = Vector3.one)
                            .Append(card.transform.DOPunchScale(new Vector3(.2f , .2f , .2f) , .5f , 10 , 1f))
                            .AppendCallback(() =>
                            {
+                               cardComponent.HideCardWinGlow();
                                card.transform.localScale = Vector3.one;
                            });
 
