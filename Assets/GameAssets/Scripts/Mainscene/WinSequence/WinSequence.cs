@@ -318,13 +318,14 @@ public class WinSequence : MonoBehaviour
                     }
                 }
             }
+            Debug.Log(newRemainingWildCards.Count);
             //playwild effect
             winLoseManager.EndTheWinSequence(
                     remainingGoldenCards ,
                     remainingBigJokerCards ,
                     remainingSuperJokerCards ,
                     OnComplete,
-                    remainingWildCards ,
+                    newRemainingWildCards ,
                     remainingCards);
 
             //yield return StartCoroutine(winLoseManager.wildSequnce_.WildCardsSequnce(

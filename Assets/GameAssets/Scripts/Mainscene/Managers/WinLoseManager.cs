@@ -291,8 +291,7 @@ public class WinLoseManager : MonoBehaviour
     {
         yield return new WaitWhile(() => !winSequence_.IsWinSequenceDone());
 
-        if (!CommandCenter.Instance.freeSpinManager_.IsFreeGameWin() 
-            && CommandCenter.Instance.featureManager_.GetActiveFeature() != Features.None)
+        if (!CommandCenter.Instance.freeSpinManager_.IsFreeGameWin())
         {
             yield return StartCoroutine(refillGrid.RefillTheGrid());
             yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());

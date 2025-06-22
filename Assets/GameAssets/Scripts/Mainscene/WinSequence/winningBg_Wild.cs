@@ -17,12 +17,14 @@ public class winningBg_Wild : MonoBehaviour
     [ContextMenu("Activate")]
     public void Activate ()
     {
+        Debug.Log("Activate Winning wild Background");
         isActive = true;
         GetComponent<CanvasGroup>().alpha = 1;
     }
     [ContextMenu("Deactivate")]
     public void Deactivate ()
     {
+        Debug.Log("Deactivate Winning wild Background");
         isActive = false;
         GetComponent<CanvasGroup>().alpha = 0;
         resetBgSize();

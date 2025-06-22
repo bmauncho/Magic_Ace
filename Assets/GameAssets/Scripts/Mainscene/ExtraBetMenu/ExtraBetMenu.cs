@@ -38,6 +38,7 @@ public class ExtraBetMenu : MonoBehaviour
     public GameObject Banner_light;
     public GameObject Holder_1;
     public GameObject Holder_2;
+    public Baseboard baseboard;
 
     private void Start ()
     {
@@ -192,6 +193,8 @@ public class ExtraBetMenu : MonoBehaviour
         hideExtraBetOn();
         HideExtraBetBtnEffect();
         HasExtraBetEffect();
+        Ticket.SetActive(false);
+        baseboard.Gems.SetActive(true);
         ExtraBetToggle.sprite = ExtraBetOff;
         BetAmountBg_BetMenu.sprite = BetAmountBgMain;
         BetAmountBg_MainScene.sprite = BetAmountBgMain;

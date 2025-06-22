@@ -106,7 +106,7 @@ public class FillGridLogic : MonoBehaviour
 
         while (activeAnimations > 0)
             yield return null;
-
+        wildEffect.DisAbleEffect();
         Debug.Log("all animations Done!");
         CommandCenter.Instance.winLoseManager_.WinLoseSequence(()=>
         {

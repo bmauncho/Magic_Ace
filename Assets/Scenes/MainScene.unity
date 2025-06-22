@@ -54519,6 +54519,7 @@ MonoBehaviour:
   Banner_light: {fileID: 1305720611}
   Holder_1: {fileID: 946535646}
   Holder_2: {fileID: 1137227078}
+  baseboard: {fileID: 206704478}
 --- !u!1 &1552557553
 GameObject:
   m_ObjectHideFlags: 0

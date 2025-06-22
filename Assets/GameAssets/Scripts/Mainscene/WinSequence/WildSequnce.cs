@@ -140,6 +140,7 @@ public class WildSequnce : MonoBehaviour
         List<GameObject> remainingCards )
     {
         winSequence.ActivateWinBg();
+        Debug.Log("Wild Sequence Started!");
         //play wild card effect
         //show FreeSpin intro
         //Activate freeSpin
