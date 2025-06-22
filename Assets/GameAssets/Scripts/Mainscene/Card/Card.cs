@@ -120,6 +120,7 @@ public class Card : MonoBehaviour
         CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
+        wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -139,6 +140,7 @@ public class Card : MonoBehaviour
         CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         CardRear.gameObject.SetActive(false);
+        wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -157,6 +159,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -176,6 +179,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1, 1, 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -196,6 +200,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1 , 1 , 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
         card.sprite = _card;
@@ -325,6 +330,8 @@ public class Card : MonoBehaviour
     {
         wildBounceAnim.Rebind();
         wildBounceAnim.enabled = false;
+        wildBounceAnim.transform.rotation = Quaternion.identity;
+        wildBounceAnim.transform.localScale = Vector3.one;
     }
 
 

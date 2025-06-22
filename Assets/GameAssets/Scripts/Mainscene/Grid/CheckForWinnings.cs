@@ -188,6 +188,8 @@ public class CheckForWinnings : MonoBehaviour
         gridManager.setisNormalWnSequenceDone(true);
 
        CommandCenter.Instance.featureManager_.ResetFeatures();
+        gridManager.GetWinningBg_Wild().Deactivate();
+        gridManager.moveCardsBacktoSlots();
 
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
         {

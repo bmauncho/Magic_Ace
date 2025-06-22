@@ -30,14 +30,15 @@ public class TopBanner : MonoBehaviour
     public Image BackGround;
     public CannonData [] cannons;
     int activeIndex = -1;
+    public Action OnComplete;
     public void UpdateCanon(cannonType cannonType,Multipliers multipliers,
-        Multipliers activemultiplier,Sprite thecanon,Sprite thecanonBg, TMP_SpriteAsset spriteAsset,bool isReset = false)
+        Multipliers activemultiplier,Sprite thecanon,Sprite thecanonBg, TMP_SpriteAsset spriteAsset,bool isReset = false )
     {
         StartCoroutine(updateUi(cannonType , multipliers , activemultiplier , thecanon,thecanonBg , spriteAsset,isReset));
     }
 
     private IEnumerator updateUi ( cannonType cannonType , Multipliers multipliers ,
-        Multipliers activeMultiplier , Sprite cannonSprite , Sprite cannonBgSprite , TMP_SpriteAsset spriteAsset ,bool isReset = false )
+        Multipliers activeMultiplier , Sprite cannonSprite , Sprite cannonBgSprite , TMP_SpriteAsset spriteAsset ,bool isReset = false)
     {
         // First, find the active cannon index for reference
         for (int i = 0 ; i < cannons.Length ; i++)
@@ -102,6 +103,8 @@ public class TopBanner : MonoBehaviour
             if (cannon.cannonImageBg != null)
                 cannon.cannonImageBg.sprite = cannonBgSprite;
         }
+        OnComplete?.Invoke();
+        Debug.Log("Done!");
         yield return null;
     }
     private IEnumerator PlayAnim ( Animator anim , string whichAnim )

@@ -45,6 +45,7 @@ public class WinSequence : MonoBehaviour
         CommandCenter.Instance.comboManager_.ShowCombo();
         //show multiplier
         CommandCenter.Instance.multiplierManager_.ShowMultiplier();
+        yield return new WaitForSeconds(.25f);
         //play win effect
         yield return StartCoroutine(PlayWinEffect(WinningCards , OccuppiedSlots , OnComplete));
 
@@ -142,7 +143,7 @@ public class WinSequence : MonoBehaviour
     private IEnumerator PlayWinEffect ( List<winCardData> WinningCards , 
         List<(GameObject slot, List<(int col, int row)> Positions)> occuppiedSlots , Action OnComplete = null )
     {
-
+        Debug.Log("Play win effect!");
         yield return new WaitForSeconds(.25f);
         Sequence sequence = DOTween.Sequence(); // main sequence
         //Debug.Log("occupied slots: " + occuppiedSlots.Count);   
@@ -201,6 +202,7 @@ public class WinSequence : MonoBehaviour
     private IEnumerator hideCardsSequence ( List<(GameObject slot, List<(int col, int row)> Positions)> occuppiedSlots , 
         List<winCardData> winningCards , Action OnComplete = null )
     {
+        Debug.Log("Hide Cards !");
         yield return new WaitForSeconds(.25f);
         List<GameObject> remainingCards = new List<GameObject>();
         List<GameObject> remainingWildCards = new List<GameObject>();
@@ -310,7 +312,7 @@ public class WinSequence : MonoBehaviour
             Debug.Log(occuppiedSlots.Count);
             for (int i = 0 ; i < occuppiedSlots.Count ; i++)
             {
-                GameObject card = newOccupiedSlots [i].GetComponent<WinSlot>().GetTheOwner();
+                GameObject card = occuppiedSlots[i].slot.GetComponent<WinSlot>().GetTheOwner();
                 if (card != null)
                 {
                     Card cardComponent = card.GetComponent<Card>();
