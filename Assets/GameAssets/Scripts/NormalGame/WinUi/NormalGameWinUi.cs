@@ -267,11 +267,13 @@ public class NormalGameWinUi : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.DOFade(0, .5f).OnComplete(() =>
         {
+            CommandCenter.Instance.hintsManager_.hintWinUI.SetWinEffectType(currentType);
             SetEffectWinType(WinEffectType.Big_Win);
             resetUI();
             HideWinUi();
             isWinUIDone = true;
             CommandCenter.Instance.soundManager_.PlayAmbientSound("Base_BG");
+            CommandCenter.Instance.hintsManager_.hintWinUI.ShowWinEffectType();
         });
         yield return null;
     }
@@ -348,12 +350,14 @@ public class NormalGameWinUi : MonoBehaviour
         CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.DOFade(0 , 0.3f).OnComplete(() =>
         {
+            CommandCenter.Instance.hintsManager_.hintWinUI.SetWinEffectType(currentType);
             SetEffectWinType(WinEffectType.Big_Win);
             resetUI();
             HideWinUi();
             isWinUIDone = true;
             CommandCenter.Instance.soundManager_.PlayAmbientSound("Base_BG");
             isSkipping = false;
+            CommandCenter.Instance.hintsManager_.hintWinUI.ShowWinEffectType();
         });
     }
 

@@ -324,6 +324,7 @@ public class WinSequence : MonoBehaviour
                 }
             }
             Debug.Log(newRemainingWildCards.Count);
+            SetIsWinSequenceDone(true);
             //playwild effect
             winLoseManager.EndTheWinSequence(
                     remainingGoldenCards ,
@@ -332,16 +333,6 @@ public class WinSequence : MonoBehaviour
                     OnComplete,
                     newRemainingWildCards ,
                     remainingCards);
-
-            //yield return StartCoroutine(winLoseManager.wildSequnce_.WildCardsSequnce(
-            //    newRemainingWildCards , 
-            //    newOccupiedSlots , 
-            //    winningCards , 
-            //    remainingCards ,
-            //    remainingGoldenCards , 
-            //    remainingBigJokerCards , 
-            //    remainingSuperJokerCards ,
-            //    OnComplete));
         }
     }
 
@@ -439,7 +430,7 @@ public class WinSequence : MonoBehaviour
         }
     }
 
-    public void SetIsWinSequence ( bool isActive )
+    public void SetIsWinSequenceDone ( bool isActive )
     {
         isWinSequenceDone = isActive;
     }

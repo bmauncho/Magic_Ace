@@ -19,7 +19,7 @@ public class HintsManager : MonoBehaviour
     public HintInfo [] hintsInfo;
     public Hint hint;
     [SerializeField] private float duration = 3f;
-
+    public HintWinUI hintWinUI;
     private Coroutine hintsCoroutine;
     Tween tween;
     private void Start ()

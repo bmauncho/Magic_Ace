@@ -116,7 +116,7 @@ public class WildSequnce : MonoBehaviour
         yield return new WaitForSeconds(.25f);
 
         Debug.Log("WinSequence Done!");
-        winSequence.SetIsWinSequence(true);
+        winSequence.SetIsWinSequenceDone(true);
 
         winLoseManager.EndTheWinSequence(
             remainingGoldenCards , 
@@ -197,7 +197,7 @@ public class WildSequnce : MonoBehaviour
         yield return new WaitForSeconds(.25f);
 
         Debug.Log("WinSequence Done!");
-        winSequence.SetIsWinSequence(true);
+        winSequence.SetIsWinSequenceDone(true);
 
         yield return null;
     }

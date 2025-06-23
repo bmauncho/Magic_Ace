@@ -191,6 +191,13 @@ public class CheckForWinnings : MonoBehaviour
         gridManager.GetWinningBg_Wild().Deactivate();
         gridManager.moveCardsBacktoSlots();
 
+        if (CommandCenter.Instance.multiplierManager_.GetCollectorCount() >= 3)
+        {
+            CommandCenter.Instance.winLoseManager_.normalGameWinUi.NormalWinUiSequence();
+
+            yield return new WaitUntil(() => CommandCenter.Instance.winLoseManager_.normalGameWinUi.IsWinUiDone());
+        }
+
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
         {
            yield return StartCoroutine(Autospin());

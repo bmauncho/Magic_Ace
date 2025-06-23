@@ -36,6 +36,7 @@ public class WinLoseManager : MonoBehaviour
     public JumpCards jumpCards;
     public GemCollector gemCollector;
     public WinAmount winAmount;
+    public NormalGameWinUi normalGameWinUi;
 
     [Header("Win Data")]
     [SerializeField] private bool isWin = false;

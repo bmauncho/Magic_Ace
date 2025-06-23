@@ -466,4 +466,9 @@ public class MultiplierManager : MonoBehaviour
     {
         return MAX_FREE_SPIN_UPGRADES;
     }
+
+    public int GetCollectorCount ()
+    {
+        return collectorCount;
+    }
 }

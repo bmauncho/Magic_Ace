@@ -50,7 +50,7 @@ public class NormalSequence : MonoBehaviour
         winSequence.clearWinSlots();
         yield return new WaitForSeconds(.25f);
         //Debug.Log("WinSequence Done!");
-        winSequence.SetIsWinSequence(true);
+        winSequence.SetIsWinSequenceDone(true);
         winLoseManager.EndTheWinSequence(
             remainingGoldenCards , 
             remainingBigJokerCards ,

@@ -85,6 +85,7 @@ public class HintWinUI : MonoBehaviour
 
     public void OnComplete ()
     {
+        Debug.Log("Oncomplete!");
         isHintWinUiDone = true;
         winText.transform.DOPunchScale(new Vector3(0.2f , 0.2f , 0.2f) , .5f,1 , 1)
             .OnComplete(() =>
@@ -115,7 +116,7 @@ public class HintWinUI : MonoBehaviour
     {
         winText.SetActive(true);
         CommandCenter.Instance.hintsManager_.ShowWinText();
-        TotalWinAmount = 100; // Example value, replace with actual win amount
+        TotalWinAmount = CommandCenter.Instance.currencyManager_.GetWinAmount();
         TotalWinText.text = GetTotalWin();
         AnimateWinAmount();
         yield return null;
@@ -170,8 +171,6 @@ public class HintWinUI : MonoBehaviour
         OnComplete();
         CommandCenter.Instance.soundManager_.PlayAmbientSound("Base_BG");
         isSkipping = false;
-        // Fade out UI and clean up
-        
     }
 
     public void ResetTheHintWinUI ()
