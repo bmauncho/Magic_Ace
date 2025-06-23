@@ -144,15 +144,11 @@ public class HintsManager : MonoBehaviour
     {
         StopHintsCoroutine();
         hint.Hints.SetActive(false);
-        hint.wintextholder.SetActive(true);
-        hint.winText.gameObject.SetActive(true);
     }
     [ContextMenu("Hide Win Text")]
     public void hideWinText ()
     {
         hint.Hints.SetActive(true);
-        hint.wintextholder.SetActive(false);
-        hint.winText.gameObject.SetActive(false);
         StartHintsCoroutine();
     }
 
