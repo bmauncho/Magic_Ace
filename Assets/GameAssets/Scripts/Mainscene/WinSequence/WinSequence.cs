@@ -238,7 +238,7 @@ public class WinSequence : MonoBehaviour
                 }
             }
         }
-        //Debug.Log("WinType: " + winLoseManager.GetWinType());
+        Debug.Log("WinType: " + winLoseManager.GetWinType());
         if (winLoseManager.GetWinType() == WinType.Normal)
         {
             yield return StartCoroutine(
@@ -262,6 +262,7 @@ public class WinSequence : MonoBehaviour
         else if (winLoseManager.GetWinType() == WinType.Wild)
         {
             //play wildeffect
+            Debug.Log("Play Wild Effect!");
             yield return StartCoroutine(
                 winLoseManager.wildSequnce_.WildCardsSequnce(
                     remainingWildCards , 

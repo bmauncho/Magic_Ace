@@ -24,6 +24,7 @@ public class WildSequnce : MonoBehaviour
         List<GameObject> remainingSuperJokerCards = null ,
         Action OnComplete = null )
     {
+        Debug.Log("Wild Sequence Started!");
         //play wild card effect
         //show FreeSpin intro
         //Activate freeSpin
@@ -33,6 +34,7 @@ public class WildSequnce : MonoBehaviour
         {
             for (int i = 0 ; i < wildCards.Count ; i++)
             {
+                wildCards [i].GetComponent<Card>().showWildAnim();
                 wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
             }
         }
@@ -152,6 +154,7 @@ public class WildSequnce : MonoBehaviour
         {
             for (int i = 0 ; i < wildCards.Count ; i++)
             {
+                wildCards [i].GetComponent<Card>().showWildAnim();
                 wildCards [i].GetComponent<Card>().OnWildAnimComplete += () => activeCoroutines--;
             }
         }
