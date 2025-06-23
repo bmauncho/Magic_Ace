@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 public enum cannonType
 {
@@ -104,7 +105,6 @@ public class TopBanner : MonoBehaviour
                 cannon.cannonImageBg.sprite = cannonBgSprite;
         }
         OnComplete?.Invoke();
-        Debug.Log("Done!");
         yield return null;
     }
     private IEnumerator PlayAnim ( Animator anim , string whichAnim )
@@ -149,5 +149,24 @@ public class TopBanner : MonoBehaviour
         }
 
         return result;
+    }
+
+    public IEnumerator ExtraBetAnim (int index,Multipliers multipliers,TMP_SpriteAsset spriteAsset,Sprite  cannonSprite,Sprite cannonBgSprite)
+    {
+        var cannon = cannons [index];
+        cannon.currentMultiplier = multipliers;
+        cannon.cannonMultiplier.spriteAsset = spriteAsset;
+        cannon.cannonMultiplier.text = SetText(multipliers.ToString() , true);
+
+        yield return new WaitForSeconds(0.1f); // Wait a bit before playing the active animation
+        string animName = $"Canon_{index + 1}_Anim";
+        //Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
+        StartCoroutine(PlayAnim(cannon.Anim , animName));
+
+        if (cannon.cannonImage != null)
+            cannon.cannonImage.sprite = cannonSprite;
+
+        if (cannon.cannonImageBg != null)
+            cannon.cannonImageBg.sprite = cannonBgSprite;
     }
 }

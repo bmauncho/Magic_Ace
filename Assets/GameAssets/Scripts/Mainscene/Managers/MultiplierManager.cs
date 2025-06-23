@@ -287,6 +287,63 @@ public class MultiplierManager : MonoBehaviour
         }
     }
 
+    [ContextMenu("Test extraBetAnim")]
+    public void ExtraBetAnim ()
+    {
+        currentType = MultiplierType.ExtraBet;
+        StartCoroutine(RunExtraBetAnimsSequentially());
+    }
+
+    private IEnumerator RunExtraBetAnimsSequentially ()
+    {
+        for (int i = 0 ; i < 4 ; i++)
+        {
+            yield return StartCoroutine(extraBetAnim());
+        }
+        yield return new WaitForSeconds(0.5f); 
+        ResetMultiplier();
+    }
+
+    private IEnumerator extraBetAnim ()
+    {
+        Sprite cannonSprite = null;
+        Sprite cannonBgSprite = null;
+        cannonType cannon = (cannonType)cannonIndex;
+        var list = multiplierProgressions [currentType];
+        Multipliers multiplier = list [cannonIndex];
+
+        int typeIndex = currentType switch
+        {
+            MultiplierType.Normal => 0,
+            MultiplierType.Free => 1,
+            MultiplierType.ExtraBet => 2,
+            MultiplierType.Collector => 3,
+            _ => -1
+        };
+
+        var info = multiplierCanonInfos [typeIndex];
+
+        if (cannonIndex == 0 || cannonIndex == 3)
+        {
+            cannonSprite = info.canon_1_active;
+            cannonBgSprite = info.canon_1_active;
+        }
+        else if (cannonIndex == 1 || cannonIndex == 2)
+        {
+            cannonSprite = info.canon_2_active;
+            cannonBgSprite = info.canon_2_active;
+        }
+        // Wait for the animation coroutine to finish
+        yield return StartCoroutine(topBanner_.ExtraBetAnim(cannonIndex , multiplier , spriteAsset_active , cannonBgSprite, cannonSprite));
+        yield return new WaitForSeconds(0.25f); // Wait a bit before proceeding to the next cannon
+        cannonIndex++;
+        if (cannonIndex > 3)
+            cannonIndex = 0;
+
+        Debug.Log($"{cannonIndex} | Multiplier: {multiplier}");
+    }
+
+
     private Sprite GetCannon ()
     {
         Sprite cannon = null;
@@ -321,7 +378,6 @@ public class MultiplierManager : MonoBehaviour
 
         return cannon;
     }
-
     public Sprite GetCanonBg ()
     {
         Sprite cannon = null;
@@ -344,8 +400,6 @@ public class MultiplierManager : MonoBehaviour
         }
         return cannon;
     }
-
-
     private TMP_SpriteAsset GetSpriteAsset ()
     {
         TMP_SpriteAsset asset = null;

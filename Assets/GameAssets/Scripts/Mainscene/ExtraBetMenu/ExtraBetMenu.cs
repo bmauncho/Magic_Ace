@@ -151,6 +151,7 @@ public class ExtraBetMenu : MonoBehaviour
         Invoke(nameof(ShowExtraBetBtnEffect) , 0.5f);
         Invoke(nameof(hideExtraBetOn) , 0.5f);
         Invoke(nameof(ShowExtraBetEffect) , 0.5f);
+        Invoke(nameof(ExtraBetCanonAnim) , 1f);
         BetAmountBg_BetMenu.sprite = BetAmountBgEx;
         BetAmountBg_MainScene.sprite = BetAmountBgEx;
         CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.ExtraBet);
@@ -160,6 +161,11 @@ public class ExtraBetMenu : MonoBehaviour
         CurrencyManager currencyManager = CommandCenter.Instance.currencyManager_;
         string betAmount = currencyManager.GetBetAmount();
         currencyManager.UpdateBetAmount(betAmount);
+    }
+
+    public void ExtraBetCanonAnim ()
+    {
+        CommandCenter.Instance.multiplierManager_.ExtraBetAnim();
     }
 
     void ShowExtraBetEffect ()

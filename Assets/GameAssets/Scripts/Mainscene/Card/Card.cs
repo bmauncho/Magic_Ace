@@ -122,6 +122,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
+        wildBounceAnim.transform.rotation = Quaternion.identity;
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -142,6 +143,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
+        wildBounceAnim.transform.rotation = Quaternion.identity;
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -161,6 +163,7 @@ public class Card : MonoBehaviour
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
+        wildBounceAnim.transform.rotation = Quaternion.identity;
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -220,6 +223,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        wildBounceAnim.transform.rotation = Quaternion.identity;
         wildBounceAnim.Rebind();
         EnableWildBounceAnim();
         card.sprite = _card;
@@ -330,7 +334,6 @@ public class Card : MonoBehaviour
     {
         wildBounceAnim.Rebind();
         wildBounceAnim.enabled = false;
-        wildBounceAnim.transform.rotation = Quaternion.identity;
         wildBounceAnim.transform.localScale = Vector3.one;
     }
 

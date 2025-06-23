@@ -85,6 +85,8 @@ public class DemoCheckWin : MonoBehaviour
                 if (cardObj == null) continue;
 
                 string cardType = cardObj.GetComponent<Card>().GetCardType().ToString();
+                if(cardType != CardType.SCATTER.ToString()) continue;
+                // Only add if it's a scatter and not already added
                 if (cardType == CardType.SCATTER.ToString())
                 {
                     string key = $"{col}-{row}";
@@ -92,7 +94,7 @@ public class DemoCheckWin : MonoBehaviour
                     {
                         wildOnlyWinningCards.Add(new winCardData
                         {
-                            name = CardType.SCATTER.ToString() ,
+                            name = cardType.ToString() ,
                             row = row ,
                             col = col
                         });
