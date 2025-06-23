@@ -294,6 +294,12 @@ public class MultiplierManager : MonoBehaviour
         StartCoroutine(RunExtraBetAnimsSequentially());
     }
 
+    public void UpgradeAnim ()
+    {
+        currentType = MultiplierType.Collector;
+        StartCoroutine(RunExtraBetAnimsSequentially());
+    }
+
     private IEnumerator RunExtraBetAnimsSequentially ()
     {
         for (int i = 0 ; i < 4 ; i++)
@@ -341,6 +347,11 @@ public class MultiplierManager : MonoBehaviour
             cannonIndex = 0;
 
         Debug.Log($"{cannonIndex} | Multiplier: {multiplier}");
+    }
+
+    public void FreeSpinAnim ()
+    {
+        currentType = MultiplierType.Free;
     }
 
 

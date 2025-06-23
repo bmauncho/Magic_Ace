@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Baseboard : MonoBehaviour
@@ -7,15 +8,25 @@ public class Baseboard : MonoBehaviour
     [Header("Baseboard Effects")]
     public GameObject FreeGem_CollectFx;
     public GameObject Upgrade_Tickets;
+    public GameObject UpgradeUi;
     int usedTickets = 0;
     public FG_Ticket [] UpgradeTickets;
     public GemSlot [] gems;
 
+    [ContextMenu("Upgrade Multipliers")]
     public void ActivateUpgradeMultipliers ()
     {
         Upgrade_Tickets.SetActive(true);
         ResetGems();
         Gems.SetActive(false);
+        CommandCenter.Instance.multiplierManager_.UpgradeAnim();
+    }
+
+    IEnumerator ShowUpgradeUI ()
+    {
+        UpgradeUi.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        UpgradeUi.SetActive(false);
     }
 
     public void DeactivateUpgradeMultipliers ()

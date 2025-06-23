@@ -169,4 +169,34 @@ public class TopBanner : MonoBehaviour
         if (cannon.cannonImageBg != null)
             cannon.cannonImageBg.sprite = cannonBgSprite;
     }
+
+    public IEnumerator FreeSpinAnim ( int index , Multipliers multipliers ,Multipliers activeMultiplier , TMP_SpriteAsset spriteAsset , Sprite cannonSprite , Sprite cannonBgSprite )
+    {
+        var cannon = cannons [index];
+        cannon.currentMultiplier = multipliers;
+        cannon.cannonMultiplier.spriteAsset = spriteAsset;
+
+        bool isActive = ( activeMultiplier == multipliers );
+        if (isActive)
+        {
+            cannon.cannonMultiplier.text = SetText(multipliers.ToString() , isActive);
+        }
+        else
+        {
+            cannon.cannonMultiplier.text = SetText(multipliers.ToString() , isActive);
+        }
+           
+
+        string animName = $"Canon_{index + 1}_Anim";
+        //Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
+        StartCoroutine(PlayAnim(cannon.Anim , animName));
+
+        if (cannon.cannonImage != null)
+            cannon.cannonImage.sprite = cannonSprite;
+
+        if (cannon.cannonImageBg != null)
+            cannon.cannonImageBg.sprite = cannonBgSprite;
+
+        yield return null;
+    }
 }
