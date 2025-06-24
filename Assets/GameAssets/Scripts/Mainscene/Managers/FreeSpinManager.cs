@@ -16,6 +16,7 @@ public class FreeSpinManager : MonoBehaviour
     [SerializeField] private bool isFreeSpinRetrigger;
     [SerializeField] private bool isFreeSpinGameStarted;
     [SerializeField] private bool isFreeSpinDone;
+    [SerializeField] private bool isFeatureBuyTriggered;
     [Header("Free spin references")]
     public FreeSpinIntro freeSpinIntro;
     public FreeSpinRetrigger freeSpinRetrigger;
@@ -31,8 +32,15 @@ public class FreeSpinManager : MonoBehaviour
     {
         isFreeGameWin = true;
         isFreeGame = true;
-        CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.Free);
         StartCoroutine(FreeSpinIntro());
+    }
+
+    public void ResetFreeSpinCount ()
+    {
+        freeSpinCount = 0;
+        FreeSpins = 0;
+        scatterCards = 0;
+        retriggerScatterCards = 0;
     }
 
     private IEnumerator FreeSpinIntro ()
@@ -101,6 +109,10 @@ public class FreeSpinManager : MonoBehaviour
 
     IEnumerator DelayStart ()
     {
+        yield return new WaitForSeconds(.5f);
+        CommandCenter.Instance.multiplierManager_.FreeGameEnter();
+        CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.Free);
+        CommandCenter.Instance.soundManager_.PlaySound("Free_Firstenter");
         yield return new WaitForSeconds(1f);
         CommandCenter.Instance.currencyManager_.ResetWinAmount();
         CommandCenter.Instance.spinManager_.Spin();
@@ -176,5 +188,15 @@ public class FreeSpinManager : MonoBehaviour
     public void SetIsFreeGame ( bool value )
     {
         isFreeGame = value;
+    }
+
+    public void SetIsFeatureBuyTriggered(bool value )
+    {
+        isFeatureBuyTriggered = value;
+    }
+
+    public bool IsFeatureBuyTriggered ()
+    {
+        return isFeatureBuyTriggered;
     }
 }

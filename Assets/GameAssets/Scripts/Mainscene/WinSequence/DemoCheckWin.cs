@@ -85,9 +85,11 @@ public class DemoCheckWin : MonoBehaviour
                 if (cardObj == null) continue;
 
                 string cardType = cardObj.GetComponent<Card>().GetCardType().ToString();
-                if(cardType != CardType.SCATTER.ToString()) continue;
+                Card cardComponent = cardObj.GetComponent<Card>();
+                if (cardType != CardType.SCATTER.ToString()) continue;
                 // Only add if it's a scatter and not already added
-                if (cardType == CardType.SCATTER.ToString())
+                if (cardType == CardType.SCATTER.ToString() && 
+                    cardComponent.isWildCard())
                 {
                     string key = $"{col}-{row}";
                     if (!addedKeys.Contains(key))
@@ -152,10 +154,14 @@ public class DemoCheckWin : MonoBehaviour
             {
                 var cardObj = Cards [col].CardPosInRow [row].GetComponent<Slot>().GetTheOwner();
                 if (cardObj == null) continue;
-
                 string type = cardObj.GetComponent<Card>().GetCardType().ToString();
-                if (type == CardType.SCATTER.ToString())
+                Card cardComponent = cardObj.GetComponent<Card>();
+                if (type != CardType.SCATTER.ToString()) continue;
+
+                if (type == CardType.SCATTER.ToString()
+                    && cardComponent.isWildCard())
                 {
+                    
                     wildCols [col] = true;
                     break;
                 }

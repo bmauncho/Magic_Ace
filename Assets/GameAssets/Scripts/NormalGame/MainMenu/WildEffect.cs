@@ -14,6 +14,7 @@ public class WildEffect : MonoBehaviour
         {
             effects [i].SetActive(i==col);
         }
+        CommandCenter.Instance.soundManager_.PlaySound("Base_ReelSpeedUp");
     }
 
     public void DisAbleEffect ()

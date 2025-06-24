@@ -166,6 +166,7 @@ public class FeatureBuyMenu : MonoBehaviour
         double myDouble = (double)amounttoDecrease;
         CommandCenter.Instance.currencyManager_.DecreaseCashAmount(myDouble);
         Invoke(nameof(spin) , .5f);
+        CommandCenter.Instance.freeSpinManager_.SetIsFeatureBuyTriggered(true);
     }
 
     private void spin ()

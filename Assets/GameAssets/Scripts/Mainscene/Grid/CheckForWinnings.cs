@@ -75,6 +75,7 @@ public class CheckForWinnings : MonoBehaviour
             CommandCenter.Instance.featureManager_.GetFeatureBuyMenu().ResetOptions();
             CommandCenter.Instance.freeSpinManager_.SetIsFreeGameWin(false);
             CommandCenter.Instance.comboManager_.HideCombo();
+            CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
             isCheckingForWins = false;
             yield break;
         }
@@ -90,6 +91,7 @@ public class CheckForWinnings : MonoBehaviour
                 });
 
                 yield return new WaitUntil(() => isDone);
+                CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
                 CommandCenter.Instance.freeSpinManager_.SetIsFreeSpinRetrigger(false);
                 CommandCenter.Instance.spinManager_.SetCanSpin(true);
                 CommandCenter.Instance.spinManager_.enableButtons();
@@ -123,7 +125,7 @@ public class CheckForWinnings : MonoBehaviour
                         //show free spin end UI
                         // if win show win ui 
                         // if lose go directly to normal game
-
+                        CommandCenter.Instance.soundManager_.PlayAmbientSound("Free_SpinEnd");
                         CommandCenter.Instance.freeSpinManager_.ShowFreeSpinTotalWin();
                         CommandCenter.Instance.freeSpinManager_.OnFreeSpinComplete += OnFreeSpinsComnplete;
                         yield return new WaitWhile(() => !isFreeSpinComplete);
@@ -143,6 +145,10 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
                         CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
                         CommandCenter.Instance.featureManager_.ResetFeatures();
+                        CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
+                        CommandCenter.Instance.freeSpinManager_.SetIsFeatureBuyTriggered(false);
+                        CommandCenter.Instance.soundManager_.PlayAmbientSound("Base_BG");
+                        CommandCenter.Instance.freeSpinManager_.ResetFreeSpinCount();
                         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
                         {
                             CommandCenter.Instance.winLoseManager_.ClearWinningCards();
@@ -161,6 +167,7 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.winLoseManager_.ResetWinType();
                         isCheckingForWins = false;
                         CommandCenter.Instance.comboManager_.HideCombo();
+                        CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
                         // change base board
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
                         CommandCenter.Instance.featureManager_.ResetFeatures();
@@ -190,8 +197,16 @@ public class CheckForWinnings : MonoBehaviour
         CommandCenter.Instance.featureManager_.ResetFeatures();
         gridManager.GetWinningBg_Wild().Deactivate();
         gridManager.moveCardsBacktoSlots();
-
+        CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
         if (CommandCenter.Instance.multiplierManager_.GetCollectorCount() >= 3)
+        {
+            CommandCenter.Instance.winLoseManager_.normalGameWinUi.NormalWinUiSequence();
+
+            yield return new WaitUntil(() => CommandCenter.Instance.winLoseManager_.normalGameWinUi.IsWinUiDone());
+        }
+
+        if(CommandCenter.Instance.multiplierManager_.GetCollectorCount() <= 0 &&
+            CommandCenter.Instance.multiplierManager_.GetCannonIndex()>=2)
         {
             CommandCenter.Instance.winLoseManager_.normalGameWinUi.NormalWinUiSequence();
 
@@ -200,7 +215,7 @@ public class CheckForWinnings : MonoBehaviour
 
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
         {
-           yield return StartCoroutine(Autospin());
+            yield return StartCoroutine(Autospin());
         }
         else
         {

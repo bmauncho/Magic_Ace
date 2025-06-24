@@ -19,6 +19,7 @@ public class FeatureManager : MonoBehaviour
     [SerializeField] private int spinCounter = 0;
 
     [SerializeField] private GameObject FeatureBtn;
+    [SerializeField] private GameObject FeatureMenuBtn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,17 +35,29 @@ public class FeatureManager : MonoBehaviour
                    || features == Features.Feature_B
                    || features == Features.Feature_C)
             {
-                FeatureBtn.GetComponentInChildren<Button>().interactable = false;
+                FeatureBtn.GetComponent<Button>().interactable = true;
+                FeatureMenuBtn.GetComponent<Button>().interactable = false;
             }
             else
             {
                 if (CommandCenter.Instance.gridManager_.IsFirstTime())
                 {
-                    FeatureBtn.GetComponentInChildren<Button>().interactable = false;
+                    FeatureBtn.GetComponent<Button>().interactable = true;
+                    FeatureMenuBtn.GetComponent<Button>().interactable = false;
                 }
                 else
                 {
-                    FeatureBtn.GetComponentInChildren<Button>().interactable = true;
+                    if (CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+                    {
+                        FeatureBtn.GetComponent<Button>().interactable = true;
+                        FeatureMenuBtn.GetComponent<Button>().interactable = false;
+                    }
+                    else
+                    {
+                        FeatureBtn.GetComponent<Button>().interactable = true;
+                        FeatureMenuBtn.GetComponent<Button>().interactable = true;
+                    }
+                        
                 }
             }
         }

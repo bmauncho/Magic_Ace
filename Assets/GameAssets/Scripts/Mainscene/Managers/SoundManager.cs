@@ -46,7 +46,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound ( string AudioFile , bool loopState = false , float Volume = 1f )
+    public void PlaySound ( string AudioFile , bool loopState = false , float Volume = .75f )
     {
         AudioClip _Clip = (AudioClip)Resources.Load("Sounds/" + AudioFile);
         AudioSource AS = ReturnOpenSource();

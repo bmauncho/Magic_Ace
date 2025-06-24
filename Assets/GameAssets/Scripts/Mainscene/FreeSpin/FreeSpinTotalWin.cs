@@ -12,6 +12,7 @@ public class FreeSpinTotalWin : MonoBehaviour
     public GameObject Content;
     public TMP_Text title;
     public TMP_Text TotalPayout;
+    public GameObject featureBuyicon;
     [SerializeField] private double totalAmount;
     [SerializeField] private float Duration = 2f;
     [SerializeField] private double currentWinAmount;
@@ -76,6 +77,7 @@ public class FreeSpinTotalWin : MonoBehaviour
 
     public IEnumerator showTotalWin ()
     {
+        
         Ballons.SetActive(true);
         yield return new WaitForSeconds(.25f);
         ShowBg();
@@ -100,6 +102,10 @@ public class FreeSpinTotalWin : MonoBehaviour
     public void ShowContent ()
     {
         Content.SetActive(true);
+        if(CommandCenter.Instance.freeSpinManager_.IsFeatureBuyTriggered())
+        {
+            featureBuyicon.SetActive(true);
+        }
         CanvasGroup canvasGroup = Content.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0f;
         Tween myTween = canvasGroup.DOFade(1 , 0.5f);
@@ -111,6 +117,7 @@ public class FreeSpinTotalWin : MonoBehaviour
         isFreeSpinWinUIDone = true;
         yield return new WaitForSeconds(1f);
         Content.SetActive(false);
+        featureBuyicon.SetActive(false);
         yield return null;
     }
 }

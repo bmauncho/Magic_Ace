@@ -96,6 +96,7 @@ public class TopBanner : MonoBehaviour
                 string animName = $"Canon_{i + 1}_Anim";
                 //Debug.Log($"Playing animation: {animName} for ACTIVE cannon type: {cannonType}");
                 StartCoroutine(PlayAnim(cannon.Anim , animName));
+                CommandCenter.Instance.soundManager_.PlaySound("Base_Canon_Launch");
             }
  
             if (cannon.cannonImage != null)

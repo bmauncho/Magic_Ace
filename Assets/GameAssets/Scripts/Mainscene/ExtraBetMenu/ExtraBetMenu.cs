@@ -152,6 +152,7 @@ public class ExtraBetMenu : MonoBehaviour
         Invoke(nameof(hideExtraBetOn) , 0.5f);
         Invoke(nameof(ShowExtraBetEffect) , 0.5f);
         Invoke(nameof(ExtraBetCanonAnim) , 1f);
+        CommandCenter.Instance.soundManager_.PlaySound("Base_ExtraBet_On");
         BetAmountBg_BetMenu.sprite = BetAmountBgEx;
         BetAmountBg_MainScene.sprite = BetAmountBgEx;
         CommandCenter.Instance.multiplierManager_.SetMultiplierType(MultiplierType.ExtraBet);

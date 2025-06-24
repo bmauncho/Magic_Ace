@@ -36,7 +36,7 @@ public class Gem : MonoBehaviour
         // Calculate perpendicular direction
         Vector2 direction = ( Vector2.zero - rectTransform.anchoredPosition ).normalized;
         Vector2 perpendicular = new Vector2(-direction.y , direction.x); // 90 degree rotation
-        Vector3 scale = Vector3.Lerp(Vector3.one , new Vector3(2.5f , 2.5f , 2.5f) , t01); // Scale down to zero
+        Vector2 scale = Vector2.Lerp(Vector2.one , new Vector2(2.5f , 2.5f ) , t01); // Scale down to zero
         // Apply arc offset
         Vector2 finalPos = newPos + perpendicular * arcOffset;
 
@@ -44,7 +44,7 @@ public class Gem : MonoBehaviour
         if(CommandCenter.Instance &&
             CommandCenter.Instance.gameType == GameType.Free)
         {
-            rectTransform.localScale = scale;
+            rectTransform.localScale = new Vector2(2.25f , 2.25f);
         }
 
         if (t01 >= 1)

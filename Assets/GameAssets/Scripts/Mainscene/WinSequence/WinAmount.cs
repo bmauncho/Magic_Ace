@@ -20,6 +20,7 @@ public class WinAmount : MonoBehaviour
             CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
             double hintTotalWinAmount = currencyManager.GetWinAmount();
             payOutManager.GetPayOut().ShowWin(totalPayOut);
+            CommandCenter.Instance.hintsManager_.hintWinUI.ShowHintWinUIAmount(hintTotalWinAmount);
         }
         else
         {
@@ -30,6 +31,7 @@ public class WinAmount : MonoBehaviour
                 CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
                 double hintTotalWinAmount = currencyManager.GetWinAmount();
                 payOutManager.GetPayOut().ShowWin(totalPayOut);
+                CommandCenter.Instance.hintsManager_.hintWinUI.ShowHintWinUIAmount(hintTotalWinAmount);
             }
             else
             {

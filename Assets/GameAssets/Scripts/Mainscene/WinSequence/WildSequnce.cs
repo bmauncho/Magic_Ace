@@ -39,7 +39,7 @@ public class WildSequnce : MonoBehaviour
             }
         }
 
-
+        CommandCenter.Instance.soundManager_.PlayAmbientSound("Bonus_Alarm");
         yield return new WaitUntil(() => activeCoroutines <= 0);
 
         //show free spin intro
@@ -50,7 +50,10 @@ public class WildSequnce : MonoBehaviour
             bool isFreeSpinIntroComplete = false;
             freeSpinManager.OnFreeSpinIntroComplete += () => isFreeSpinIntroComplete = true;
             freeSpinManager.ShowFreeSpinIntro();
+            CommandCenter.Instance.soundManager_.PlayAmbientSound("Free_TS");
             yield return new WaitUntil(() => isFreeSpinIntroComplete);
+            yield return new WaitForSeconds(3f); // Wait for intro animation to finish
+            CommandCenter.Instance.soundManager_.PlayAmbientSound("Free_BG");
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(10);
             CommandCenter.Instance.SetGameType(GameType.Free);
         }
@@ -159,7 +162,7 @@ public class WildSequnce : MonoBehaviour
             }
         }
 
-
+        CommandCenter.Instance.soundManager_.PlayAmbientSound("Bonus_Alarm");
         yield return new WaitUntil(() => activeCoroutines <= 0);
 
         FreeSpinManager freeSpinManager = CommandCenter.Instance.freeSpinManager_;
@@ -168,8 +171,12 @@ public class WildSequnce : MonoBehaviour
             CommandCenter.Instance.cardManager_.SetWildChance(0.005f);
             bool isFreeSpinIntroComplete = false;
             freeSpinManager.ShowFreeSpinIntro();
+
             freeSpinManager.OnFreeSpinIntroComplete += () => isFreeSpinIntroComplete = true;
+            CommandCenter.Instance.soundManager_.PlayAmbientSound("Free_TS");
             yield return new WaitUntil(() => isFreeSpinIntroComplete);
+            yield return new WaitForSeconds(3f); // Wait for intro animation to finish
+            CommandCenter.Instance.soundManager_.PlayAmbientSound("Free_BG");
             CommandCenter.Instance.freeSpinManager_.SetFreeSpins(10);
             CommandCenter.Instance.SetGameType(GameType.Free);
         }

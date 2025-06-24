@@ -62,6 +62,10 @@ public class Card : MonoBehaviour
                 OnComplete?.Invoke();
                 SetAsOwner();
                 ShowGoldenEffect();
+                if (CommandCenter.Instance.gridManager_.IsGridRefilling())
+                {
+                    CommandCenter.Instance.soundManager_.PlaySound("Base_NewIcon_Land");
+                }
             }
         }
     }

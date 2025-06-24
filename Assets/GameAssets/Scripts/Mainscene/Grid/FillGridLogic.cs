@@ -26,6 +26,7 @@ public class FillGridLogic : MonoBehaviour
         List<(string cardName, List<(int col, int row)>)> wildCards = new List<(string cardName, List<(int col, int row)>)>();
         Card cardComponent = null;
         List<(Card wildcard, List<(int col, int row)>)> wildWinCards = new List<(Card wildcard, List<(int col, int row)>)>();
+        int scatterCount = 0;
         for (col = 0 ; col < colCount ; col++)
         {
             bool preTriggerWild = false;
@@ -56,6 +57,7 @@ public class FillGridLogic : MonoBehaviour
                     if (cardComponent.GetCardType() == CardType.SCATTER)
                     {
                         ScatterFound = true;
+                        scatterCount++;
                         wildColumns.Add(col);
                         wildCards.Add((cardComponent.GetCardType().ToString(), new List<(int col, int row)> { (col, row) }));
                     }
@@ -83,6 +85,21 @@ public class FillGridLogic : MonoBehaviour
 
                 float delay = preTriggerWild ? row * delayIncrement : 0f;
                 yield return StartCoroutine(DelayedMove(cardComponent , target , delay , slot , false));
+                //if (ScatterFound)
+                //{
+                //    if (scatterCount > 0 && scatterCount < 2)
+                //    {
+                //        CommandCenter.Instance.soundManager_.PlaySound("Base_C1_Hit_01");
+                //    }
+                //    else if (scatterCount > 1 && scatterCount < 3)
+                //    {
+                //        CommandCenter.Instance.soundManager_.PlaySound("Base_C1_Hit_02");
+                //    }
+                //    else if (scatterCount >= 3)
+                //    {
+                //        CommandCenter.Instance.soundManager_.PlaySound("Base_C1_Hit_03");
+                //    }
+                //}
             }
 
             if (ScatterFound)

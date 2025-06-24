@@ -199,7 +199,7 @@ public class MultiplierManager : MonoBehaviour
             orderOfMultipliers = upgradedList;
             int nextValue = Mathf.Min((int)activeMultiplier + 1 , (int)Multipliers.x20);
             activeMultiplier = (Multipliers)nextValue;
-
+            CommandCenter.Instance.soundManager_.PlaySound("Free_MultBarUpgrade");
             UpgradeAnim(() =>
             {
                 //reset
@@ -222,6 +222,7 @@ public class MultiplierManager : MonoBehaviour
         currentType = MultiplierType.Collector;
         CommandCenter.Instance.cardManager_.SetSuperJokerChance(0f);
         baseboard.ActivateUpgradeMultipliers();
+        CommandCenter.Instance.soundManager_.PlaySound("Base_MultBarUpgrade");
         isInUpgradeMode = true;
         upgradeRoundsRemaining = 3;
         collectorCount = 0;
@@ -308,6 +309,19 @@ public class MultiplierManager : MonoBehaviour
     {
         StartCoroutine(RunUpgradeAnimSequentially(OnComplete));
     }
+    [ContextMenu("Test Free Spin Anim")]
+    public void FreeGameEnter () 
+    {
+        StartCoroutine(runFreeGameEnter());
+    }
+
+    private IEnumerator runFreeGameEnter ()
+    {
+        for (int i = 0 ; i < 4 ; i++)
+        {
+            yield return StartCoroutine(FreeSpinAnim());
+        }
+    }
 
     private IEnumerator RunUpgradeAnimSequentially (Action OnComplete = null)
     {
@@ -370,9 +384,17 @@ public class MultiplierManager : MonoBehaviour
         Debug.Log($"{cannonIndex} | Multiplier: {multiplier}");
     }
 
-    public void FreeSpinAnim ()
+    public IEnumerator FreeSpinAnim ()
     {
-        currentType = MultiplierType.Free;
+        cannonType cannon = (cannonType)cannonIndex;
+        var list = multiplierProgressions [currentType];
+        Multipliers multiplier = list [cannonIndex];
+        yield return StartCoroutine(topBanner_.FreeSpinAnim(cannonIndex,multiplier,activeMultiplier,GetSpriteAsset(),GetCannon(),GetCanonBg()));
+        yield return new WaitForSeconds(0.25f); // Wait a bit before proceeding to the next cannon
+        cannonIndex++;
+        if (cannonIndex > 3)
+            cannonIndex = 0;
+        Debug.Log($"{cannonIndex} | Multiplier: {multiplier}");
     }
 
 
@@ -501,5 +523,10 @@ public class MultiplierManager : MonoBehaviour
     public bool IsTriggerCollectorDone ()
     {
         return isTriggerCollectorDone;
+    }
+
+    public int GetCannonIndex ()
+    {
+        return cannonIndex;
     }
 }

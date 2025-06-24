@@ -48,6 +48,7 @@ public class Baseboard : MonoBehaviour
                 UpgradeTickets [i].PlayTicket_UsedAnimation();
                 UpgradeTickets [i].isTicketUsed = true;
                 usedTickets++;
+                CommandCenter.Instance.soundManager_.PlaySound("Base_Ticket_Spent");
                 break;
             }
         }

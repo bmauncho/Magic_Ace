@@ -74,6 +74,7 @@ public class GemCollector : MonoBehaviour
             }
 
             gemComponent.CollectGem(target , container);
+            CommandCenter.Instance.soundManager_.PlaySound("Base_W3_Collected");
             gemComponent.OnComplete += () => activeAnims--;
 
             collected++;

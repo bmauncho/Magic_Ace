@@ -154,6 +154,7 @@ public class SpinManager : MonoBehaviour
             StartCoroutine(WaitForDataFetched());
             SpinAnims.PlaySpinAnim();
             SpinAnims.StopIdleSpinAnim();
+            CommandCenter.Instance.soundManager_.PlaySound("Base_Spin");
         }
     }
     IEnumerator WaitForDataFetched ()

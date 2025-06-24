@@ -161,8 +161,9 @@ public class WinSequence : MonoBehaviour
                 if (cardComponent.GetCardType() != CardType.SCATTER)
                 {
                     cardComponent.ShowCardWinGlow();
+                    CommandCenter.Instance.soundManager_.PlaySound("Base_Win_01");
                     Sequence cardSeq = DOTween.Sequence();
-                    cardSeq.AppendCallback(() => card.transform.localScale = Vector3.one)
+                    cardSeq.AppendCallback(() => card.transform.localScale = Vector3.one)       
                            .Append(card.transform.DOPunchScale(new Vector3(.2f , .2f , .2f) , .5f , 10 , 1f))
                            .AppendCallback(() =>
                            {
@@ -178,9 +179,13 @@ public class WinSequence : MonoBehaviour
 
         yield return sequence.WaitForCompletion();
 
+        CommentaryManager commentary = CommandCenter.Instance.commentaryManager_;
+        commentary.PlayCommentary(commentary.GetCardTypes(WinningCards));
+
         if (winLoseManager.GetWinType() == WinType.Normal)
         {
             // show normal win effect
+
             yield return StartCoroutine(winLoseManager.winAmount.winAmountEffect(WinningCards));
         }
         else if (winLoseManager.GetWinType() == WinType.Wild)
@@ -399,6 +404,7 @@ public class WinSequence : MonoBehaviour
                         poolManager.ReturnToPool(PoolType.Cards,cardsToHide [i]);
                         slot.RemoveOwner();
                         winSlot.RemoveOwner();
+                        CommandCenter.Instance.soundManager_.PlaySound("Base_Win_02");
                     }
                 }
             }

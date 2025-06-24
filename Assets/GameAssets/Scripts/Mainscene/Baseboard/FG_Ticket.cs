@@ -18,6 +18,7 @@ public class FG_Ticket : MonoBehaviour
         {
             TicketAnimator.Rebind();
             TicketAnimator.Play("Collected_Ticket_Used");
+            CommandCenter.Instance.soundManager_.PlaySound("Ticket_Used");
             StartCoroutine(waitAndDisable());
         }
     }

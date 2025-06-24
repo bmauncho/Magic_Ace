@@ -248,6 +248,7 @@ public class NormalGameWinUi : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.DOFade(1 , .5f).OnComplete(() =>
         {
+            CommandCenter.Instance.soundManager_.PlayAmbientSound("Base_Winrank");
             StartCoroutine(winUiSequence());
         });
         
@@ -338,7 +339,6 @@ public class NormalGameWinUi : MonoBehaviour
         isAnimating = false;
 
         StopAllCoroutines(); // Stop any running coroutine (like winUiSequence)
-
         // Immediately show final win amount
         currentWinAmount = TotalWinAmount;
         winAmount.text = GetWinAmount(TotalWinAmount);

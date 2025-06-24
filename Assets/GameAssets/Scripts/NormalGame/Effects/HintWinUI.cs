@@ -122,6 +122,19 @@ public class HintWinUI : MonoBehaviour
         yield return null;
     }
 
+    public void ShowHintWinUIAmount ( double winAmount_ )
+    {
+        winText.SetActive(true);
+        CommandCenter.Instance.hintsManager_.ShowWinText();
+        winAmount.text = GetWinAmount(winAmount_);
+    }
+
+    public void HideHintWinUIAmount ()
+    {
+        winText.SetActive(false);
+        CommandCenter.Instance.hintsManager_.hideWinText();
+    }
+
     private string GetWinAmount ( double WinAmount )
     {
         string result = string.Empty;
