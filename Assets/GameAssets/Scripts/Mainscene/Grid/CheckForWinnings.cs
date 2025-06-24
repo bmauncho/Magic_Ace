@@ -186,8 +186,8 @@ public class CheckForWinnings : MonoBehaviour
         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
         CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
         gridManager.setisNormalWnSequenceDone(true);
-
-       CommandCenter.Instance.featureManager_.ResetFeatures();
+        CommandCenter.Instance.spinManager_.SpinAnims.PlayIdleSpinAnim();
+        CommandCenter.Instance.featureManager_.ResetFeatures();
         gridManager.GetWinningBg_Wild().Deactivate();
         gridManager.moveCardsBacktoSlots();
 

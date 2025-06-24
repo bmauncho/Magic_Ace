@@ -188,6 +188,11 @@ public class FillGridLogic : MonoBehaviour
     private IEnumerator DelayedMove ( Card card , Transform target , float delay , Slot _slot , bool isInitialization )
     {
         yield return new WaitForSeconds(delay);
+        if (!card.gameObject.activeSelf)
+        {
+            Debug.LogWarning("Card is not active, skipping move.");
+            card.gameObject.SetActive(true);
+        }
         card.moveCard(target , _slot , isInitialization);
         yield return null;
     }

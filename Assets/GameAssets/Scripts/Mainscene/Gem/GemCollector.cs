@@ -87,7 +87,12 @@ public class GemCollector : MonoBehaviour
             {
                 CommandCenter.Instance.multiplierManager_.TriggerCollector();
             }
+
+            //yield return new WaitUntil(()=> CommandCenter.Instance.multiplierManager_.IsTriggerCollectorDone());
         }
+
+        // play Anim 
+
         yield return null;
         Debug.Log("All allowed gems collected!");
     }
@@ -178,8 +183,12 @@ public class GemCollector : MonoBehaviour
         for(int i = 0 ; i < Gems.Count ; i++)
         {
             CommandCenter.Instance.multiplierManager_.TriggerCollector();
+            Gems [i].transform.localScale = Vector3.one; // Reset scale to normal
             CommandCenter.Instance.poolManager_.ReturnToPool(PoolType.Gems , Gems [i]);
         }
+
+        yield return new WaitUntil(() => CommandCenter.Instance.multiplierManager_.IsTriggerCollectorDone());
+        Debug.Log("All allowed gems collected in Free Game!");
         yield return null;
     }
 

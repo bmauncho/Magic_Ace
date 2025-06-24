@@ -26,6 +26,8 @@ public class SpinManager : MonoBehaviour
 
     [Header("Spin Animation")]
     public SpinSpeedUI SpinSpeedEffect;
+    public SpinAnims SpinAnims;
+
     [ContextMenu("Set Spin Mode")]
     public void SetSpinMode ()
     {
@@ -97,7 +99,7 @@ public class SpinManager : MonoBehaviour
     {
         if (CommandCenter.Instance)
         {
-            bool isFirstTime = true;
+            bool isFirstTime = CommandCenter.Instance.gridManager_.IsFirstTime();
             float targetSpeed = IsFillingGrid && !isFirstTime ? degreesPerSecond * 12 : degreesPerSecond;
 
             // Smoothly interpolate between current speed and target speed
@@ -150,6 +152,8 @@ public class SpinManager : MonoBehaviour
             // Debug.Log($"Spin is Demo{CommandCenter.Instance.gameModeManager.IsDemoMode()}");
             disableButtons();
             StartCoroutine(WaitForDataFetched());
+            SpinAnims.PlaySpinAnim();
+            SpinAnims.StopIdleSpinAnim();
         }
     }
     IEnumerator WaitForDataFetched ()

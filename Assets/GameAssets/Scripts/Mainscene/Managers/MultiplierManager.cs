@@ -79,6 +79,7 @@ public class MultiplierManager : MonoBehaviour
     [SerializeField] private Baseboard baseboard;
     private int cannonIndex = 0;
     public Action OnComplete;
+    public bool isTriggerCollectorDone = false;
     [ContextMenu("Reset Multiplier")]
     public void ResetMultiplier ()
     {
@@ -177,6 +178,7 @@ public class MultiplierManager : MonoBehaviour
     [ContextMenu("Trigger collector")]
     public void TriggerCollector ()
     {
+        SetIsTriggerCollectorDone(false);
         if (currentType == MultiplierType.Normal)
         {
             collectorCount++;
@@ -198,12 +200,21 @@ public class MultiplierManager : MonoBehaviour
             int nextValue = Mathf.Min((int)activeMultiplier + 1 , (int)Multipliers.x20);
             activeMultiplier = (Multipliers)nextValue;
 
-            for (int i = 0 ; i < 4 ; i++)
+            UpgradeAnim(() =>
             {
-                updateUI(true);
-            }
-
+                //reset
+                for (int i = 0 ; i < 4 ; i++)
+                {
+                    updateUI(true);
+                }
+                SetIsTriggerCollectorDone(true);
+            });
         }
+    }
+
+    public void SetIsTriggerCollectorDone ( bool value )
+    {
+        isTriggerCollectorDone = value;
     }
 
     private void EnterUpgradeMode ()
@@ -264,7 +275,6 @@ public class MultiplierManager : MonoBehaviour
     {
         Debug.Log("show multiplier");
         AdvanceMultiplier();
-        //Debug.Log($"Active Multiplier: {activeMultiplier}");
         for (int i = 0 ; i < 4 ; i++)
         {
             updateUI();
@@ -294,10 +304,22 @@ public class MultiplierManager : MonoBehaviour
         StartCoroutine(RunExtraBetAnimsSequentially());
     }
 
-    public void UpgradeAnim ()
+    public void UpgradeAnim (Action OnComplete = null)
     {
-        currentType = MultiplierType.Collector;
-        StartCoroutine(RunExtraBetAnimsSequentially());
+        StartCoroutine(RunUpgradeAnimSequentially(OnComplete));
+    }
+
+    private IEnumerator RunUpgradeAnimSequentially (Action OnComplete = null)
+    {
+        int activeCoroutines = 4;
+        for (int i = 0 ; i < 4 ; i++)
+        {
+            yield return StartCoroutine(extraBetAnim());
+            activeCoroutines--;
+        }
+
+        yield return new WaitUntil(() => activeCoroutines <= 0);
+        OnComplete?.Invoke();
     }
 
     private IEnumerator RunExtraBetAnimsSequentially ()
@@ -345,7 +367,6 @@ public class MultiplierManager : MonoBehaviour
         cannonIndex++;
         if (cannonIndex > 3)
             cannonIndex = 0;
-
         Debug.Log($"{cannonIndex} | Multiplier: {multiplier}");
     }
 
@@ -470,5 +491,15 @@ public class MultiplierManager : MonoBehaviour
     public int GetCollectorCount ()
     {
         return collectorCount;
+    }
+
+    public bool IsInUpgradeMode ()
+    {
+        return isInUpgradeMode;
+    }
+
+    public bool IsTriggerCollectorDone ()
+    {
+        return isTriggerCollectorDone;
     }
 }

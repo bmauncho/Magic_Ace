@@ -163,7 +163,6 @@ public class Card : MonoBehaviour
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
-        wildBounceAnim.transform.rotation = Quaternion.identity;
         CardBg.sprite = _cardBg;
         card.sprite = _card;
     }
@@ -327,12 +326,14 @@ public class Card : MonoBehaviour
     public void EnableWildBounceAnim ()
     {
         wildBounceAnim.Rebind();
+        wildBounceAnim.Play("WildIdleAnim");
         wildBounceAnim.enabled = true;
     }
 
     public void DisableWildBounceAnim ()
     {
         wildBounceAnim.Rebind();
+        wildBounceAnim.Play("scatterIdle");
         wildBounceAnim.enabled = false;
         wildBounceAnim.transform.localScale = Vector3.one;
     }

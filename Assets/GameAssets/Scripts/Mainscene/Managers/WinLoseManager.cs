@@ -327,13 +327,16 @@ public class WinLoseManager : MonoBehaviour
                Debug.Log("Super joker cards are present");
                 if(multiplierManager.GetCurrentType() == MultiplierType.Free)
                 {
-                    if(multiplierManager.GetFreeSpinUpgradeCount() < multiplierManager.GetMaxFreeSpinUpgradeCount())
+                    Debug.Log("Super joker cards are present ... In free game");
+                    if (multiplierManager.GetFreeSpinUpgradeCount() < multiplierManager.GetMaxFreeSpinUpgradeCount())
                     {
+                        Debug.Log("Super joker cards are present ... In free game...sequence");
                         yield return StartCoroutine(gemCollector.collectFreeGameGems(remainingSuperJokerCards));
                     }
                 }
                 else
                 {
+                    Debug.Log("Super joker cards are present ... In normal Game");
                     yield return StartCoroutine(gemCollector.CollectGems(remainingSuperJokerCards));
                 }
             }
