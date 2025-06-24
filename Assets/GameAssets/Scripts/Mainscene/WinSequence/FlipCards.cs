@@ -96,14 +96,21 @@ public class FlipCards : MonoBehaviour
             Sequence cardSeq = DOTween.Sequence();
             if (cardComponent.GetCardType() == CardType.SUPER_JOKER)
             {
-
+                cardComponent.FlipSuperJoker();
                 cardSeq.Append(cardObject.transform.DORotate(new Vector3(0 , 90 , 0) , 0.25f)) // rotate back to 90°
                    .AppendCallback(() => cardComponent.HideCardBg())                   // hide after 90°
                    .Append(cardObject.transform.DORotate(new Vector3(0 , 0 , 0) , 0.25f));// rotate back to 0°
             }
+            else if(cardComponent.GetCardType() == CardType.BIG_JOKER)
+            {
+                cardComponent.flipBigJoker();
+                cardSeq.Append(cardObject.transform.DORotate(new Vector3(0 , 90 , 0) , 0.25f)) // rotate back to 90°
+                  .AppendCallback(() => cardComponent.HideCardBg())                   // hide after 90°
+                  .Append(cardObject.transform.DORotate(new Vector3(0 , 0 , 0) , 0.25f));// rotate back to 0°
+            }
             else
             {
-
+                cardComponent.flipSmallJoker();
                 cardSeq.Append(cardObject.transform.DORotate(new Vector3(0 , 90 , 0) , 0.25f)) // rotate back to 90°
                   .AppendCallback(() => cardComponent.HideCardBg())                   // hide after 90°
                   .Append(cardObject.transform.DORotate(new Vector3(0 , 0 , 0) , 0.25f));// rotate back to 0°

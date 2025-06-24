@@ -35,6 +35,9 @@ public class Card : MonoBehaviour
     [SerializeField] private GameObject wildAnimEffects;
     [SerializeField] private GameObject goldenCardEffect;
     [SerializeField] private Animator wildBounceAnim;
+    [SerializeField] private GameObject SuperJokerFlip;
+    [SerializeField] private GameObject BigJokerFlip;
+
 
     [Header("Card Effects")]
     [SerializeField] private GameObject winCardGlow;
@@ -358,5 +361,64 @@ public class Card : MonoBehaviour
     public void HideGoldenEffect ()
     {
         goldenCardEffect.gameObject.SetActive(false);
+    }
+
+    public void FlipSuperJoker ()
+    {
+        SuperJokerFlip.SetActive(true);
+        Animator anim = SuperJokerFlip.GetComponentInChildren<Animator>();
+        anim.Rebind();
+        CommandCenter.Instance.soundManager_.PlaySound("Base_W3_Show");
+        StartCoroutine(DeactivateSuperJokerFlipAnim(anim));
+    }
+
+    IEnumerator DeactivateSuperJokerFlipAnim (Animator Anim)
+    {
+        yield return new WaitUntil(() => Anim.GetCurrentAnimatorStateInfo(0).IsName("SuperJokerTurnEffect"));
+
+        // Wait for animation to finish
+        yield return new WaitWhile(() =>
+            WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+
+        //Debug.Log($"Wild Animation {i + 1} Done");
+
+        // Optional delay
+        yield return new WaitForSeconds(0.1f);
+
+        yield return null;
+    }
+
+    public void flipBigJoker ()
+    {
+        BigJokerFlip.SetActive(true);
+        Animator anim = BigJokerFlip.GetComponentInChildren<Animator>();
+        anim.Rebind();
+        CommandCenter.Instance.soundManager_.PlaySound("Base_W2_Show");
+        StartCoroutine(DeactivateBigJokerFlipAnim(anim));
+    }
+
+
+    IEnumerator DeactivateBigJokerFlipAnim ( Animator Anim )
+    {
+        yield return new WaitUntil(() => Anim.GetCurrentAnimatorStateInfo(0).IsName("BigJokerTurnAnim"));
+
+        // Wait for animation to finish
+        yield return new WaitWhile(() =>
+            WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+
+        //Debug.Log($"Wild Animation {i + 1} Done");
+
+        // Optional delay
+        yield return new WaitForSeconds(0.1f);
+        yield return null;
+    }
+
+    public void flipSmallJoker ()
+    {
+        BigJokerFlip.SetActive(true);
+        Animator anim = BigJokerFlip.GetComponentInChildren<Animator>();
+        anim.Rebind();
+        CommandCenter.Instance.soundManager_.PlaySound("Base_W1_Show");
+        StartCoroutine(DeactivateBigJokerFlipAnim(anim));
     }
 }
