@@ -156,7 +156,6 @@ public class CheckForWinnings : MonoBehaviour
                             yield return new WaitForSeconds(0.25f);
                             CommandCenter.Instance.mainMenuController_.Spin();
                         }
-
                     }
                     else
                     {
@@ -205,8 +204,7 @@ public class CheckForWinnings : MonoBehaviour
             yield return new WaitUntil(() => CommandCenter.Instance.winLoseManager_.normalGameWinUi.IsWinUiDone());
         }
 
-        if(CommandCenter.Instance.multiplierManager_.GetCollectorCount() <= 0 &&
-            CommandCenter.Instance.multiplierManager_.GetCannonIndex()>=2)
+        if(CommandCenter.Instance.multiplierManager_.GetCannonIndex()>=2)
         {
             CommandCenter.Instance.winLoseManager_.normalGameWinUi.NormalWinUiSequence();
 
