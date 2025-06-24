@@ -385,7 +385,7 @@ public class Card : MonoBehaviour
 
         // Optional delay
         yield return new WaitForSeconds(0.1f);
-
+        SuperJokerFlip.SetActive(false);
         yield return null;
     }
 
@@ -412,6 +412,7 @@ public class Card : MonoBehaviour
 
         // Optional delay
         yield return new WaitForSeconds(0.1f);
+        BigJokerFlip.SetActive(false);
         yield return null;
     }
 
