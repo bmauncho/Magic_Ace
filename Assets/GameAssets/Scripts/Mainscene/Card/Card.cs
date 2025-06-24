@@ -374,11 +374,12 @@ public class Card : MonoBehaviour
 
     IEnumerator DeactivateSuperJokerFlipAnim (Animator Anim)
     {
+        Anim.Play("SuperJokerTurnEffect");
         yield return new WaitUntil(() => Anim.GetCurrentAnimatorStateInfo(0).IsName("SuperJokerTurnEffect"));
 
         // Wait for animation to finish
         yield return new WaitWhile(() =>
-            WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+            Anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
 
         //Debug.Log($"Wild Animation {i + 1} Done");
 
@@ -400,11 +401,12 @@ public class Card : MonoBehaviour
 
     IEnumerator DeactivateBigJokerFlipAnim ( Animator Anim )
     {
+        Anim.Play("BigJokerTurnAnim");
         yield return new WaitUntil(() => Anim.GetCurrentAnimatorStateInfo(0).IsName("BigJokerTurnAnim"));
 
         // Wait for animation to finish
         yield return new WaitWhile(() =>
-            WildAnim_.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
+            Anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
 
         //Debug.Log($"Wild Animation {i + 1} Done");
 
