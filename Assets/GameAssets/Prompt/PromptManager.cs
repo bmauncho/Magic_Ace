@@ -13,6 +13,7 @@ public class PromptManager : MonoBehaviour
     [SerializeField] private TMP_Text errorDescription;
     [SerializeField] private TMP_Text errorRefNo;
     [SerializeField] private TMP_Text btnText;
+    [SerializeField] private InternetConnectionChecker internetConnectionChecker;
     void Awake ()
     {
         if (Instance)
@@ -82,5 +83,10 @@ public class PromptManager : MonoBehaviour
         BrokenText.SetActive(true);
 
         yield return null;
+    }
+
+    public InternetConnectionChecker GetInternetConnectionChecker ()
+    {
+        return internetConnectionChecker;
     }
 }

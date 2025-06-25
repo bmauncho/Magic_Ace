@@ -27,6 +27,7 @@ namespace Config_Assets
         Vector3 TheScale;
         float Speed;
         float ScaleSpeed;
+        public int SnapToEndCount;
         public Transform TargetTrans;
         public PosAnimEnd OnPosAnimEnd;
         private void OnEnable()
@@ -35,7 +36,19 @@ namespace Config_Assets
         }
         public void ResetAnim()
         {
-            Target = 0;
+
+            if (SnapToEndCount > 0)
+            {
+                SnapToEndCount -= 1;
+                Target = TargetData.Length-1;
+
+
+            }
+            else
+            {
+                Target = 0;
+
+            }
             ThePos = TargetData[Target].TargetPos;
             timestamp = Time.time + TargetData[Target].TargetTime;
             if (ResetSnap)

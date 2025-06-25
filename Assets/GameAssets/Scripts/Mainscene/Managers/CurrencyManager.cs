@@ -26,6 +26,7 @@ public class CurrencyManager : MonoBehaviour
     [SerializeField] private ExtraBetMenu ExtraBetMenu_;
     public string TheBetAmount;
     public BetLimitsInfo BetLimitsInfo;
+    public CurrencyUI CurrencyUI;
     private Dictionary<string , string> baseToExtra = new Dictionary<string , string>
     {
         { "2", "3" },

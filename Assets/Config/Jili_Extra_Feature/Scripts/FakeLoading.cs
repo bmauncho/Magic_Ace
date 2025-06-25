@@ -21,7 +21,7 @@ namespace Config_Assets
         }
         void Update()
         {
-            if (!ExtraMan.Instance.games_Catalog.IsLoaded)
+            if (ExtraMan.Instance&&!ExtraMan.Instance.games_Catalog.IsLoaded)
                 return;
             if (timestamp < 0)
             {

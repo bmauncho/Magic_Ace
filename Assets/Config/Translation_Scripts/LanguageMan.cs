@@ -81,6 +81,11 @@ public class LanguageMan : MonoBehaviour
         {
             texts[i].RefreshFetch();
         }
+        FetchImageContoller[] imgs = FindObjectsOfType<FetchImageContoller>();
+        for (int i = 0; i <imgs.Length; i++)
+        {
+            imgs[i].RefreshFetch();
+        }
         onLanguageRefresh.Invoke();
 
     }

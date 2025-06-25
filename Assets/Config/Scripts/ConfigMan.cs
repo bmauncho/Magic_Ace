@@ -29,10 +29,11 @@ public class ConfigMan : MonoBehaviour
     public TMP_InputField ClientIdText;
     public Toggle DemoToggle;
     public GameObject ExpiredSessionObj;
+    public TMP_Text GameVersionText;
 
     void Start()
     {
-
+        GameVersionText.text = "V " + Application.version;
         DontDestroyOnLoad(this);
         Instance = this;
         if (!Application.isEditor)
@@ -42,7 +43,9 @@ public class ConfigMan : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z)
+            )
+           
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -50,6 +53,9 @@ public class ConfigMan : MonoBehaviour
 
             }
         }
+       
+
+
     }
    
     public void ToggleDemoMode(Toggle which)

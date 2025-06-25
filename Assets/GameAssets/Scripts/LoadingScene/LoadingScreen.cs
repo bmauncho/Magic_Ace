@@ -17,6 +17,7 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private GameObject startBtn;
     [SerializeField] private GameObject LoadingContent;
     [SerializeField] private bool isAddressablesEnabled = false;
+    [SerializeField] private TMP_Text loadingText;
 
     private float progress;
     private bool permissionAsked;
@@ -46,7 +47,7 @@ public class LoadingScreen : MonoBehaviour
 
         if (progress >= 1f && permissionAsked)
         {
-            if (!isSliderLoaded)
+            if (!isSliderLoaded && !isAddressablesEnabled)
             {
                 isSliderLoaded = true;
                 // Show the start button or any other UI element
@@ -77,22 +78,40 @@ public class LoadingScreen : MonoBehaviour
     {
         if (isAddressablesEnabled)
         {
-            Debug.Log("loading Addressable!");
+            string loadingText = $"connecting...";
+            setLoadingText(loadingText);
+            float fakeprogress = Random.Range(0.05f , 0.3f);
+            ShowProgress(fakeprogress);
+            yield return new WaitForSeconds(0.5f);
             //Not allowing scene activation immediately
             AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(Which , LoadSceneMode.Additive , false);
+            float fakeProgress = Random.Range(0.05f , 0.5f);
+           
             while (!handle.IsDone)
             {
                 ShowProgress(handle.PercentComplete);
-                yield return new WaitForSeconds(0.2f);
+                loadingText = $"downloading resources...[{( progress * 100f):F0}%]";
+                yield return new WaitForSeconds(0.1f);
             }
-
-            Debug.Log("loading Addressable...");
             //One way to handle manual scene activation.
+
             if (handle.Status == AsyncOperationStatus.Succeeded)
             {
                 ShowProgress(handle.PercentComplete);
+                loadingText = $"downloading resources... [{( progress * 100f ):F0}%]";
+                setLoadingText(loadingText);
             }
-            Debug.Log("loading Addressable...Done");
+
+            yield return new WaitForSeconds(0.25f);
+            loadingText = $"getting initiated...";
+            setLoadingText(loadingText);
+            yield return new WaitForSeconds(0.25f);
+            loadingText = $"complete.";
+            setLoadingText(loadingText);
+            yield return new WaitForSeconds(0.5f);
+            startBtn.SetActive(true);
+            LoadingContent.SetActive(false);
+            Debug.Log($"loading Addressable...Done ");
             yield return new WaitUntil(() => isSceneReady);
 
             Debug.Log($"isSceneReady: {isSceneReady}");
@@ -145,6 +164,18 @@ public class LoadingScreen : MonoBehaviour
             ConfigMan.Instance.TheDebugObj.SetActive(false);
             //yield return new WaitForSeconds(0.5f);
             SceneManager.UnloadSceneAsync(0);
+        }
+    }
+
+    public void setLoadingText (string loading_text)
+    {
+        if (loadingText != null)
+        {
+            loadingText.text = loading_text;
+        }
+        else
+        {
+            Debug.LogWarning("Loading Text is not assigned!");
         }
     }
 }
