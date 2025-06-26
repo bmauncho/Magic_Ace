@@ -7,6 +7,7 @@ public class FreeSpinIntro : MonoBehaviour
     public GameObject freespinInfo;
     public GameObject freeSpinTicketEffect;
     public GameObject StartBtn;
+    public GameObject FreeSpinText;
     [Header("Effects")]
     public GameObject Light_1;
     public GameObject Light_2;
@@ -43,6 +44,8 @@ public class FreeSpinIntro : MonoBehaviour
         }
         yield return new WaitForSeconds(0.25f);
         freeSpinTicketEffect.SetActive(false);
+        yield return new WaitForSeconds(0.25f);
+        FreeSpinText.SetActive(true);
         yield return new WaitForSeconds(1f);
         Light_1.GetComponent<Animator>().Play("IntroLightEffect_1_breathe");
         Light_2.gameObject.SetActive(true);
@@ -73,6 +76,7 @@ public class FreeSpinIntro : MonoBehaviour
         Light_2.GetComponentInChildren<Animator>().Rebind();
         Light_1.gameObject.SetActive(false);
         Light_2.gameObject.SetActive(false);
+        FreeSpinText.SetActive(false);
     }
 
     public void DeactivateFreeIntro ()

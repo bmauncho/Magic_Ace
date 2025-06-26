@@ -18,7 +18,7 @@ public class GameRules : MonoBehaviour
 
     private void OnEnable ()
     {
-
+       
     }
 
     private void Start ()
@@ -89,6 +89,7 @@ public class GameRules : MonoBehaviour
         {
             previousOrientation = current;
             OnOrientationChanged(current);
+            Canvas.ForceUpdateCanvases(); // Force update the canvas to apply layout changes immediately
         }
     }
 
