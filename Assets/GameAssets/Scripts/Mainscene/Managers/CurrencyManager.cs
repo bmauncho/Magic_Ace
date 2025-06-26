@@ -297,15 +297,22 @@ public class CurrencyManager : MonoBehaviour
             maximumBetLimit();
         }
     }
-
+    Coroutine minimumBet;
+    Coroutine maximumBet;
     public void minimumBetLimit ()
     {
         string text = "Minimum Bet";
+        if(maximumBet != null)
+        {
+            StopCoroutine(maximumBet);
+        }
+        CancelInvoke(nameof(DeactivateBetLimits));
         BetLimitsInfo.gameObject.SetActive(true);
         if (BetLimitsInfo != null)
         {
             BetLimitsInfo.SetText(text);
-            StartCoroutine(BetLimitsInfo.bounce());
+            minimumBet = StartCoroutine(BetLimitsInfo.bounce());
+            Invoke(nameof(DeactivateBetLimits) , 2f);
         }
         else
         {
@@ -313,14 +320,25 @@ public class CurrencyManager : MonoBehaviour
         }
     }
 
+    void DeactivateBetLimits ()
+    {
+        BetLimitsInfo.gameObject.SetActive(false);
+    }
+
     public void maximumBetLimit ()
     {
+        if (minimumBet != null)
+        {
+            StopCoroutine(minimumBet);
+        }
+        CancelInvoke(nameof(DeactivateBetLimits));
         BetLimitsInfo.gameObject.SetActive(true);
         string text = "Maximum Bet";
         if (BetLimitsInfo != null)
         {
             BetLimitsInfo.SetText(text);
-            StartCoroutine(BetLimitsInfo.bounce());
+            maximumBet = StartCoroutine(BetLimitsInfo.bounce());
+            Invoke(nameof(DeactivateBetLimits) , 2f);
         }
         else
         {
