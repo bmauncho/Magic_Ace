@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b78aa75cc8bb63940a6565491d0e8e16
+guid: 2cd6b94b204de9343b25b5d4b2507219
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -110,7 +110,7 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 1024
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 12
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -121,7 +121,51 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Free_Retrigger_MSG_pt_Free
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 2
+        width: 319
+        height: 115
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70fe7085b51efdb4d9bf8278c388f003
+      internalID: 12433861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Free_Retrigger_MSG_pt_Spins
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 2
+        width: 373
+        height: 126
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68e1beb6f55ebac4da9c8fce986e87fe
+      internalID: -438201287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -135,7 +179,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Free_Retrigger_MSG_pt_Free: 12433861
+      Free_Retrigger_MSG_pt_Spins: -438201287
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

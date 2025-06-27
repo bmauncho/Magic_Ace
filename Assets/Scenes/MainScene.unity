@@ -25571,6 +25571,7 @@ GameObject:
   - component: {fileID: 715279678}
   - component: {fileID: 715279677}
   - component: {fileID: 715279676}
+  - component: {fileID: 715279679}
   m_Layer: 5
   m_Name: TotalWin
   m_TagString: Untagged
@@ -25710,6 +25711,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 715279674}
   m_CullTransparentMesh: 1
+--- !u!114 &715279679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715279674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780bbcb4988bc524981d482d7e235342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 715279677}
+  languageTextTranslatorInfos:
+  - Lan: 0
+    spriteAsset: {fileID: 11400000, guid: 3c8ad01c3ab5891469e555cc8e1aaa1d, type: 2}
+    assetName:
+    - Free_FS_MSG_01_en_png_0
+    - Free_FS_MSG_01_en_png_1
+  - Lan: 1
+    spriteAsset: {fileID: 11400000, guid: 62aab42ad1e45214ba7f10074aeb004e, type: 2}
+    assetName:
+    - Free_FS_MSG_01_cn
+  - Lan: 9
+    spriteAsset: {fileID: 11400000, guid: e372587bd1e5c9d49b106a8c82cbc01a, type: 2}
+    assetName:
+    - Free_FS_MSG_01_pt_Win
+    - Free_FS_MSG_01_pt_Total
+  - Lan: 6
+    spriteAsset: {fileID: 11400000, guid: e3164df494143bf478348b69995cd60b, type: 2}
+    assetName:
+    - Free_FS_MSG_01_th
 --- !u!1 &715582266
 GameObject:
   m_ObjectHideFlags: 0
@@ -40264,7 +40297,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127553744}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -48962,6 +48995,7 @@ GameObject:
   - component: {fileID: 1369871236}
   - component: {fileID: 1369871235}
   - component: {fileID: 1369871234}
+  - component: {fileID: 1369871237}
   m_Layer: 5
   m_Name: FreeSpins
   m_TagString: Untagged
@@ -49101,6 +49135,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369871232}
   m_CullTransparentMesh: 1
+--- !u!114 &1369871237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369871232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 780bbcb4988bc524981d482d7e235342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textComponent: {fileID: 1369871235}
+  languageTextTranslatorInfos:
+  - Lan: 0
+    spriteAsset: {fileID: 11400000, guid: c75aba75d7432f84dad4055afa871990, type: 2}
+    assetName:
+    - Free_Retrigger_MSG_en
+  - Lan: 1
+    spriteAsset: {fileID: 11400000, guid: 4ecdad5e16894044fb94437e16459535, type: 2}
+    assetName:
+    - Free_Retrigger_MSG_cn
+  - Lan: 9
+    spriteAsset: {fileID: 11400000, guid: 45511adfd12e59549be992a4d6288538, type: 2}
+    assetName:
+    - Free_Retrigger_MSG_pt_Free
+    - Free_Retrigger_MSG_pt_Spins
+  - Lan: 6
+    spriteAsset: {fileID: 11400000, guid: e3ab02070e642684ca2fca9dd4c7ffc6, type: 2}
+    assetName:
+    - Free_Retrigger_MSG_th
 --- !u!1 &1375854526
 GameObject:
   m_ObjectHideFlags: 0
@@ -63825,7 +63890,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1714240770}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
