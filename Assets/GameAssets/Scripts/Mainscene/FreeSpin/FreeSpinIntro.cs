@@ -42,11 +42,8 @@ public class FreeSpinIntro : MonoBehaviour
                 yield return null;
             }
         }
-        yield return new WaitForSeconds(0.25f);
         freeSpinTicketEffect.SetActive(false);
-        yield return new WaitForSeconds(0.25f);
         FreeSpinText.SetActive(true);
-        yield return new WaitForSeconds(1f);
         Light_1.GetComponent<Animator>().Play("IntroLightEffect_1_breathe");
         Light_2.gameObject.SetActive(true);
     }
