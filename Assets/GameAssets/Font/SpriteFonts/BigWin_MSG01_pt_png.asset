@@ -35,36 +35,36 @@ MonoBehaviour:
     m_StrikethroughOffset: 0
     m_StrikethroughThickness: 0
     m_TabWidth: 0
-  m_Material: {fileID: 2083480116959928400}
-  spriteSheet: {fileID: 2800000, guid: e7efb3c20f91dc44987774bddc5b7617, type: 3}
+  m_Material: {fileID: 7571289905429466978}
+  spriteSheet: {fileID: 2800000, guid: 20d8db88eb1d70f469eacf055d5eda66, type: 3}
   m_SpriteCharacterTable:
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 0
     m_Scale: 1
-    m_Name: BigWin_MSG01_pt_Win
+    m_Name: BigWin_pt_Win
   - m_ElementType: 2
     m_Unicode: 65534
     m_GlyphIndex: 1
     m_Scale: 1
-    m_Name: BigWin_MSG01_pt_Big
+    m_Name: BigWin_pt_Big
   m_GlyphTable:
   - m_Index: 0
     m_Metrics:
       m_Width: 295
-      m_Height: 100
+      m_Height: 99
       m_HorizontalBearingX: -0
-      m_HorizontalBearingY: 100
+      m_HorizontalBearingY: 99
       m_HorizontalAdvance: 295
     m_GlyphRect:
-      m_X: 347
-      m_Y: 3
+      m_X: 346
+      m_Y: 4
       m_Width: 295
-      m_Height: 100
+      m_Height: 99
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -923473942, guid: e7efb3c20f91dc44987774bddc5b7617, type: 3}
+    sprite: {fileID: 1299861766, guid: 20d8db88eb1d70f469eacf055d5eda66, type: 3}
   - m_Index: 1
     m_Metrics:
       m_Width: 337
@@ -80,10 +80,10 @@ MonoBehaviour:
     m_Scale: 1
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
-    sprite: {fileID: -952395902, guid: e7efb3c20f91dc44987774bddc5b7617, type: 3}
+    sprite: {fileID: 1169378747, guid: 20d8db88eb1d70f469eacf055d5eda66, type: 3}
   spriteInfoList: []
   fallbackSpriteAssets: []
---- !u!21 &2083480116959928400
+--- !u!21 &7571289905429466978
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e7efb3c20f91dc44987774bddc5b7617, type: 3}
+        m_Texture: {fileID: 2800000, guid: 20d8db88eb1d70f469eacf055d5eda66, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []

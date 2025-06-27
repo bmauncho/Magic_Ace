@@ -301,7 +301,7 @@ public class CurrencyManager : MonoBehaviour
     Coroutine maximumBet;
     public void minimumBetLimit ()
     {
-        string text = "Minimum Bet";
+        string text = $"{LanguageMan.instance.RequestForText("L_13")}";
         if(maximumBet != null)
         {
             StopCoroutine(maximumBet);
@@ -333,7 +333,7 @@ public class CurrencyManager : MonoBehaviour
         }
         CancelInvoke(nameof(DeactivateBetLimits));
         BetLimitsInfo.gameObject.SetActive(true);
-        string text = "Maximum Bet";
+        string text = $"{LanguageMan.instance.RequestForText("L_14")}";
         if (BetLimitsInfo != null)
         {
             BetLimitsInfo.SetText(text);

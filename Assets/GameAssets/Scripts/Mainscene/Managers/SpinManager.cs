@@ -35,21 +35,21 @@ public class SpinManager : MonoBehaviour
         {
             SetMode(false , true , false , quickMode);
             //show Ui for QuickMode
-            string modeName = "QUICK SPIN ENABLED";
+            string modeName = $"{LanguageMan.instance.RequestForText("L_10")}";
             ShowSpinSpeedUI(quickMode,modeName);
         }
         else if (isQuickSpin)
         {
             SetMode(false , false , true , turboMode);
             //show Ui for TurboMode
-            string modeName = "TURBO SPIN ENABLED";
+            string modeName = $"{LanguageMan.instance.RequestForText("L_11")}";
             ShowSpinSpeedUI(turboMode,modeName);
         }
         else if (isTurboSpin)
         {
             SetMode(true , false , false , normalMode);
             //show Ui for NormalMode
-            string modeName = "TURBO SPIN DISABLED";
+            string modeName = $"{LanguageMan.instance.RequestForText("L_12")}";
             ShowSpinSpeedUI(normalMode, modeName);
         }
     }

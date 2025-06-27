@@ -121,7 +121,7 @@ public class ExtraBetMenu : MonoBehaviour
     private void ShowExtraBetBtns ()
     {
         isExtraBetMenuShown = true;
-        Vector2 targetPos = new Vector2(0 , ExtraBetMenuUI.anchoredPosition.y);
+        Vector2 targetPos = new Vector2(-45f , ExtraBetMenuUI.anchoredPosition.y);
         ExtraBetMenuUI.DOAnchorPos(targetPos , 0.25f);
     }
 

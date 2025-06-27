@@ -117,7 +117,7 @@ public class HintWinUI : MonoBehaviour
         winText.SetActive(true);
         CommandCenter.Instance.hintsManager_.ShowWinText();
         TotalWinAmount = CommandCenter.Instance.currencyManager_.GetWinAmount();
-        TotalWinText.text = GetTotalWin();
+        //TotalWinText.text = GetTotalWin();
         AnimateWinAmount();
         yield return null;
     }
@@ -127,12 +127,18 @@ public class HintWinUI : MonoBehaviour
         winText.SetActive(true);
         CommandCenter.Instance.hintsManager_.ShowWinText();
         winAmount.text = GetWinAmount(winAmount_);
+        TotalWinText.GetComponent<LanguageTextTranslator>().UpdateImageText();
     }
 
     public void HideHintWinUIAmount ()
     {
         winText.SetActive(false);
-        CommandCenter.Instance.hintsManager_.hideWinText();
+        CommandCenter.Instance.hintsManager_.HideWinText();
+    }
+
+    public void UpdateTotalWinLanguage ()
+    {
+
     }
 
     private string GetWinAmount ( double WinAmount )
@@ -195,7 +201,7 @@ public class HintWinUI : MonoBehaviour
         TotalWinAmount = 0;
         BG.sprite = hintWinInfos [0].hintBG;
         BGFrame.sprite = hintWinInfos [0].hintFrame;
-        CommandCenter.Instance.hintsManager_.hideWinText(); 
+        CommandCenter.Instance.hintsManager_.HideWinText(); 
         winText.SetActive(false);
     }
 }

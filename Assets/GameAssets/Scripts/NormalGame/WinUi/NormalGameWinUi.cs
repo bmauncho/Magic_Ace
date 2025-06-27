@@ -39,6 +39,7 @@ public class NormalGameWinUi : MonoBehaviour
     public TheLanguage currentLanguage;
     [SerializeField] private WinEffectType currentType;
     [SerializeField] private GameObject FeatureButton;
+    [SerializeField] private GameObject Content;
     [SerializeField] private GameObject WinUi;
     [SerializeField] private GameObject Confetti;
     [SerializeField] private GameObject Lights;
@@ -51,20 +52,21 @@ public class NormalGameWinUi : MonoBehaviour
     [SerializeField] private float Duration = 2f;
     [SerializeField] private bool isWinUIDone = true;
     [SerializeField]private bool isSkipping = false;
+    [SerializeField]private bool isAnimating = false;
 
     [SerializeField] private List<EffectType> effectTypes = new List<EffectType>();
 
 
     private float elapsed = 0f;
-    private bool isAnimating = false;
     private double startValue = 0;
     private double endValue = 0;
-
+    private int lastTriggeredEffectIndex = -1;
     private void OnEnable ()
     {
         if (LanguageMan.instance)
         {
             currentLanguage = LanguageMan.instance.ActiveLanguage;
+            LanguageMan.instance.onLanguageRefresh.AddListener(changeLanguage);
             changeLanguage();
         }
     }
@@ -78,11 +80,12 @@ public class NormalGameWinUi : MonoBehaviour
                 EffectType effectType = effectTypes [i];
                 if(effectType.type == currentType)
                 {
-
+                    Debug.Log("ChangeLanguage!");
                     TMP_SpriteAsset spriteAsset = effecttypeLanguageInfo(effectType).spriteAsset;
                     string winName_item1 = effecttypeLanguageInfo(effectType).winName_item1;
                     string winName_item2 = effecttypeLanguageInfo(effectType).winName_item2;
                     ChangeWinUI(i , spriteAsset , winName_item1 , winName_item2);
+                    break;
                 }
             }
            
@@ -92,15 +95,16 @@ public class NormalGameWinUi : MonoBehaviour
     {
         elapsed = 0f;
         startValue = 0;
+        TotalWinAmount = 100;
         endValue = TotalWinAmount;
         isAnimating = true;
         CommandCenter.Instance.soundManager_.PlayAmbientSound("Common_Winrank");
         Duration = GetWinDurationLog();
+        changeLanguage();
     }
 
     private void Update ()
     {
-        changeLanguage();
         if (!isAnimating)
             return;
 
@@ -129,25 +133,25 @@ public class NormalGameWinUi : MonoBehaviour
 
         return Mathf.Lerp(2f , 10f , (float)normalizedLog);
     }
-    private int lastTriggeredEffectIndex = -1;
+   
     private void CheckWinEffects ()
     {
         for (int i = effectTypes.Count - 1 ; i >= 0 ; i--) // Check from highest to lowest
         {
             if (currentWinAmount >= effectTypes [i].WinEffectChangePoint)
             {
+                changeLanguage();
                 if (lastTriggeredEffectIndex == i) return; // Already triggered, skip
 
                 lastTriggeredEffectIndex = i;
 
                 if (effectTypes [i].type == WinEffectType.Big_Win) return;
-
                 var effectType = effectTypes [i];
                 if (effectType.type == WinEffectType.Ultra_Win)
                 {
                     ShowLights();
                 }
-
+                Debug.Log($"Triggering effect: {effectType.type} ");
                 SetEffectWinType(effectType.type);
                 TMP_SpriteAsset spriteAsset = effecttypeLanguageInfo(effectType).spriteAsset;
                 string winName_item1 = effecttypeLanguageInfo(effectType).winName_item1;
@@ -170,6 +174,7 @@ public class NormalGameWinUi : MonoBehaviour
         {
             if (effectType.effectTypeLanguages [i].language == currentLanguage)
             {
+                Debug.Log("Found language: " + currentLanguage);
                 return effectType.effectTypeLanguages [i];
             }
         }
@@ -237,14 +242,14 @@ public class NormalGameWinUi : MonoBehaviour
         WinUi.SetActive(false);
         Lights.SetActive (false);   
         hideLights ();
-        this.gameObject.SetActive (false);
+        Content.SetActive (false);
     }
     [ContextMenu("AnimateWinAmount")]
     public void NormalWinUiSequence ()
     {
-        this.gameObject.SetActive(true);
+        Content.SetActive(true);
         isWinUIDone = false;
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        CanvasGroup canvasGroup = Content.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
         canvasGroup.DOFade(1 , .5f).OnComplete(() =>
         {
@@ -257,14 +262,14 @@ public class NormalGameWinUi : MonoBehaviour
     private IEnumerator winUiSequence ()
     {
         ShowWinUi();
-        TotalWinAmount = CommandCenter.Instance.currencyManager_.GetWinAmount();
-        //TotalWinAmount = 100;
+        //TotalWinAmount = CommandCenter.Instance.currencyManager_.GetWinAmount();
+        TotalWinAmount = 100;
         AnimateWinAmount();
         yield return new WaitUntil(() => !isAnimating || isSkipping);
         if (isSkipping) yield break;
         yield return new WaitForSeconds(3f);
-        this.gameObject.SetActive(true);
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        Content.SetActive(true);
+        CanvasGroup canvasGroup = Content.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
         canvasGroup.DOFade(0, .5f).OnComplete(() =>
         {
@@ -310,22 +315,24 @@ public class NormalGameWinUi : MonoBehaviour
 
     public void resetUI ()
     {
+        lastTriggeredEffectIndex = -1;
         BackGround.sprite = effectTypes [0].background;
         Backgroundeffect.sprite = effectTypes [0].BgEffect;
-        winName.spriteAsset = effectTypes [0].effectTypeLanguages [0].spriteAsset;
-        string winName_item1 = effectTypes [0].effectTypeLanguages [0].winName_item1;
-        string winName_item2 = effectTypes [0].effectTypeLanguages [0].winName_item2;
+        var effectType = effectTypes [0];
+        winName.spriteAsset = effecttypeLanguageInfo(effectType).spriteAsset;
+        string winName_item1 = effecttypeLanguageInfo(effectType).winName_item1;
+        string winName_item2 = effecttypeLanguageInfo(effectType).winName_item2;
         if (string.IsNullOrEmpty(winName_item1) && !string.IsNullOrEmpty(winName_item2))
         {
-            winName.text = $"<sprite name={effectTypes [0].effectTypeLanguages [0].winName_item2}>";
+            winName.text = $"<sprite name={winName_item2}>";
         }
         else if (!string.IsNullOrEmpty(winName_item1) && string.IsNullOrEmpty(winName_item2))
         {
-            winName.text = $"<sprite name={effectTypes [0].effectTypeLanguages [0].winName_item1}>";
+            winName.text = $"<sprite name={winName_item1}>";
         }
         else if (!string.IsNullOrEmpty(winName_item1) && !string.IsNullOrEmpty(winName_item2))
         {
-            winName.text = $"<sprite name={effectTypes [0].effectTypeLanguages [0].winName_item1}><sprite name={effectTypes [0].effectTypeLanguages [0].winName_item2}>";
+            winName.text = $"<sprite name={winName_item1}><sprite name={winName_item1}>";
         }
         
     }
@@ -337,7 +344,7 @@ public class NormalGameWinUi : MonoBehaviour
 
         isSkipping = true;
         isAnimating = false;
-
+        Debug.Log("Skip Win UI");
         StopAllCoroutines(); // Stop any running coroutine (like winUiSequence)
         // Immediately show final win amount
         currentWinAmount = TotalWinAmount;
@@ -347,7 +354,7 @@ public class NormalGameWinUi : MonoBehaviour
         CheckWinEffects();
 
         // Fade out UI and clean up
-        CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+        CanvasGroup canvasGroup = Content.GetComponent<CanvasGroup>();
         canvasGroup.DOFade(0 , 0.3f).OnComplete(() =>
         {
             CommandCenter.Instance.hintsManager_.hintWinUI.SetWinEffectType(currentType);

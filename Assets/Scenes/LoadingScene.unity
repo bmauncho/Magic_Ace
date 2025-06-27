@@ -770,6 +770,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: TranslationDocument
+      value: 
+      objectReference: {fileID: 4900000, guid: 93e3c3265526df74d92a5ee54ba1919a, type: 3}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1473694366}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: changeLanguage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LanguageImageTanslator, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8645518408272877438, guid: 6ca31c49fd6214f1e8bba2eaa30c4988, type: 3}
+      propertyPath: onLanguageRefresh.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -862,6 +894,7 @@ GameObject:
   - component: {fileID: 503404996}
   - component: {fileID: 503404995}
   - component: {fileID: 503404994}
+  - component: {fileID: 503404997}
   m_Layer: 5
   m_Name: volatility
   m_TagString: Untagged
@@ -1001,6 +1034,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503404992}
   m_CullTransparentMesh: 1
+--- !u!114 &503404997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503404992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4b49b61d0c84677af1f5fe68031f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 503404995}
+  _myText: {fileID: 0}
+  CODE: L_2
+  IsHardCoded: 0
 --- !u!1 &782248473
 GameObject:
   m_ObjectHideFlags: 0
@@ -1907,6 +1956,7 @@ GameObject:
   - component: {fileID: 1473694363}
   - component: {fileID: 1473694365}
   - component: {fileID: 1473694364}
+  - component: {fileID: 1473694366}
   m_Layer: 5
   m_Name: LoadingBg
   m_TagString: Untagged
@@ -1971,6 +2021,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473694362}
   m_CullTransparentMesh: 1
+--- !u!114 &1473694366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473694362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c944e568e84c5449c0e2e820423ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TheImage: {fileID: 1473694364}
+  LanguageImages:
+  - LanguageName: 0
+    lanImage: {fileID: 21300000, guid: 84a119a47730c5d40babebccd50e37b5, type: 3}
+  - LanguageName: 1
+    lanImage: {fileID: 21300000, guid: 753f9c11abec3cc48bf6c6de3a479172, type: 3}
+  - LanguageName: 9
+    lanImage: {fileID: 21300000, guid: 7e7ae5c70534a304d9938b85fea4c492, type: 3}
+  - LanguageName: 6
+    lanImage: {fileID: 21300000, guid: 7551476b05337b647b247289c8750931, type: 3}
 --- !u!1 &1609988922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2270,6 +2342,7 @@ GameObject:
   - component: {fileID: 1810845040}
   - component: {fileID: 1810845042}
   - component: {fileID: 1810845041}
+  - component: {fileID: 1810845043}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2395,6 +2468,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810845039}
   m_CullTransparentMesh: 1
+--- !u!114 &1810845043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810845039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4b49b61d0c84677af1f5fe68031f4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 1810845041}
+  _myText: {fileID: 0}
+  CODE: L_7
+  IsHardCoded: 0
 --- !u!1 &1838625051
 GameObject:
   m_ObjectHideFlags: 0

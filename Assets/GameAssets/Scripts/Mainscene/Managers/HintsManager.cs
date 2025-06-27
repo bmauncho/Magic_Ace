@@ -22,11 +22,13 @@ public class HintsManager : MonoBehaviour
     public HintWinUI hintWinUI;
     private Coroutine hintsCoroutine;
     Tween tween;
+    int hintIndex = 0;
     private void Start ()
     {
         if (LanguageMan.instance)
         {
             currentLanguage = LanguageMan.instance.ActiveLanguage;
+            LanguageMan.instance.onLanguageRefresh.AddListener(ChangeTheActiveLanguage);
         }
 
         StartHintsCoroutine();
@@ -36,6 +38,7 @@ public class HintsManager : MonoBehaviour
     {
 
     }
+
     [ContextMenu("Show Hints")]
     public void ShowHints ()
     {
@@ -57,45 +60,35 @@ public class HintsManager : MonoBehaviour
 
         while (true)
         {
-            if (IsLanguageChanged())
-            {
-                Debug.Log("Language changed. Updating hints.");
-                currentLanguage = LanguageMan.instance.ActiveLanguage;
-                currentHintInfo = GetHintInfo(currentLanguage);
-                if (currentHintInfo == null || currentHintInfo.hint.Length == 0)
-                {
-                    Debug.LogWarning("No hints for new language. Using first available.");
-                    currentHintInfo = hintsInfo.Length > 0 ? hintsInfo [0] : null;
-                    if (currentHintInfo == null)
-                    {
-                        Debug.LogError("No fallback hints found.");
-                        yield break;
-                    }
-                }
-                currentIndex = 0;
-            }
+            currentHintInfo = GetHintInfo(currentLanguage);
 
-            // Show hint
+            if (currentHintInfo == null || currentHintInfo.hint.Length == 0)
+            {
+                Debug.LogError("No hints available. Cannot continue.");
+                yield break;
+            }
+            // Set current hint sprite
             hint.hintImage.sprite = currentHintInfo.hint [currentIndex];
 
-            // Animate
+            // Reset position instantly before animation
             hint.hintRect.anchoredPosition = new Vector2(0 , hint.hintRect.anchoredPosition.y);
-            tween = hint.hintRect.DOAnchorPosX(-700 , duration)
-                .SetDelay(2f)
-                .OnComplete(() =>
-                {
-                    hint.hintRect.anchoredPosition = new Vector2(0 , hint.hintRect.anchoredPosition.y);
-                    hint.hintRect.gameObject.SetActive(false);
-                });
 
+            // Animate to left
+            tween = hint.hintRect.DOAnchorPosX(-700 , duration)
+                .SetDelay(1f);
+
+            // Wait for animation to complete
             yield return tween.WaitForCompletion();
-            yield return new WaitForSeconds(1f);
-            hint.hintRect.gameObject.SetActive(true);
+
+            // Wait a short pause before resetting (if needed)
+            yield return new WaitForSeconds(0.1f); // Optional smoother pacing
 
             // Next hint
             currentIndex = ( currentIndex + 1 ) % currentHintInfo.hint.Length;
+            hintIndex = currentIndex;
         }
     }
+
 
     private HintInfo GetHintInfo ( TheLanguage lang )
     {
@@ -144,9 +137,10 @@ public class HintsManager : MonoBehaviour
     {
         StopHintsCoroutine();
         hint.Hints.SetActive(false);
+        
     }
     [ContextMenu("Hide Win Text")]
-    public void hideWinText ()
+    public void HideWinText ()
     {
         hint.Hints.SetActive(true);
         StartHintsCoroutine();
@@ -155,5 +149,30 @@ public class HintsManager : MonoBehaviour
     public bool IsLanguageChanged ()
     {
         return currentLanguage != LanguageMan.instance.ActiveLanguage;
+    }
+
+
+    public void ChangeTheActiveLanguage ()
+    {
+        HintInfo currentHintInfo = GetHintInfo(currentLanguage);
+        int currentIndex = 0;
+        if (IsLanguageChanged())
+        {
+            Debug.Log("Language changed. Updating hints.");
+            currentLanguage = LanguageMan.instance.ActiveLanguage;
+            currentHintInfo = GetHintInfo(currentLanguage);
+            if (currentHintInfo == null || currentHintInfo.hint.Length == 0)
+            {
+                Debug.LogWarning("No hints for new language. Using first available.");
+                currentHintInfo = hintsInfo.Length > 0 ? hintsInfo [0] : null;
+                if (currentHintInfo == null)
+                {
+                    Debug.LogError("No fallback hints found.");
+                }
+            }
+            currentIndex = hintIndex;
+        }
+
+        hint.hintImage.sprite = currentHintInfo.hint [currentIndex];
     }
 }
