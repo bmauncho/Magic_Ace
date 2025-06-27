@@ -60,5 +60,12 @@ public class LanguageTextTranslator : MonoBehaviour
             }
         }
 
+
+        Debug.LogWarning("No matching language found for: " + activeLanguage);
+        for (int j = 0 ; j < languageTextTranslatorInfos [0].assetName.Count ; j++)
+        {
+            textComponent.text += $"<sprite name={languageTextTranslatorInfos [0].assetName [j]}>";
+        }
+
     }
 }
