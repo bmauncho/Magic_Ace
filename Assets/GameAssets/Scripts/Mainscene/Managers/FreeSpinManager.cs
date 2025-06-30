@@ -39,6 +39,11 @@ public class FreeSpinManager : MonoBehaviour
     {
         freeSpinCount = 0;
         FreeSpins = 0;
+        resetFreeSpinScatterCards();
+    }
+
+    public void resetFreeSpinScatterCards ()
+    {
         scatterCards = 0;
         retriggerScatterCards = 0;
     }
@@ -125,6 +130,26 @@ public class FreeSpinManager : MonoBehaviour
         freeSpinUI.SetTotalSpins(freeSpinCount);
     }
 
+    public int FetchScatterCards(List<winCardData> winningCards )
+    {
+        scatterCards = 0;
+        retriggerScatterCards = 0;
+        foreach (var card in winningCards)
+        {
+            if (card.name == CardType.SCATTER.ToString())
+            {
+                scatterCards++;
+            }
+        }
+
+        if (isFreeSpinRetrigger)
+        {
+            retriggerScatterCards = scatterCards;
+        }
+
+        return scatterCards;
+    }
+
     public void UpdateFreeSpins ()
     {
         if (FreeSpins > 0)
@@ -198,5 +223,10 @@ public class FreeSpinManager : MonoBehaviour
     public bool IsFeatureBuyTriggered ()
     {
         return isFeatureBuyTriggered;
+    }
+
+    public int GetSactterCards ()
+    {
+        return scatterCards;
     }
 }

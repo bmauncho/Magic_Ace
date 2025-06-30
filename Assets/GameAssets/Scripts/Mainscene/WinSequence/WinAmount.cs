@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class WinAmount : MonoBehaviour
 {
+    APIManager apiManager;
+    private void Start ()
+    {
+        apiManager = CommandCenter.Instance.apiManager_;
+    }
     public IEnumerator winAmountEffect ( List<winCardData> WinningCards )
     {
         PayOutManager payOutManager = CommandCenter.Instance.payOutManager_;
@@ -35,7 +40,23 @@ public class WinAmount : MonoBehaviour
             }
             else
             {
-                
+                double totalPayOut = 0;
+                bool isRefillingDone = CommandCenter.Instance.gridManager_.IsRefillSequnceDone();
+                if (!isRefillingDone && apiManager.refillApi.RefillResponse().gameState.cascading)
+                {
+                    totalPayOut = apiManager.refillApi.RefillResponse().gameState.totalWin;
+                }
+                else
+                {
+                    totalPayOut = apiManager.gameDataApi.apiResponse.gameState.totalWin;
+                }
+                //Debug.Log("Total PayOut: " + totalPayOut);
+                CommandCenter.Instance.currencyManager_.UpdateWinAmount(totalPayOut);
+                double hintTotalWinAmount = currencyManager.GetWinAmount();
+                payOutManager.GetPayOut().ShowWin(totalPayOut);
+                CommandCenter.Instance.hintsManager_.hintWinUI.ShowHintWinUIAmount(hintTotalWinAmount);
+                CommandCenter.Instance.apiManager_.updateBet.SetAmountWon(totalPayOut);
+                CommandCenter.Instance.apiManager_.UpdateBet();
             }
 
         }

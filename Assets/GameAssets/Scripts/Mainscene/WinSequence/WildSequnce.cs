@@ -68,6 +68,7 @@ public class WildSequnce : MonoBehaviour
                 freeSpinManager.ShowFreeSpinRetrigger();
                 yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
                 CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
+                CommandCenter.Instance.freeSpinManager_.UpdateFreeSpins();
                 Debug.Log("Should hide retrigger UI here");
             }
         }
@@ -104,7 +105,7 @@ public class WildSequnce : MonoBehaviour
                 remainingCards.Add(remainingBigJokerCards [i]);
             }
         }
-
+        Debug.Log($"remaining superJoker {remainingSuperJokerCards.Count}");
         if (remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
         {
             for (int i = 0 ; i < remainingSuperJokerCards.Count ; i++)
@@ -191,6 +192,7 @@ public class WildSequnce : MonoBehaviour
                 freeSpinManager.ShowFreeSpinRetrigger();
                 yield return new WaitUntil(() => isFreeSpinRetriggerComplete);
                 CommandCenter.Instance.freeSpinManager_.SetFreeSpins(5);
+                CommandCenter.Instance.freeSpinManager_.UpdateFreeSpins();
                 Debug.Log("Should hide retrigger UI here");
             }
         }

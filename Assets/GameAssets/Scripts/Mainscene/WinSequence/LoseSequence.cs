@@ -5,6 +5,7 @@ using UnityEngine;
 public class LoseSequence : MonoBehaviour
 {
     GridManager gridManager;
+    WinSequence WinSequence;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

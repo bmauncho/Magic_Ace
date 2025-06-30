@@ -19,10 +19,10 @@ public class FlipCards : MonoBehaviour
         poolManager = CommandCenter.Instance.poolManager_;
     }
 
-    public IEnumerator flipBack ( 
-        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards , 
-        List<GameObject> remainingBigJokerCards,
-        List<GameObject> remainingSuperJokerCards)
+    public IEnumerator flipBack (
+        List<(GameObject card, List<(int col, int row)> Positions)> remainingGoldenCards ,
+        List<GameObject> remainingBigJokerCards ,
+        List<GameObject> remainingSuperJokerCards )
     {
         if (remainingGoldenCards == null || remainingGoldenCards.Count == 0)
         {
@@ -33,6 +33,7 @@ public class FlipCards : MonoBehaviour
         FeatureManager featureManager = CommandCenter.Instance.featureManager_;
         RefillApi refillApi = CommandCenter.Instance.apiManager_.refillApi;
         HashSet<string> usedPositions = new HashSet<string>();
+
         for (int i = 0 ; i < remainingGoldenCards.Count ; i++)
         {
             GameObject cardObject = remainingGoldenCards [i].card;
@@ -47,44 +48,81 @@ public class FlipCards : MonoBehaviour
             }
             else
             {
-              
-            }
+                JokerData [] jokerData = refillApi.RefillResponse().gameState.specialSymbols.jokerCards;
+                if (jokerData != null)
+                {
+                    //Debug.Log("Joker cards are Available!");
+                    if (jokerData.Length > 0)
+                    {
+                        for (int j = 0 ; j < jokerData.Length ; j++)
+                        {
+                            if (col == jokerData [j].position.reel && row == jokerData [j].position.row)
+                            {
+                                cardType = CommandCenter.Instance.ConvertToEnum(jokerData [j].mode);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //Debug.Log("Joker cards are null!");
+                        string name = refillApi.GetCardInfo(col , row).name;
+                        Debug.Log("cardname : " + name);
+                        cardType = CommandCenter.Instance.ConvertToEnum(name);
+                    }
+                }
+                else
+                {
+                    //Debug.Log("Joker cards are null!");
+                    string name = refillApi.GetCardInfo(col , row).name;
+                    Debug.Log("cardname : " + name);
+                    cardType = CommandCenter.Instance.ConvertToEnum(name);
+                }
 
-            if (featureManager.GetActiveFeature() == Features.Feature_A)
-            {
-                cardType = SetCardtypeForFeatures(cardComponent.GetCardType().ToString() , usedPositions,col,row);
-            }
-            else if (featureManager.GetActiveFeature() == Features.Feature_B)
-            {
-                cardType = SetCardtypeForFeatures(cardComponent.GetCardType().ToString() , usedPositions,col , row);
-                Debug.Log(cardType.ToString());
-            }
-            else if (featureManager.GetActiveFeature() == Features.Feature_C)
-            {
-                cardType = SetCardtypeForFeatures(cardComponent.GetCardType().ToString() , usedPositions, col , row);
-            }
+                if (featureManager.GetActiveFeature() == Features.Feature_A)
+                {
+                    cardType = SetCardtypeForFeatures(cardComponent.GetCardType().ToString() , usedPositions , col , row);
+                }
+                else if (featureManager.GetActiveFeature() == Features.Feature_B)
+                {
+                    cardType = SetCardtypeForFeatures(cardComponent.GetCardType().ToString() , usedPositions , col , row);
+                    Debug.Log(cardType.ToString());
+                }
+                else if (featureManager.GetActiveFeature() == Features.Feature_C)
+                {
+                    cardType = SetCardtypeForFeatures(cardComponent.GetCardType().ToString() , usedPositions , col , row);
+                }
 
-            cardManager.SetSpecificCard(cardComponent , cardType); // Use same type
-            cardComponent.SetCardType(cardType);
-            cardComponent.ShowCardBg();
+                cardManager.SetSpecificCard(cardComponent , cardType); // Use same type
+                cardComponent.SetCardType(cardType);
+                cardComponent.ShowCardBg();
+                CardDatas cardDatas = new CardDatas();
 
-            if (cardComponent.GetCardType() == CardType.BIG_JOKER)
-            {
-                remainingBigJokerCards.Add(cardObject);
+                if (cardComponent.GetCardType() == CardType.BIG_JOKER && !remainingBigJokerCards.Contains(cardObject))
+                {
+                    remainingBigJokerCards.Add(cardObject);
+                    cardDatas = new CardDatas
+                    {
+                        name = CardType.BIG_JOKER.ToString() ,
+                        isGolden = false
+                    };
+                }
+
+
+                if (cardComponent.GetCardType() == CardType.SUPER_JOKER && !remainingSuperJokerCards.Contains(cardObject))
+                {
+                    remainingSuperJokerCards.Add(cardObject);
+                    cardDatas = new CardDatas
+                    {
+                        name = CardType.SUPER_JOKER.ToString() ,
+                        isGolden = false
+                    };
+                }
+
+
+                CommandCenter.Instance.apiManager_.gameDataApi.UpdateGameDataApiList(cardDatas);
             }
-
-            if(cardComponent.GetCardType() == CardType.SUPER_JOKER)
-            {
-                remainingSuperJokerCards.Add(cardObject);
-            }
-
-            CardDatas cardDatas = new CardDatas
-            {
-                name = CardType.BIG_JOKER.ToString() ,
-                isGolden = false
-            };
         }
-
+        Debug.Log($"{remainingSuperJokerCards.Count}");
         Debug.Log("flip back");
         Sequence seq = DOTween.Sequence();
         List<GameObject> remainingBigJoker = new List<GameObject>();

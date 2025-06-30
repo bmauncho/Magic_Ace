@@ -44,6 +44,8 @@ public class GemCollector : MonoBehaviour
                 availableSlots++;
             }
         }
+        Debug.Log($"remaining superJokerCards : {remainingSuperJokerCards.Count}");
+        Debug.Log($"availableSlots : {availableSlots}");
 
         int gemsToCollect = Mathf.Min(availableSlots , remainingSuperJokerCards.Count);
         int activeAnims = gemsToCollect;

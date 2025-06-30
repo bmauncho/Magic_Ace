@@ -168,7 +168,32 @@ public class SpinManager : MonoBehaviour
         else
         {
 
-           
+            if (!CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+            {
+                CommandCenter.Instance.apiManager_.PlaceBet();
+            }
+            Debug.Log("placed bet!");
+            if (CommandCenter.Instance.apiManager_.gameDataApi.CanShowFeatureBuy())
+            {
+                while (!CommandCenter.Instance.apiManager_.featureBuyApi.IsFeatureBuyDataFetched())
+                {
+                    yield return null; // Wait for next frame
+                }
+            }
+            else
+            {
+                if (!CommandCenter.Instance.apiManager_.gameDataApi.CanShowFeature())
+                {
+                    while (!CommandCenter.Instance.apiManager_.gameDataApi.IsDataFetched)
+                    {
+                        yield return null; // Wait for next frame
+                    }
+                }
+            }
+            Debug.Log("refresh Grid");
+
+            CommandCenter.Instance.gridManager_.RefreshGrid();
+
         }
 
         if (!CommandCenter.Instance.freeSpinManager_.IsFreeGame())

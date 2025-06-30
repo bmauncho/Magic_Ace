@@ -46,12 +46,20 @@ public class CurrencyManager : MonoBehaviour
     };
     void Start ()
     {
+        SetUpCurrencyMan();
+    }
+
+    public void SetUpCurrencyMan ()
+    {
+        Debug.Log("configure - " + GetType().Name);
         if (CommandCenter.Instance.gameModeManager_.IsDemoMode())
         {
+            Debug.Log("Demo");
             CashAmount = 2000;
         }
         else
         {
+            Debug.Log("Live");
             CashAmount = double.Parse(GameManager.Instance.GetCashAmount());
         }
 

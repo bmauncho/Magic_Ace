@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Transactions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 [System.Serializable]
@@ -25,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string Client_id;
     [SerializeField] private string CashAmount = string.Empty;
     [SerializeField] private PlayerInfo playerInfo;
+    [SerializeField] private TMP_Text [] TransactionsText;
+    string transaction = string.Empty;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
@@ -96,7 +100,25 @@ public class GameManager : MonoBehaviour
                 isDataFetched = true;
                 Debug.Log("Error: " + www.error);
                 CashAmount = "2000";
+                PromptManager.Instance.ShowErrorPrompt(
+                    www.responseCode.ToString() , 
+                    www.result.ToString() + www.error.ToString());
             }
+        }
+    }
+
+    public void AddTransactionText ( TMP_Text theText )
+    {
+        TransactionsText = new TMP_Text [] { theText };
+    }
+
+    public void ShowTransaction ( string thetrans )
+    {
+        transaction = "No.";
+        thetrans = transaction + " 748838" + thetrans;
+        for (int i = 0 ; i < TransactionsText.Length ; i++)
+        {
+            TransactionsText [i].text = thetrans;
         }
     }
 

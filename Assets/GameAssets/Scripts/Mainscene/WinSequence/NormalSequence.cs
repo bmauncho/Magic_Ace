@@ -37,7 +37,7 @@ public class NormalSequence : MonoBehaviour
                 remainingCards.Add(remainingBigJokerCards [i]);
             }
         }
-
+        Debug.Log($"remaining superJoker {remainingSuperJokerCards.Count}");
         if (remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
         {
             for (int i = 0 ; i < remainingSuperJokerCards.Count ; i++)

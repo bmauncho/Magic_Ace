@@ -84,7 +84,9 @@ public class MultiplierManager : MonoBehaviour
     public void ResetMultiplier ()
     {
         Debug.Log("reseting multiplier");
-        if (collectorCount >= 5 && !isInUpgradeMode)
+        if (collectorCount >= 5 && 
+            !isInUpgradeMode && 
+            !CommandCenter.Instance.freeSpinManager_.IsFreeGame())
         {
             EnterUpgradeMode();
         }

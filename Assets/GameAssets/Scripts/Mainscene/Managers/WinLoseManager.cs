@@ -101,11 +101,13 @@ public class WinLoseManager : MonoBehaviour
         ClearWinningCards();
         if (IsPlayerWin())
         {
+            Debug.Log("won!");
             //player has won
             StartCoroutine(winSequence(OnComplete));
         }
         else
         {
+            Debug.Log("lost!");
             //player has lost
             StartCoroutine(loseSequence(OnComplete));
         }
@@ -124,6 +126,9 @@ public class WinLoseManager : MonoBehaviour
     public IEnumerator loseSequence(Action OnComplete = null )
     {
         Debug.Log("Handle No Win");
+        winSequence_.DeactivateWinBg();
+        CommandCenter.Instance.gridManager_.GetWinningBg_Wild().Deactivate();
+        CommandCenter.Instance.gridManager_.moveCardsBacktoSlots();
         yield return StartCoroutine(loseSequence_.loseSequence(OnComplete));
         yield return null;
     }
@@ -147,6 +152,15 @@ public class WinLoseManager : MonoBehaviour
             if (CommandCenter.Instance.featureManager_.GetActiveFeature() == Features.None)
             {
                //normal win logic
+               currentWinType = normalCheckWin_.CheckWin(WinningCards);
+                if(currentWinType == WinType.None)
+                {
+                    isWin = false;
+                }
+                else
+                {
+                    isWin = true;
+                }
             }
             else
             {
@@ -319,13 +333,24 @@ public class WinLoseManager : MonoBehaviour
             }
         }
 
+        if (wildCards != null && remainingCards!= null)
+        {
+            if(wildCards.Count > 0 && remainingCards.Count >0)
+            {
+                yield return StartCoroutine(wildSequnce_.BothWildSequence(
+                    wildCards,
+                    remainingCards));
+            }
+        }
+
+
         if (remainingSuperJokerCards != null)
         {
-            if(remainingSuperJokerCards.Count > 0)
+            if (remainingSuperJokerCards.Count > 0)
             {
 
-               Debug.Log("Super joker cards are present");
-                if(multiplierManager.GetCurrentType() == MultiplierType.Free)
+                Debug.Log("Super joker cards are present");
+                if (multiplierManager.GetCurrentType() == MultiplierType.Free)
                 {
                     Debug.Log("Super joker cards are present ... In free game");
                     if (multiplierManager.GetFreeSpinUpgradeCount() < multiplierManager.GetMaxFreeSpinUpgradeCount())
@@ -342,16 +367,6 @@ public class WinLoseManager : MonoBehaviour
             }
         }
 
-        if (wildCards != null && remainingCards!= null)
-        {
-            if(wildCards.Count > 0 && remainingCards.Count >0)
-            {
-                yield return StartCoroutine(wildSequnce_.BothWildSequence(
-                    wildCards,
-                    remainingCards));
-            }
-            
-        }
 
         //Debug.Log("Grid Refilled");
         isWin = false;

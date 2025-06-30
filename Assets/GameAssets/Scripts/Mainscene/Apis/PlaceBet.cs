@@ -57,10 +57,11 @@ public class PlaceBet : MonoBehaviour
     }
     private void configureIds ()
     {
-        Player_Id = CommandCenter.Instance.apiManager_.Player_Id;
-        Game_Id = CommandCenter.Instance.apiManager_.Game_Id;
-        Client_id = CommandCenter.Instance.apiManager_.Client_id;
-        bet_id = CommandCenter.Instance.apiManager_.bet_id;
+        Debug.Log("configure - " + GetType().Name);
+        Player_Id = GameManager.Instance.GetPlayerId();
+        Game_Id = GameManager.Instance.GetGameId();
+        Client_id = GameManager.Instance.GetClientId();
+        
     }
     // Update is called once per frame
     void Update ()
@@ -68,6 +69,7 @@ public class PlaceBet : MonoBehaviour
         if (CommandCenter.Instance)
         {
             BetAmount = float.Parse(CommandCenter.Instance.currencyManager_.GetTheBetAmount());
+            bet_id = CommandCenter.Instance.apiManager_.bet_id;
         }
     }
     [ContextMenu("Place Bet")]
@@ -85,6 +87,7 @@ public class PlaceBet : MonoBehaviour
         string jsonData = JsonUtility.ToJson(betRequest , true);
         Debug.Log("place bet payload " + jsonData);
         StartCoroutine(placeBet(jsonData));
+        GameManager.Instance.ShowTransaction(bet_id);
     }
 
     private IEnumerator placeBet ( string jsonData )

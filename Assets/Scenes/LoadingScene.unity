@@ -1475,6 +1475,7 @@ MonoBehaviour:
     created_at: 
     last_bet_date: 
     last_win_date: 
+  TransactionsText: []
 --- !u!1 &1187018029
 GameObject:
   m_ObjectHideFlags: 0

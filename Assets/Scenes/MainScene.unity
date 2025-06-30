@@ -6228,6 +6228,50 @@ MonoBehaviour:
   _myText: {fileID: 0}
   CODE: L_55
   IsHardCoded: 0
+--- !u!1 &152726550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 152726551}
+  - component: {fileID: 152726552}
+  m_Layer: 0
+  m_Name: SetUpCards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &152726551
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152726550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 934559248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &152726552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152726550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66321da19e3a40438a486d4aae63505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &152815886
 GameObject:
   m_ObjectHideFlags: 0
@@ -11587,6 +11631,50 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &294715674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 294715675}
+  - component: {fileID: 294715676}
+  m_Layer: 0
+  m_Name: NormalGameFetchData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &294715675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294715674}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1352690996}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &294715676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294715674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4e19f11abb7f4e419ca8595f4e54b07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &300854823
 GameObject:
   m_ObjectHideFlags: 0
@@ -18881,6 +18969,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1435835278}
+  - {fileID: 1758576211}
   m_Father: {fileID: 2037820858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &504818989
@@ -18896,6 +18985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRefillCardsfetched: 0
+  fetchGameRefillData: {fileID: 1758576212}
   refillFeatureDemo: {fileID: 1435835279}
   refillResponse_:
     status: 
@@ -18909,12 +18999,19 @@ MonoBehaviour:
       freeSpins:
         remaining: 0
         totalAwarded: 0
-        scatterstriggered: 0
+        retriggers: 0
       jokerCards: []
       boomingMultiplier: 0
+      baseGameCollector:
+        collectedCount: 0
+        isActive: 0
+        remainingRounds: 0
+      freeSpinsCollector:
+        upgradeCount: 0
+        maxUpgrades: 0
       totalWin: 0
       cascading: 0
-      scatterCount: 0
+      targetCount: 0
       lastWinDetails: []
       specialSymbols:
         goldenCards: []
@@ -26751,7 +26848,7 @@ GameObject:
   - component: {fileID: 749647926}
   - component: {fileID: 749647925}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: transText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32695,7 +32792,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 152726551}
   m_Father: {fileID: 2037820858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &934559249
@@ -32710,6 +32808,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c9259260a74c5d44af0e79a52d53293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFeatureBuyDataFetched: 0
+  SetUpCards: {fileID: 152726552}
+  featureBuyResponse:
+    status: 
+    message: 
+    gameState:
+      bet:
+        amount: 0
+        multiplier: 0
+        extraBetEnabled: 0
+      gameMode: 
+      freeSpins:
+        remaining: 0
+        totalAwarded: 0
+        retriggers: 0
+      jokerCards: []
+      boomingMultiplier: 0
+      baseGameCollector:
+        collectedCount: 0
+        isActive: 0
+        remainingRounds: 0
+      freeSpinsCollector:
+        upgradeCount: 0
+        maxUpgrades: 0
+      totalWin: 0
+      cascading: 0
+      targetCount: 0
+      lastWinDetails: []
+      specialSymbols:
+        goldenCards: []
+        jokerCards: []
+        targetSymbols: []
+        newTargetSymbols: []
+      cascadeCount: 0
+    winDetails: []
+    totalCost: 0
 --- !u!1 &937151180
 GameObject:
   m_ObjectHideFlags: 0
@@ -48449,6 +48583,7 @@ Transform:
   m_Children:
   - {fileID: 1504841419}
   - {fileID: 1474644421}
+  - {fileID: 294715675}
   m_Father: {fileID: 2037820858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1352690997
@@ -48475,12 +48610,19 @@ MonoBehaviour:
       freeSpins:
         remaining: 0
         totalAwarded: 0
-        scatterstriggered: 0
+        retriggers: 0
       jokerCards: []
       boomingMultiplier: 0
+      baseGameCollector:
+        collectedCount: 0
+        isActive: 0
+        remainingRounds: 0
+      freeSpinsCollector:
+        upgradeCount: 0
+        maxUpgrades: 0
       totalWin: 0
       cascading: 0
-      scatterCount: 0
+      targetCount: 0
       lastWinDetails: []
       specialSymbols:
         goldenCards: []
@@ -48498,6 +48640,7 @@ MonoBehaviour:
   IsDataFetched: 0
   gridInfos: []
   featureBuyDemo: {fileID: 1504841420}
+  fetchGameData: {fileID: 294715676}
   startCards:
   - List:
     - name: HEART
@@ -65318,6 +65461,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752067068}
   m_CullTransparentMesh: 1
+--- !u!1 &1758576210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1758576211}
+  - component: {fileID: 1758576212}
+  m_Layer: 0
+  m_Name: GameFetchRefillData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1758576211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758576210}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 504818988}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758576212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758576210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499d8aee492606f4eb2378f1eda7790d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1759553044
 GameObject:
   m_ObjectHideFlags: 0
@@ -76679,6 +76866,7 @@ MonoBehaviour:
   Player_Id: 85
   Game_Id: 8
   Client_id: 12345
+  TransactionText: {fileID: 749647925}
 --- !u!1 &2039592668
 GameObject:
   m_ObjectHideFlags: 0

@@ -201,6 +201,7 @@ public class GridManager : MonoBehaviour
     [ContextMenu("Refresh Grid")]
     public void RefreshGrid ()
     {
+        Debug.Log("RefreshGrid");
         isSequenceComplete = false;
         isNormalWnSequenceDone = false;
         isRefreshing = true;

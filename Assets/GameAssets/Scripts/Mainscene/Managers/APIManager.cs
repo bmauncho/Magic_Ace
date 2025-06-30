@@ -1,4 +1,10 @@
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using Random = UnityEngine.Random;
+
+
 [System.Serializable]
 public class CardDetails
 {
@@ -23,26 +29,31 @@ public class APIManager : MonoBehaviour
     public string Player_Id = "85";
     public string Game_Id = "8";
     public string Client_id = "12345";
+
+    public TMP_Text TransactionText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
-        //configureIds();
+        configureIds();
     }
     private void configureIds ()
     {
+        Debug.Log("configure - " +GetType().Name);
         Player_Id = GameManager.Instance.GetPlayerId();
         Game_Id = GameManager.Instance.GetGameId();
         Client_id = GameManager.Instance.GetClientId();
         bet_id = GetBetId();
+        GameManager.Instance.AddTransactionText(TransactionText);
+        Debug.Log("ApiManagerReady");
     }
     public void PlaceBet ()
     {
-        //placeBet.Bet();
+        placeBet.Bet();
     }
 
     public void UpdateBet ()
     {
-       // updateBet.UpdateTheBet();
+       updateBet.UpdateTheBet();
     }
 
     public string GetBetId ()

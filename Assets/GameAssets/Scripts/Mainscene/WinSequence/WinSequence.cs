@@ -298,7 +298,8 @@ public class WinSequence : MonoBehaviour
                 }
             }
 
-            if(remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
+            Debug.Log($"remaining superJoker {remainingSuperJokerCards.Count}");
+            if (remainingSuperJokerCards != null && remainingSuperJokerCards.Count > 0)
             {
                 for (int i = 0 ; i < remainingSuperJokerCards.Count ; i++)
                 {

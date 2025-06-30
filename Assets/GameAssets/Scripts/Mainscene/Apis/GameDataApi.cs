@@ -25,9 +25,11 @@ public class GameState
     public string [] [] reels;
     public JokerData [] jokerCards;
     public int boomingMultiplier;
+    public BaseGameCollector baseGameCollector;
+    public FreeSpinsCollector freeSpinsCollector;
     public float totalWin;
     public bool cascading;
-    public int scatterCount;
+    public int targetCount;
     public LastWinDetails [] lastWinDetails;
     public SpecialSymbols specialSymbols;
     public int cascadeCount;
@@ -46,7 +48,7 @@ public class FreeSpins
 {
     public int remaining;
     public int totalAwarded;
-    public int scatterstriggered;
+    public int retriggers;
 }
 [System.Serializable]
 public class JokerData
@@ -54,6 +56,21 @@ public class JokerData
     public Payline position;
     public string mode;
     public int remainingRounds;
+}
+
+[System.Serializable]
+public class  BaseGameCollector
+{
+    public int collectedCount;
+    public bool isActive;
+    public int remainingRounds;
+}
+
+[System.Serializable]
+public class FreeSpinsCollector
+{
+    public int upgradeCount;
+    public int maxUpgrades;
 }
 
 [System.Serializable]
@@ -124,6 +141,9 @@ public class GridInfo
 public class GameDataApi : MonoBehaviour
 {
     CardManager cardManager;
+    FreeSpinManager freeSpinManager;
+    CurrencyManager currencyManager;
+    ExtraBetMenu extraBetMenu;
     [Header("Api references")]
     public GameInfoResponse apiResponse;
     [Header("Api Values")]
@@ -137,21 +157,26 @@ public class GameDataApi : MonoBehaviour
     [SerializeField] private List<GridInfo> gridInfos = new List<GridInfo>();
     [Header("References")]
     [SerializeField] private FeatureBuyDemo featureBuyDemo;
+    [SerializeField] private FetchGameData fetchGameData;
     //Production Mode
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
         cardManager = CommandCenter.Instance.cardManager_;
+        freeSpinManager = CommandCenter.Instance.freeSpinManager_;
+        currencyManager = CommandCenter.Instance.currencyManager_;
+        extraBetMenu = CommandCenter.Instance.currencyManager_.GetExtraBetInfo();
         configureIds();
     }
 
     private void configureIds ()
     {
-        Player_Id = CommandCenter.Instance.apiManager_.Player_Id;
-        Game_Id = CommandCenter.Instance.apiManager_.Game_Id;
-        Client_id = CommandCenter.Instance.apiManager_.Client_id;
-        bet_id = CommandCenter.Instance.apiManager_.bet_id;
+        Debug.Log("Configure - " + GetType().Name);
+        Player_Id = GameManager.Instance.GetPlayerId();
+        Game_Id = GameManager.Instance.GetGameId();
+        Client_id = GameManager.Instance.GetClientId();
+       
     }
 
     // Update is called once per frame
@@ -160,7 +185,7 @@ public class GameDataApi : MonoBehaviour
         if (CommandCenter.Instance)
         {
             BetAmount = float.Parse(CommandCenter.Instance.currencyManager_.GetTheBetAmount());
-
+            bet_id = CommandCenter.Instance.apiManager_.bet_id;
         }
     }
     #region[startCards]
@@ -251,13 +276,167 @@ public class GameDataApi : MonoBehaviour
         }
         else
         {
-           
+            if (CanShowFeature())
+            {
+                ShowFeatures();
+            }
+            else if (CanShowFeatureBuy())
+            {
+                CommandCenter.Instance.apiManager_.featureBuyApi.FetchData();
+            }
+            else
+            {
+                Debug.Log("normal show!");
+                //set up the game info
+                GameType currenttype = CommandCenter.Instance.GetTheGameType();
+                int remaining = 0;
+                string BetId = CommandCenter.Instance.apiManager_.bet_id;
+                GameInfo Data = null;
+                string jsonData = string.Empty;
+                string ApiUrl = string.Empty;
+                //converting floats
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new FloatTrimConverter());
+                settings.Formatting = Formatting.Indented;
 
+                //Request Data
+
+                Data = NormalGameInfo(
+                    Client_id ,
+                    Game_Id ,
+                    Player_Id ,
+                    BetId ,
+                    currencyManager ,
+                    extraBetMenu ,
+                    currenttype ,
+                    remaining ,
+                    freeSpinManager
+                );
+
+                jsonData = JsonConvert.SerializeObject(Data , settings);
+                ApiUrl = "https://b.api.ibibe.africa" + "/spin/magicaceoriginal";
+                bool isDone = false;
+                yield return StartCoroutine(FetchGridData(
+                    ApiUrl ,
+                    jsonData 
+                ));
+                IsDataFetched = true;
+                Debug.Log("Done");
+            }
         }
         yield return null;
     }
 
-    
+
+    public IEnumerator FetchGridData (
+        string ApiUrl ,
+        string jsonData)
+    {
+        using (UnityWebRequest webRequest = new UnityWebRequest(ApiUrl , "POST"))
+        {
+            byte [] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+            webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            webRequest.downloadHandler = new DownloadHandlerBuffer();
+            webRequest.SetRequestHeader("Content-Type" , "application/json");
+            yield return webRequest.SendWebRequest();
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Error: " + webRequest.error);
+                PromptManager.Instance.ShowErrorPrompt(
+                      webRequest.responseCode.ToString() ,
+                      webRequest.result.ToString() + " : " + webRequest.error.ToString());
+            }
+            else
+            {
+                //Debug
+                string output = webRequest.downloadHandler.text;
+                var parsedJson = JsonConvert.DeserializeObject(output);
+                string formattedOutput = JsonConvert.SerializeObject(parsedJson , Formatting.Indented);
+                Debug.Log("Spin Response: " + formattedOutput);
+                //set up 
+                apiResponse = JsonConvert.DeserializeObject<GameInfoResponse>(output);
+                gridInfos.Clear();
+                string [] [] reels = apiResponse.gameState.reels;
+                SpecialSymbols specialSymbols = apiResponse.gameState.specialSymbols;
+                //if (specialSymbols != null)
+                //{
+                //    Debug.Log("goldenSymbols : " + ( specialSymbols.goldenCards != null ? specialSymbols.goldenCards.Length : 0 ));
+                //    Debug.Log("jokersymbols : " + ( specialSymbols.jokerCards != null ? specialSymbols.jokerCards.Length : 0 ));
+                //    Debug.Log("scatterCards : " + ( specialSymbols.targetSymbols != null ? specialSymbols.targetSymbols.Length : 0 ));
+                //    Debug.Log("newScatterCards : " + ( specialSymbols.newTargetSymbols != null ? specialSymbols.newTargetSymbols.Length : 0 ));
+                //}
+                gridInfos = fetchGameData.InitializeCards(reels , specialSymbols);
+                Debug.Log("IsDone");
+            }
+        }
+    }
+
+
+    public GameInfo NormalGameInfo (
+        string client_Id,
+        string game_Id,
+        string client_id ,
+        string bet_Id,
+        CurrencyManager currencyMan,
+        ExtraBetMenu extraBetMenu,
+        GameType currenttype,
+        int remaining,
+        FreeSpinManager freeSpinManager  )
+    {
+        GameInfo gameInfo = new GameInfo
+        {
+            client_Id = client_Id ,
+            game_Id = game_Id ,
+            player_Id = Player_Id ,
+            bet_id = bet_Id ,
+            gameState = new GameState
+            {
+                bet = new BetDetails
+                {
+                    amount = BetAmount ,
+                    multiplier = int.Parse(currencyMan.GetBetMultiplier()) ,
+                    extraBetEnabled = extraBetMenu.HasExtraBetEffect() ,
+                } ,
+                gameMode = currenttype == GameType.Base ? "base" : "freeSpins" ,
+                freeSpins = new FreeSpins
+                {
+                    remaining = currenttype == GameType.Base ? 0 : remaining ,
+                    totalAwarded = currenttype == GameType.Base ? 0 : freeSpinManager.GetSactterCards() ,
+                    retriggers = currenttype == GameType.Base ? 0 : freeSpinManager.GetSactterCards() ,
+                } ,
+                reels = null ,
+                jokerCards = null,
+                boomingMultiplier = 1 ,
+                baseGameCollector = new BaseGameCollector
+                {
+                    collectedCount = 0 ,
+                    isActive = false ,
+                    remainingRounds = 0
+                } ,
+                freeSpinsCollector = new FreeSpinsCollector
+                {
+                    upgradeCount = 0 ,
+                    maxUpgrades = 0
+                } ,
+                totalWin = 0.0f ,
+                cascading = false ,
+                targetCount = 0 ,
+                lastWinDetails = null ,
+                specialSymbols = new SpecialSymbols
+                {
+                    goldenCards = null ,
+                    jokerCards = null ,
+                    targetSymbols = null ,
+                    newTargetSymbols = null
+                } ,
+                cascadeCount = 0
+            }
+        };
+
+        return gameInfo;
+    }
+
+
 
     public CardDatas GetCardInfo ( int col , int row )
     {
@@ -410,5 +589,36 @@ public class GameDataApi : MonoBehaviour
     public GameInfoResponse GameInfoResponse_ ()
     {
         return apiResponse;
+    }
+
+    public void UpdateGameDataApiList ( CardDatas data )
+    {
+        GridManager gridManager = CommandCenter.Instance.gridManager_;
+        WinLoseManager winLoseManager = CommandCenter.Instance.winLoseManager_;
+        List<CardPos> CardSlots = new List<CardPos>(gridManager.GetGridCards());
+        List<CardPos> winCardSlots = new List<CardPos>(winLoseManager.GetWinCardSlots());
+        for (int i = 0 ; i < CardSlots.Count ; i++)
+        {
+            for (int j = 0 ; j < CardSlots [i].CardPosInRow.Count ; j++)
+            {
+                WinSlot winSlot = winCardSlots [i].CardPosInRow [j].GetComponent<WinSlot>();
+
+                if (winSlot != null && winSlot.GetTheOwner() != null)
+                {
+
+                    CardType type = winSlot.GetTheOwner().GetComponent<Card>().GetCardType();
+
+                    if (gridInfos [i].List [j].name != type.ToString())
+                    {
+                        gridInfos [i].List [j] = new CardDatas
+                        {
+                            name = data.name ,
+                            isGolden = data.isGolden ,
+                            substitute = data.substitute ,
+                        };
+                    }
+                }
+            }
+        }
     }
 }

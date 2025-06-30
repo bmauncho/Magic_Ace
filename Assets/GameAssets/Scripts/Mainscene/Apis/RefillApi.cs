@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -32,6 +33,7 @@ public class RefillApi : MonoBehaviour
     CardManager cardManager;
     GridManager gridManager;
     [SerializeField] private bool isRefillCardsfetched = false;
+    [SerializeField] private FetchGameRefillData fetchGameRefillData;
     [SerializeField] private RefillFeatureDemo refillFeatureDemo;
     [SerializeField] private refillResponse refillResponse_;
     [SerializeField] private List<GridInfo> RefillCardsData = new List<GridInfo>();
@@ -45,7 +47,7 @@ public class RefillApi : MonoBehaviour
     [ContextMenu("FetchData")]
     public void FetchData ()
     {
-        //Debug.Log("Fetch Refill data");
+        Debug.Log("Fetch Refill data");
         isRefillCardsfetched = false; // Reset the flag before fetching new data
         StartCoroutine(fetchDataCoroutine(CommandCenter.Instance.gameMode)); // Pass 'true' for demo mode if needed
     }
@@ -73,12 +75,121 @@ public class RefillApi : MonoBehaviour
         else
         {
 
+            if(CanShowFeature())
+            {
+                ShowReffillFeature();
+            }
+            else
+            {
+                GameType currenttype = CommandCenter.Instance.GetTheGameType();
+                bool isRefillingDone = CommandCenter.Instance.gridManager_.IsRefillSequnceDone();
+                RefillCardsApi Data = null;
+                if (isRefillingDone)
+                {
+                    Data = refillCardsApi();
+                }
+                else
+                {
+                    Data = refillCardsApiCascade();
+                }
+                var settings = new JsonSerializerSettings();
+                settings.Converters.Add(new FloatTrimConverter());
+                settings.Formatting = Formatting.Indented;
+                string jsonData = JsonConvert.SerializeObject(Data , settings);
+                string ApiUrl = "https://b.api.ibibe.africa"+ "/cascade/magicaceoriginal";
+                bool isDone = false;
 
+                yield return StartCoroutine(
+                    FetchData(
+                        ApiUrl ,
+                        jsonData));
+                isRefillCardsfetched = true;
+            }
         }
 
         updateGameDataApi();
 
         yield return null; // Placeholder for coroutine
+    }
+
+    public IEnumerator FetchData (string ApiUrl ,string jsonData)
+    {
+        int retryCount = 0;
+        int maxRetries = 20;
+        float timeout = 3f;
+        string errorresponseCode = string.Empty;
+        string errormessage = string.Empty;
+        while (retryCount < maxRetries) 
+        {
+            using (UnityWebRequest webRequest = new UnityWebRequest(ApiUrl , "POST"))
+            {
+                byte [] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+                webRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                webRequest.downloadHandler = new DownloadHandlerBuffer();
+                webRequest.SetRequestHeader("Content-Type" , "application/json");
+                Debug.Log("Waiting for request!");
+                var operation = webRequest.SendWebRequest();
+
+                float timer = 0f;
+                bool timedOut = false;
+
+                while (!operation.isDone)
+                {
+                    timer += Time.deltaTime;
+
+                    if (timer > timeout)
+                    {
+                        timedOut = true;
+                        Debug.LogWarning("Request timed out. Retrying...");
+
+                        break;
+                    }
+
+                    yield return null;
+                }
+
+                if (!timedOut && webRequest.responseCode != 504 &&
+                    webRequest.result != UnityWebRequest.Result.ConnectionError &&
+                    webRequest.result != UnityWebRequest.Result.ProtocolError)
+                {
+
+                    // Success
+                    string output = webRequest.downloadHandler.text;
+                    var parsedJson = JsonConvert.DeserializeObject(output);
+                    string formattedOutput = JsonConvert.SerializeObject(parsedJson , Formatting.Indented);
+                    Debug.Log("Refill Cards Response: " + formattedOutput);
+
+                    // Deserialize the JSON response into the refillResponse object
+                    refillResponse_ = JsonConvert.DeserializeObject<refillResponse>(output);
+                    string [] [] reels = refillResponse_.gameState.reels;
+
+                    SpecialSymbols specialSymbols = refillResponse_.gameState.specialSymbols;
+                    //if (specialSymbols != null)
+                    //{
+                    //    Debug.Log("goldenSymbols : " + ( specialSymbols.goldenCards != null ? specialSymbols.goldenCards.Length : 0 ));
+                    //    Debug.Log("jokersymbols : " + ( specialSymbols.jokerCards != null ? specialSymbols.jokerCards.Length : 0 ));
+                    //    Debug.Log("scatterCards : " + ( specialSymbols.targetSymbols != null ? specialSymbols.targetSymbols.Length : 0 ));
+                    //    Debug.Log("newScatterCards : " + ( specialSymbols.newTargetSymbols != null ? specialSymbols.newTargetSymbols.Length : 0 ));
+                    //}
+
+                    RefillCardsData = fetchGameRefillData.InitializeCards(reels , specialSymbols);
+                    yield break;
+                }
+                else
+                {
+                    errorresponseCode = webRequest.responseCode.ToString();
+                    errormessage = webRequest.result.ToString();
+                }
+                    retryCount++;
+                yield return new WaitForSeconds(1f); // optional delay between retries
+            }
+        }
+
+        //Debug.Log($"error : {webRequest.error.ToString()}");
+
+        PromptManager.Instance.ShowErrorPrompt(
+              errorresponseCode ,
+              errormessage);
     }
 
     public RefillCardsApi refillCardsApi ()

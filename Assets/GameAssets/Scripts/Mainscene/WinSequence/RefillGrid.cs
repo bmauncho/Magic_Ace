@@ -29,14 +29,19 @@ public class RefillGrid : MonoBehaviour
             //if free spin is active, setIsRefilling to false and break
         }
         Debug.Log("Refill Grid");
-        apiManager.refillApi.FetchData();
-        yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
         if(winloseManager.GetWinType() == WinType.Normal 
             ||winloseManager.GetWinType() == WinType.Both )
         {
+            apiManager.refillApi.FetchData();
+            yield return new WaitWhile(() => !apiManager.refillApi.isRefillCardsFetched());
             gridManager.RefillGrid();
         }
-        yield return new WaitForSeconds(.1f);
+        else
+        {
+            CommandCenter.Instance.gridManager_.SetIsRefilling(false );
+        }
+
+            yield return new WaitForSeconds(.1f);
         yield return null;
     }
 }

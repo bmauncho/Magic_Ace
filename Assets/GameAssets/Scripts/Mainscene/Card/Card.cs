@@ -126,6 +126,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
+        cardImgHolder.localRotation = Quaternion.identity;
         CardRear.gameObject.SetActive(false);
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
@@ -147,6 +148,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         CardBg.rectTransform.localScale = new Vector3(1f , 1f , 1f);
         card.rectTransform.localScale = new Vector3(1f , 1f , 1f);
+        cardImgHolder.localRotation = Quaternion.identity;
         CardRear.gameObject.SetActive(false);
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
@@ -168,6 +170,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1.1f , 1.1f , 1.1f);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        cardImgHolder.localRotation = Quaternion.identity;
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
@@ -188,6 +191,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1, 1, 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        cardImgHolder.localRotation = Quaternion.identity;
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
@@ -209,6 +213,7 @@ public class Card : MonoBehaviour
         CardRear.gameObject.SetActive(false);
         CardBg.rectTransform.localScale = new Vector3(1 , 1 , 1);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        cardImgHolder.localRotation = Quaternion.identity;
         wildBounceAnim.Rebind();
         DisableWildBounceAnim();
         CardBg.sprite = _cardBg;
@@ -229,6 +234,7 @@ public class Card : MonoBehaviour
         card.gameObject.SetActive(true);
         CardRear.gameObject.SetActive(false);
         card.rectTransform.localScale = new Vector3(1.5f , 1.5f , 1.5f);
+        cardImgHolder.localRotation = Quaternion.identity;
         wildBounceAnim.transform.rotation = Quaternion.identity;
         wildBounceAnim.Rebind();
         EnableWildBounceAnim();

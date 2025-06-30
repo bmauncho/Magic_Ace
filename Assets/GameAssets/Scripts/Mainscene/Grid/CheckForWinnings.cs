@@ -4,10 +4,14 @@ using UnityEngine;
 public class CheckForWinnings : MonoBehaviour
 {
     GridManager gridManager;
+    WinLoseManager winLoseManager;
     [SerializeField] private bool isCheckingForWins = false;
     [SerializeField] private bool freeSpinRetriggerComplete = false;
     [SerializeField] private bool isFreeSpinComplete = false;
-
+    private void Start ()
+    {
+        winLoseManager = CommandCenter.Instance.winLoseManager_;
+    }
     private void OnFreeSpinsComnplete ()
     {
         isFreeSpinComplete = true;
@@ -48,9 +52,6 @@ public class CheckForWinnings : MonoBehaviour
         Debug.Log("is win sequence running : " + CommandCenter.Instance.winLoseManager_.IsWinSequencerunning());
         yield return new WaitWhile(() => CommandCenter.Instance.winLoseManager_.IsWinSequencerunning());
 
-        gridManager.SetIsRefillSequenceDone(true);
-        gridManager.setIsCascading(false);
-
         if (CommandCenter.Instance.gameType == GameType.Free )
         {
             Debug.Log("free GameCheck!");
@@ -75,7 +76,9 @@ public class CheckForWinnings : MonoBehaviour
             CommandCenter.Instance.featureManager_.GetFeatureBuyMenu().ResetOptions();
             CommandCenter.Instance.freeSpinManager_.SetIsFreeGameWin(false);
             CommandCenter.Instance.comboManager_.HideCombo();
+            gridManager.setIsCascading(false);
             CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
+            gridManager.SetIsRefillSequenceDone(true);
             isCheckingForWins = false;
             yield break;
         }
@@ -100,6 +103,9 @@ public class CheckForWinnings : MonoBehaviour
                 isCheckingForWins = false;
                 CommandCenter.Instance.comboManager_.HideCombo();
                 // change base board
+
+                gridManager.SetIsRefillSequenceDone(true);
+                gridManager.setIsCascading(false);
                 CommandCenter.Instance.multiplierManager_.ResetMultiplier();
                 CommandCenter.Instance.featureManager_.ResetFeatures();
                 yield return new WaitForSeconds(0.25f);
@@ -111,6 +117,7 @@ public class CheckForWinnings : MonoBehaviour
                 WinLoseManager winLoseManager = CommandCenter.Instance.winLoseManager_;
                 winLoseManager.ClearWinningCards();
                 bool isWin = winLoseManager.IsPlayerWin();
+                Debug.Log("is won : " + isWin);
                 if (isWin)
                 {
                     //Debug.Log("Recheck win - free Game");
@@ -142,6 +149,9 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.freeSpinManager_.freeSpinUI.ResetFreeSpinCount();
                         CommandCenter.Instance.spinManager_.enableButtons();
                         // change base board
+                        gridManager.SetIsRefillSequenceDone(true);
+                        gridManager.setIsCascading(false);
+                        winLoseManager.winSequence_.DeactivateWinBg();
                         CommandCenter.Instance.multiplierManager_.ResetMultiplier();
                         CommandCenter.Instance.currencyManager_.IncreaseCash(CommandCenter.Instance.currencyManager_.GetWinAmount());
                         CommandCenter.Instance.featureManager_.ResetFeatures();
@@ -159,11 +169,15 @@ public class CheckForWinnings : MonoBehaviour
                     }
                     else
                     {
+                        gridManager.SetIsRefillSequenceDone(true);
+                        gridManager.setIsCascading(false);
+                        winLoseManager.winSequence_.DeactivateWinBg();
                         //move  to next free spin
                         CommandCenter.Instance.spinManager_.SetCanSpin(true);
                         CommandCenter.Instance.spinManager_.enableButtons();
                         CommandCenter.Instance.winLoseManager_.ClearWinningCards();
                         CommandCenter.Instance.winLoseManager_.ResetWinType();
+                        CommandCenter.Instance.freeSpinManager_.resetFreeSpinScatterCards();
                         isCheckingForWins = false;
                         CommandCenter.Instance.comboManager_.HideCombo();
                         CommandCenter.Instance.hintsManager_.hintWinUI.HideHintWinUIAmount();
@@ -184,6 +198,8 @@ public class CheckForWinnings : MonoBehaviour
 
     IEnumerator NormalGame ()
     {
+        gridManager.SetIsRefillSequenceDone(true);
+        gridManager.setIsCascading(false);
         CommandCenter.Instance.spinManager_.enableButtons();
         CommandCenter.Instance.winLoseManager_.ClearWinningCards();
         CommandCenter.Instance.winLoseManager_.ResetWinType();

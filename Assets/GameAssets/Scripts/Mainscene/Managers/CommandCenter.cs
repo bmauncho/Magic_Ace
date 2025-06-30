@@ -1,5 +1,8 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
+[System.Serializable]
+
 public enum GameMode
 {
     Demo,
@@ -48,19 +51,27 @@ public class CommandCenter : MonoBehaviour
         {
             Instance = this;
         }
+
+        if (GameManager.Instance)
+        {
+            SetUp();
+            CheckifGameIsReady();
+        }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void SetUp ()
     {
-        
+        gameMode = GameManager.Instance.IsDemo() ? GameMode.Demo : GameMode.Live;
+        bool isDemo = GameManager.Instance.IsDemo() ? true : false;
+        gameModeManager_.SetGameMode(isDemo);
     }
 
-    // Update is called once per frame
-    void Update()
+    void CheckifGameIsReady ()
     {
-        
+        Debug.Log("IsReady!");
     }
+
+
     public void SetGameMode ( GameMode mode )
     {
         gameMode = mode;
