@@ -18,7 +18,7 @@ public class GameRules : MonoBehaviour
 
     private void OnEnable ()
     {
-       
+
     }
 
     private void Start ()
@@ -29,6 +29,18 @@ public class GameRules : MonoBehaviour
     }
 
     public void refreshUi ()
+    {
+        Invoke(nameof(EnableUI) , 0.025f);
+        Invoke(nameof(DisabaleUi) , 0.05f);
+        Invoke(nameof(EnableUI) , 0.075f);
+    }
+
+    void DisabaleUi ()
+    {
+        this.gameObject.SetActive(false);
+    }
+
+    void EnableUI ()
     {
         this.gameObject.SetActive(true);
     }

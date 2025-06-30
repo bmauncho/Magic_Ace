@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NormalCheckWin : MonoBehaviour
@@ -127,24 +128,32 @@ public class NormalCheckWin : MonoBehaviour
 
         SpecialSymbols specialSymbols = CommandCenter.Instance.apiManager_.featureBuyApi.featureBuyResponse.gameState.specialSymbols;
 
-        if (specialSymbols != null)
+        if (specialSymbols != null && specialSymbols.targetSymbols != null)
         {
             Debug.Log("special symbols is not null");
-            if (specialSymbols.targetSymbols != null)
+            Debug.Log($"targetSymbols count: {specialSymbols.targetSymbols.Length}");
+
+            foreach (var target in specialSymbols.targetSymbols)
             {
-                Debug.Log($"targetSymbols : {specialSymbols.targetSymbols.Length}");
-                for (int i = 0 ; i < specialSymbols.targetSymbols.Length ; i++)
+                // Check if the scatter symbol already exists in the WinningCards list
+                bool alreadyExists = WinningCards.Any(card =>
+                    card.row == target.row && card.col == target.reel &&
+                    card.name == CardType.SCATTER.ToString());
+
+                if (!alreadyExists)
                 {
                     WinningCards.Add(new winCardData
                     {
                         name = CardType.SCATTER.ToString() ,
-                        row = specialSymbols.targetSymbols [i].row ,
-                        col = specialSymbols.targetSymbols [i].reel ,
+                        row = target.row ,
+                        col = target.reel
                     });
                 }
-                Debug.Log("winningCards " + WinningCards.Count);
             }
+
+            Debug.Log("WinningCards count: " + WinningCards.Count);
         }
+
         return WinningCards.Count >= 3 ? WinType.Wild : WinType.None;
     }
 
@@ -152,24 +161,32 @@ public class NormalCheckWin : MonoBehaviour
     {
         SpecialSymbols specialSymbols = CommandCenter.Instance.apiManager_.refillApi.RefillResponse().gameState.specialSymbols;
 
-        if (specialSymbols != null)
+        if (specialSymbols != null && specialSymbols.targetSymbols != null)
         {
             Debug.Log("special symbols is not null");
-            if (specialSymbols.targetSymbols != null)
+            Debug.Log($"targetSymbols count: {specialSymbols.targetSymbols.Length}");
+
+            foreach (var target in specialSymbols.targetSymbols)
             {
-                Debug.Log($"targetSymbols : {specialSymbols.targetSymbols.Length}");
-                for (int i = 0 ; i < specialSymbols.targetSymbols.Length ; i++)
+                // Check if the scatter symbol already exists in the WinningCards list
+                bool alreadyExists = WinningCards.Any(card =>
+                    card.row == target.row && card.col == target.reel &&
+                    card.name == CardType.SCATTER.ToString());
+
+                if (!alreadyExists)
                 {
                     WinningCards.Add(new winCardData
                     {
                         name = CardType.SCATTER.ToString() ,
-                        row = specialSymbols.targetSymbols [i].row ,
-                        col = specialSymbols.targetSymbols [i].reel ,
+                        row = target.row ,
+                        col = target.reel
                     });
                 }
-                Debug.Log("winningCards " + WinningCards.Count);
             }
+
+            Debug.Log("WinningCards count: " + WinningCards.Count);
         }
+
         return WinningCards.Count >= 3 ? WinType.Wild : WinType.None;
     }
 
@@ -177,24 +194,33 @@ public class NormalCheckWin : MonoBehaviour
     {
         SpecialSymbols specialSymbols = CommandCenter.Instance.apiManager_.gameDataApi.apiResponse.gameState.specialSymbols;
 
-        if (specialSymbols != null)
+        if (specialSymbols != null && specialSymbols.targetSymbols != null)
         {
             Debug.Log("special symbols is not null");
-            if (specialSymbols.targetSymbols != null)
+            Debug.Log($"targetSymbols count: {specialSymbols.targetSymbols.Length}");
+
+            foreach (var target in specialSymbols.targetSymbols)
             {
-                Debug.Log($"targetSymbols : {specialSymbols.targetSymbols.Length}");
-                for (int i = 0 ; i < specialSymbols.targetSymbols.Length ; i++)
+                // Check if the scatter symbol already exists in the WinningCards list
+                bool alreadyExists = WinningCards.Any(card =>
+                    card.row == target.row && card.col == target.reel &&
+                    card.name == CardType.SCATTER.ToString());
+
+                if (!alreadyExists)
                 {
                     WinningCards.Add(new winCardData
                     {
                         name = CardType.SCATTER.ToString() ,
-                        row = specialSymbols.targetSymbols [i].row ,
-                        col = specialSymbols.targetSymbols [i].reel ,
+                        row = target.row ,
+                        col = target.reel
                     });
                 }
-                Debug.Log("winningCards " + WinningCards.Count);
             }
+
+            Debug.Log("WinningCards count: " + WinningCards.Count);
         }
-        return WinningCards.Count >= 3 ? WinType.Wild : WinType.None;
+
+        return WinningCards.Count >= 3 ? WinType.Wild: WinType.None;
     }
+
 }

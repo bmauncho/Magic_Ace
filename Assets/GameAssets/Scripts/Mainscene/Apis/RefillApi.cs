@@ -115,7 +115,7 @@ public class RefillApi : MonoBehaviour
     public IEnumerator FetchData (string ApiUrl ,string jsonData)
     {
         int retryCount = 0;
-        int maxRetries = 20;
+        int maxRetries = 100;
         float timeout = 3f;
         string errorresponseCode = string.Empty;
         string errormessage = string.Empty;
@@ -140,6 +140,11 @@ public class RefillApi : MonoBehaviour
                     if (timer > timeout)
                     {
                         timedOut = true;
+                        errorresponseCode = webRequest.responseCode.ToString();
+                        errormessage = webRequest.result.ToString();
+                        PromptManager.Instance.ShowErrorPrompt(
+                             errorresponseCode ,
+                             errormessage);
                         Debug.LogWarning("Request timed out. Retrying...");
 
                         break;
@@ -152,7 +157,7 @@ public class RefillApi : MonoBehaviour
                     webRequest.result != UnityWebRequest.Result.ConnectionError &&
                     webRequest.result != UnityWebRequest.Result.ProtocolError)
                 {
-
+                    PromptManager.Instance.HidePrompt();
                     // Success
                     string output = webRequest.downloadHandler.text;
                     var parsedJson = JsonConvert.DeserializeObject(output);
