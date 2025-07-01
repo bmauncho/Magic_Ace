@@ -1,4 +1,5 @@
 using System;
+using System.Transactions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,7 +31,7 @@ public class APIManager : MonoBehaviour
     public string Game_Id = "8";
     public string Client_id = "12345";
 
-    public TMP_Text TransactionText;
+    public TMP_Text[] TransactionText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
@@ -43,8 +44,17 @@ public class APIManager : MonoBehaviour
         Game_Id = GameManager.Instance.GetGameId();
         Client_id = GameManager.Instance.GetClientId();
         bet_id = GetBetId();
-        GameManager.Instance.AddTransactionText(TransactionText);
         Debug.Log("ApiManagerReady");
+        updateTransactionText();
+        Invoke(nameof(AddTransText) , .1f);
+    }
+
+    public void AddTransText ()
+    {
+        for (int i = 0 ; i < 2 ; i++)
+        {
+            GameManager.Instance.AddTransactionText(TransactionText [i]);
+        }
     }
     public void PlaceBet ()
     {
@@ -66,5 +76,22 @@ public class APIManager : MonoBehaviour
     public void setBetId ()
     {
         bet_id = GetBetId();
+    }
+
+    public void updateTransactionText ()
+    {
+        for(int i = 0 ; i < TransactionText.Length ; i++)
+        {
+            if(CommandCenter.Instance.gameMode == GameMode.Demo)
+            {
+                TransactionText [i].text = "<DEMO GAME>";
+            }
+            else
+            {
+                string transaction = "No.";
+                string thetrans = transaction + " 748838" ;
+                TransactionText [i].text = thetrans;
+            }
+        }
     }
 }

@@ -29,10 +29,12 @@ public class UpdateBet : MonoBehaviour
     [Header("Api Values")]
     public string AmountWon;
     public double new_wallet_balance;
+    public bool isUpdated = false;
     [SerializeField] private bool Init = false;
     [ContextMenu("Update Bet")]
     public void UpdateTheBet ()
     {
+        isUpdated = false;
         UpdateBetRequest updateBetRequest = new UpdateBetRequest
         {
             bet_id = CommandCenter.Instance.apiManager_.placeBet.bet_id ,
@@ -57,15 +59,17 @@ public class UpdateBet : MonoBehaviour
             if (webRequest.result == UnityWebRequest.Result.ConnectionError || webRequest.result == UnityWebRequest.Result.ProtocolError)
             {
                 Debug.LogError("Error: " + webRequest.result);
+                isUpdated = true;
             }
             else
             {
                 updateBetResponse = JsonUtility.FromJson<UpdateBetResponse>(webRequest.downloadHandler.text);
                 string formattedOutput = JsonConvert.SerializeObject(webRequest.downloadHandler.text , Formatting.Indented);
                 Debug.Log("UpdateBet Response: " + formattedOutput);
-                AmountWon = updateBetResponse.amount_won.ToString();
+                //AmountWon = updateBetResponse.amount_won.ToString();
                 double cashAmount = double.Parse(updateBetResponse.new_wallet_balance);
                 new_wallet_balance = cashAmount;
+                isUpdated = true;
             }
         }
     }

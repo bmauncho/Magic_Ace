@@ -27,6 +27,9 @@ public class CurrencyManager : MonoBehaviour
     public string TheBetAmount;
     public BetLimitsInfo BetLimitsInfo;
     public CurrencyUI CurrencyUI;
+    Coroutine minimumBet;
+    Coroutine maximumBet;
+
     private Dictionary<string , string> baseToExtra = new Dictionary<string , string>
     {
         { "2", "3" },
@@ -254,6 +257,10 @@ public class CurrencyManager : MonoBehaviour
 
     public void DecreaseCash ()
     {
+        if (CommandCenter.Instance.gameMode != GameMode.Demo)
+        {
+            return;
+        }
         CashAmount -= double.Parse(BetAmount);
         if (CashAmount <= 0)
         {
@@ -265,6 +272,10 @@ public class CurrencyManager : MonoBehaviour
 
     public void DecreaseCashAmount ( double amount )
     {
+        if (CommandCenter.Instance.gameMode != GameMode.Demo)
+        {
+            return;
+        }
         CashAmount -= amount;
         if (CashAmount <= 0)
         {
@@ -305,8 +316,7 @@ public class CurrencyManager : MonoBehaviour
             maximumBetLimit();
         }
     }
-    Coroutine minimumBet;
-    Coroutine maximumBet;
+
     public void minimumBetLimit ()
     {
         string text = $"{LanguageMan.instance.RequestForText("L_13")}";

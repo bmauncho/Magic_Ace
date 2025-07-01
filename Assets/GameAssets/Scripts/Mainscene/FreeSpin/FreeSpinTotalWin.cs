@@ -31,7 +31,7 @@ public class FreeSpinTotalWin : MonoBehaviour
         elapsed = 0f;
         startValue = 0;
         //test value 
-        totalAmount = 55.55;
+        totalAmount = CommandCenter.Instance.currencyManager_.GetWinAmount();
         endValue = totalAmount;
         isAnimating = true;
         isFreeSpinWinUIDone = false;

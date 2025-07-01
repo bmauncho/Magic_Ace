@@ -8,6 +8,7 @@ public class CheckForWinnings : MonoBehaviour
     [SerializeField] private bool isCheckingForWins = false;
     [SerializeField] private bool freeSpinRetriggerComplete = false;
     [SerializeField] private bool isFreeSpinComplete = false;
+    bool isfirstTime = true;
     private void Start ()
     {
         winLoseManager = CommandCenter.Instance.winLoseManager_;
@@ -72,6 +73,7 @@ public class CheckForWinnings : MonoBehaviour
         {
             Debug.Log("Free game win");
             CommandCenter.Instance.spinManager_.SetCanSpin(true);
+            yield return StartCoroutine(updateAmount());
             CommandCenter.Instance.freeSpinManager_.ShowStartBtn();
             CommandCenter.Instance.featureManager_.GetFeatureBuyMenu().ResetOptions();
             CommandCenter.Instance.freeSpinManager_.SetIsFreeGameWin(false);
@@ -159,6 +161,7 @@ public class CheckForWinnings : MonoBehaviour
                         CommandCenter.Instance.freeSpinManager_.SetIsFeatureBuyTriggered(false);
                         CommandCenter.Instance.soundManager_.PlayAmbientSound("Base_BG");
                         CommandCenter.Instance.freeSpinManager_.ResetFreeSpinCount();
+                        yield return StartCoroutine(updateAmount());
                         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
                         {
                             CommandCenter.Instance.winLoseManager_.ClearWinningCards();
@@ -227,6 +230,8 @@ public class CheckForWinnings : MonoBehaviour
             yield return new WaitUntil(() => CommandCenter.Instance.winLoseManager_.normalGameWinUi.IsWinUiDone());
         }
 
+        yield return StartCoroutine(updateAmount());
+
         if (CommandCenter.Instance.autoSpinManager_.isAutoSpin())
         {
             yield return StartCoroutine(Autospin());
@@ -255,6 +260,28 @@ public class CheckForWinnings : MonoBehaviour
             CommandCenter.Instance.autoSpinManager_.DeactivateAutospin();
             yield return new WaitForSeconds(0.25f);
             CommandCenter.Instance.mainMenuController_.ToggleAutoSpinMenu();
+        }
+        yield return null;
+    }
+
+    IEnumerator updateAmount ()
+    {
+        if (isfirstTime)
+        {
+            isfirstTime = false;
+            yield break;
+        }
+        double AmountWon = CommandCenter.Instance.currencyManager_.GetWinAmount();
+        if ( AmountWon > 0)
+        {
+            CommandCenter.Instance.apiManager_.updateBet.SetAmountWon(AmountWon);
+            CommandCenter.Instance.apiManager_.UpdateBet();
+            yield return new WaitUntil(() => CommandCenter.Instance.apiManager_.updateBet.isUpdated);
+            double CashAmount = CommandCenter.Instance.apiManager_.updateBet.new_wallet_balance;
+            double old = CommandCenter.Instance.currencyManager_.GetCashAmount();
+            Debug.Log($"old {old} : new {CashAmount}");
+            CommandCenter.Instance.currencyManager_.UpdateCashAmount(CashAmount);
+            CommandCenter.Instance.apiManager_.updateBet.AmountWon = 0.ToString();
         }
         yield return null;
     }

@@ -68,14 +68,16 @@ public class PlaceBet : MonoBehaviour
     {
         if (CommandCenter.Instance)
         {
-            BetAmount = float.Parse(CommandCenter.Instance.currencyManager_.GetTheBetAmount());
+            BetAmount =  CommandCenter.Instance.gameType == GameType.Base ? float.Parse(CommandCenter.Instance.currencyManager_.GetTheBetAmount()): 0;
             bet_id = CommandCenter.Instance.apiManager_.bet_id;
         }
     }
     [ContextMenu("Place Bet")]
     public void Bet ()
     {
+        CommandCenter.Instance.apiManager_.setBetId();
         bet_id = CommandCenter.Instance.apiManager_.bet_id;
+        CommandCenter.Instance.apiManager_.BetAmount = BetAmount;
         BetRequest betRequest = new BetRequest
         {
             player_id = Player_Id ,
@@ -86,8 +88,8 @@ public class PlaceBet : MonoBehaviour
         };
         string jsonData = JsonUtility.ToJson(betRequest , true);
         Debug.Log("place bet payload " + jsonData);
-        StartCoroutine(placeBet(jsonData));
         GameManager.Instance.ShowTransaction(bet_id);
+        StartCoroutine(placeBet(jsonData));
     }
 
     private IEnumerator placeBet ( string jsonData )

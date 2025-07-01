@@ -109,7 +109,21 @@ public class GameManager : MonoBehaviour
 
     public void AddTransactionText ( TMP_Text theText )
     {
-        TransactionsText = new TMP_Text [] { theText };
+        if (TransactionsText == null)
+        {
+            TransactionsText = new TMP_Text [] { theText };
+        }
+        else
+        {
+            int length = TransactionsText.Length;
+            TMP_Text [] newArray = new TMP_Text [length + 1];
+            for (int i = 0 ; i < length ; i++)
+            {
+                newArray [i] = TransactionsText [i];
+            }
+            newArray [length] = theText;
+            TransactionsText = newArray;
+        }
     }
 
     public void ShowTransaction ( string thetrans )

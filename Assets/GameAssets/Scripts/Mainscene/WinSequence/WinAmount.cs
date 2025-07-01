@@ -55,8 +55,6 @@ public class WinAmount : MonoBehaviour
                 double hintTotalWinAmount = currencyManager.GetWinAmount();
                 payOutManager.GetPayOut().ShowWin(totalPayOut);
                 CommandCenter.Instance.hintsManager_.hintWinUI.ShowHintWinUIAmount(hintTotalWinAmount);
-                CommandCenter.Instance.apiManager_.updateBet.SetAmountWon(totalPayOut);
-                CommandCenter.Instance.apiManager_.UpdateBet();
             }
 
         }

@@ -168,10 +168,10 @@ public class SpinManager : MonoBehaviour
         else
         {
 
-            if (!CommandCenter.Instance.freeSpinManager_.IsFreeGame())
-            {
-                CommandCenter.Instance.apiManager_.PlaceBet();
-            }
+            //if (!CommandCenter.Instance.freeSpinManager_.IsFreeGame())
+            //{
+            //}
+            CommandCenter.Instance.apiManager_.PlaceBet();
             Debug.Log("placed bet!");
             if (CommandCenter.Instance.apiManager_.gameDataApi.CanShowFeatureBuy())
             {
