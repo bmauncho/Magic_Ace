@@ -37645,7 +37645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myText: {fileID: 1049450683}
   _myText: {fileID: 0}
-  CODE: 
+  CODE: L_9
   IsHardCoded: 0
 --- !u!1 &1053017921
 GameObject:
@@ -49162,8 +49162,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 180, y: -94.125}
-  m_SizeDelta: {x: 200, y: 59.77}
+  m_AnchoredPosition: {x: 180, y: -91.055}
+  m_SizeDelta: {x: 200, y: 53.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1369871234
 MonoBehaviour:
@@ -49226,8 +49226,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.5
-  m_fontSizeBase: 53.5
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

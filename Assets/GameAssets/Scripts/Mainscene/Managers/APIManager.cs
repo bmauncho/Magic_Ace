@@ -89,8 +89,8 @@ public class APIManager : MonoBehaviour
             else
             {
                 string transaction = "No.";
-                string thetrans = transaction + " 748838" ;
-                TransactionText [i].text = thetrans;
+                string thetrans = transaction + " 748838" ; 
+                TransactionText [i].text = thetrans + GetBetId();
             }
         }
     }
