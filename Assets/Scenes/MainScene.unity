@@ -19583,7 +19583,7 @@ MonoBehaviour:
     OneMoreScatter: {fileID: 21300000, guid: 9b693b55a423cfc449135eb8ed58efb1, type: 3}
     FreeSpinWon: {fileID: 21300000, guid: c01efe5471d9f394a9b3c43168bd16ab, type: 3}
   hint: {fileID: 215218903}
-  duration: 5
+  duration: 10
   hintWinUI: {fileID: 215218904}
 --- !u!4 &525686332
 Transform:
