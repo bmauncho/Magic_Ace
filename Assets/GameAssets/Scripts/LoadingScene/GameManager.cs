@@ -80,29 +80,38 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator _FetchPlayerInfo ( string url )
     {
-        using (UnityWebRequest www = UnityWebRequestHelper.GetWithTimestamp(url))
+        if (isDemo)
         {
-            www.useHttpContinue = false;
-            www.SetRequestHeader("Cache-Control" , "no-cache, no-store, must-revalidate");
-            www.SetRequestHeader("Pragma" , "no-cache");
-            www.SetRequestHeader("Expires" , "0");
-            yield return www.SendWebRequest();
+            isDataFetched = true;
+            CashAmount = "2000";
+        }
+        else
+        {
 
-            if (www.result == UnityWebRequest.Result.Success)
+            using (UnityWebRequest www = UnityWebRequestHelper.GetWithTimestamp(url))
             {
-                Debug.Log("Received: " + www.downloadHandler.text);
-                playerInfo = JsonUtility.FromJson<PlayerInfo>(www.downloadHandler.text);
-                CashAmount = playerInfo.wallet_balance;
-                isDataFetched = true;
-            }
-            else
-            {
-                isDataFetched = true;
-                Debug.Log("Error: " + www.error);
-                CashAmount = "2000";
-                PromptManager.Instance.ShowErrorPrompt(
-                    www.responseCode.ToString() , 
-                    www.result.ToString() + www.error.ToString());
+                www.useHttpContinue = false;
+                www.SetRequestHeader("Cache-Control" , "no-cache, no-store, must-revalidate");
+                www.SetRequestHeader("Pragma" , "no-cache");
+                www.SetRequestHeader("Expires" , "0");
+                yield return www.SendWebRequest();
+
+                if (www.result == UnityWebRequest.Result.Success)
+                {
+                    Debug.Log("Received: " + www.downloadHandler.text);
+                    playerInfo = JsonUtility.FromJson<PlayerInfo>(www.downloadHandler.text);
+                    CashAmount = playerInfo.wallet_balance;
+                    isDataFetched = true;
+                }
+                else
+                {
+                    isDataFetched = true;
+                    Debug.Log("Error: " + www.error);
+                    CashAmount = "2000";
+                    PromptManager.Instance.ShowErrorPrompt(
+                        www.responseCode.ToString() ,
+                        www.result.ToString() + www.error.ToString());
+                }
             }
         }
     }
