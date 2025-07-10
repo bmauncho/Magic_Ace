@@ -74,8 +74,10 @@ public class FetchUserInfo : MonoBehaviour
             string isoTime = data.timestamp;
             DateTime utcTime = DateTime.Parse(isoTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
             DateTime localTime = utcTime.ToLocalTime();
-            //Debug.Log("Local Time: " + localTime.ToString());
+            Debug.Log("Local Time: " + localTime.ToString());
+
             double timediff = GetTimeElapsed(localTime).TotalSeconds;
+            Debug.Log("Elapsed_" + timediff);
             if (timediff > (60 * 10))
             {
                // Debug.Log("ShouldQuit");

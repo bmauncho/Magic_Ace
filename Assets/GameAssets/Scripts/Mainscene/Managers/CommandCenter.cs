@@ -40,6 +40,7 @@ public class CommandCenter : MonoBehaviour
     public SoundManager soundManager_;
     public EffectsManager effectsManager_;
     public CommentaryManager commentaryManager_;
+
     private void Awake ()
     {
         if (Instance != null && Instance != this)
