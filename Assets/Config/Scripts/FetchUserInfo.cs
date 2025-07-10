@@ -72,8 +72,12 @@ public class FetchUserInfo : MonoBehaviour
             SetUrl(data.Base_url);
 
             string isoTime = data.timestamp;
+            Debug.Log("IsoTime_"+isoTime);
             DateTime utcTime = DateTime.Parse(isoTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-            DateTime localTime = utcTime.ToLocalTime();
+            Debug.Log("Utc_" + utcTime.ToString());
+            //DateTime localTime = utcTime.ToLocalTime();
+            TimeZoneInfo localZone = TimeZoneInfo.Local;
+            DateTime localTime =TimeZoneInfo.ConvertTimeFromUtc(utcTime,localZone);
             Debug.Log("Local Time: " + localTime.ToString());
 
             double timediff = GetTimeElapsed(localTime).TotalSeconds;
